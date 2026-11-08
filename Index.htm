@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Rezzz Audio</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#08070a;
+  --card:#12100e;
+  --inner:#1a1714;
+  --border:rgba(251,191,36,.14);
+  --text:#faf7f2;
+  --muted:#a89f91;
+  --p:#fbbf24;
+  --c:#f59e0b;
+  --ok:#34d399;
+  --bad:#f87171;
+  --gold:#fbbf24;
+}
+body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 50% -15%,rgba(251,191,36,.1),transparent 60%),radial-gradient(ellipse 40% 30% at 85% 85%,rgba(245,158,11,.04),transparent 50%)}
+
+.header{position:sticky;top:0;z-index:40;background:rgba(8,7,10,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:12px 16px}
+.header-in{max-width:420px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-i{width:32px;height:32px;border-radius:10px;background:linear-gradient(145deg,#fbbf24 0%,#f59e0b 50%,#d97706 100%);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#1a1200;box-shadow:0 2px 14px rgba(251,191,36,.3)}
+.logo-t{font-weight:800;font-size:15px;letter-spacing:-.02em}
+.logo-t span{background:linear-gradient(90deg,#fde68a,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.user{display:flex;align-items:center;gap:8px;padding:5px 12px 5px 5px;border-radius:999px;background:var(--card);border:1px solid var(--border);font-size:12px;font-weight:600;color:var(--muted)}
+.user-a{width:24px;height:24px;border-radius:50%;background:linear-gradient(145deg,#fbbf24,#d97706);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#1a1200;overflow:hidden}
+.user-a img{width:100%;height:100%;object-fit:cover}
+
+.page{position:relative;z-index:1;max-width:420px;margin:0 auto;padding:16px 14px 48px}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 1px 0 rgba(251,191,36,.04) inset}
+.label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fcd34d;margin-bottom:14px;opacity:.9}
+
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 14px 12px;box-shadow:0 1px 0 rgba(251,191,36,.04) inset}
+.stat-k{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.stat-v{font-size:20px;font-weight:800;font-family:"JetBrains Mono",monospace;background:linear-gradient(90deg,#fef3c7,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.02em}
+.stat-s{font-size:10px;color:var(--muted);margin-top:3px;opacity:.85}
+
+.q{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:10px;background:var(--inner);font-size:12.5px;margin-bottom:6px}
+.q .l{color:#e7e0d5;font-weight:600}
+.q .r{font-family:"JetBrains Mono",monospace;font-weight:700}
+.q .r.ok{color:var(--ok)}
+
+.tabs{display:flex;gap:6px;margin:14px 0 12px;padding:3px;background:var(--inner);border-radius:12px;border:1px solid var(--border)}
+.tab{flex:1;padding:9px;border-radius:9px;border:none;background:transparent;color:var(--muted);font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:color .15s}
+.tab.on{background:rgba(251,191,36,.18);color:#fef3c7;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+
+.drop{
+  display:block;
+  border:1.5px dashed rgba(251,191,36,.3);
+  border-radius:14px;
+  padding:32px 14px;
+  text-align:center;
+  cursor:pointer;
+  background:rgba(251,191,36,.03);
+  transition:border-color .2s,background .2s;
+}
+.drop:hover{border-color:rgba(251,191,36,.55);background:rgba(251,191,36,.07)}
+.drop-i{font-size:28px;margin-bottom:8px;opacity:.7}
+.drop-t{font-weight:700;font-size:13.5px}
+.drop-s{font-size:11px;color:var(--muted);margin-top:5px;word-break:break-all}
+input[type=file]{display:none}
+
+.inp{width:100%;padding:13px 14px;border-radius:11px;border:1px solid var(--border);background:var(--inner);color:#fff;font-size:13px;outline:none;font-family:inherit;margin-bottom:10px;transition:border-color .15s}
+.inp:focus{border-color:rgba(251,191,36,.5)}
+.inp::placeholder{color:#6b6358}
+
+.btn{width:100%;border:none;border-radius:11px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s,transform .1s}
+.btn:active:not(:disabled){transform:scale(.98)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn-p{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1200;box-shadow:0 4px 16px rgba(251,191,36,.3)}
+.btn-s{background:var(--inner);color:#e7e0d5;border:1px solid var(--border)}
+.btn-d{background:rgba(50,15,20,.35);color:#f0a8a8;border:1px solid rgba(80,40,45,.3)}
+.btn-g{background:transparent;color:var(--muted);border:1px solid var(--border)}
+.btn+.btn{margin-top:8px}
+
+.player{background:var(--inner);border-radius:12px;padding:14px;margin:14px 0;border:1px solid rgba(251,191,36,.1)}
+.player.empty{opacity:.4}
+.player-r{display:flex;align-items:center;gap:12px}
+.play{width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(145deg,#fbbf24,#d97706);color:#1a1200;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 12px rgba(251,191,36,.35)}
+.play:disabled{opacity:.3;cursor:not-allowed}
+.p-info{flex:1;min-width:0}
+.p-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.p-meta{font-size:10.5px;color:var(--muted);margin-top:3px;font-family:"JetBrains Mono",monospace}
+.seek{position:relative;height:5px;border-radius:99px;background:#252018;cursor:pointer;overflow:hidden;margin-top:12px}
+.seek-f{position:absolute;left:0;top:0;bottom:0;width:0%;background:linear-gradient(90deg,#fbbf24,#f59e0b);border-radius:99px}
+.seek input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;-webkit-appearance:none;appearance:none;background:transparent}
+.times{display:flex;justify-content:space-between;margin-top:6px;font-size:10px;color:var(--muted);font-family:"JetBrains Mono",monospace}
+audio.hid{display:none!important}
+
+
+.presets{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px}
+.presets button{
+  background:var(--inner);border:1px solid var(--border);color:var(--muted);
+  border-radius:11px;padding:10px 6px;font-size:11px;font-weight:600;cursor:pointer;
+  font-family:inherit;transition:background .15s,color .15s,border-color .15s;line-height:1.25;text-align:center
+}
+.presets button.on{background:rgba(251,191,36,.2);border-color:rgba(251,191,36,.45);color:#fef3c7}
+.presets button .ps{display:block;font-size:13px;font-weight:800;color:#fef3c7;margin-bottom:3px}
+.presets button .pd{display:block;font-size:9.5px;color:var(--muted);font-weight:500;line-height:1.3}
+.presets button.on .pd{color:#e7e0d5}
+
+
+.sl{margin-bottom:12px}
+.sl-t{display:flex;justify-content:space-between;font-size:12px;font-weight:700;margin-bottom:7px;color:#e7e0d5}
+.sl-t span:last-child{font-size:11px;font-family:"JetBrains Mono",monospace;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.2);padding:2px 8px;border-radius:999px;color:#fde68a}
+input[type=range]{width:100%;height:4px;-webkit-appearance:none;appearance:none;background:#252018;border-radius:8px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:linear-gradient(145deg,#fbbf24,#d97706);cursor:pointer;border:2px solid rgba(255,255,255,.12);box-shadow:0 1px 4px rgba(0,0,0,.35)}
+
+.tip{padding:11px 12px;border-radius:10px;background:var(--inner);border:1px solid var(--border);font-size:11.5px;color:var(--muted);line-height:1.5;margin-top:10px}
+.tip b{color:#fef3c7}
+
+.hist-t{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.hist-t .label{margin:0}
+.hist-b{background:none;border:1px solid rgba(248,113,113,.22);color:#f87171;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;cursor:pointer;font-family:inherit}
+.hist-list{max-height:200px;overflow-y:auto}
+.hist-i{padding:11px 12px;margin-bottom:7px;border-radius:11px;background:var(--inner);border:1px solid rgba(251,191,36,.08)}
+.hist-i-t{display:flex;justify-content:space-between;gap:6px;margin-bottom:6px}
+.hist-n{font-weight:700;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hist-tm{font-size:10px;color:var(--muted);flex-shrink:0}
+.tags{display:flex;flex-wrap:wrap;gap:4px}
+.tag{font-size:10px;padding:2px 7px;border-radius:5px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.15);color:#fcd34d;font-family:"JetBrains Mono",monospace}
+.hist-e{text-align:center;padding:18px;color:var(--muted);font-size:12.5px}
+
+.price{margin-top:12px;border-top:1px solid var(--border);padding-top:12px}
+.pr{display:flex;justify-content:space-between;font-size:12.5px;padding:8px 11px;margin-bottom:4px;color:var(--muted);background:var(--inner);border-radius:8px}
+.pr b{color:#fef3c7;font-weight:700}
+.ct{display:flex;gap:8px;margin-top:10px}
+.ct a{flex:1;text-align:center;padding:11px;border-radius:10px;text-decoration:none;font-weight:700;font-size:12.5px;color:#fff}
+.wa{background:#16a34a}.dc{background:#4f46e5}
+
+.status{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--inner);font-size:12px;text-align:center;color:var(--muted);border:1px solid var(--border)}
+.status.ok{border-color:rgba(52,211,153,.28);color:#6ee7b7;font-weight:700}
+.status.bad{border-color:rgba(248,113,113,.28);color:#fca5a5;font-weight:700}
+
+.locked{opacity:.4;pointer-events:none}
+.foot{text-align:center;margin-top:16px;color:#4a4338;font-size:10.5px;letter-spacing:.02em}
+
+/* Event free 10x banner — selalu tampil (aktif / next) */
+.event-banner{
+  display:block;
+  margin-bottom:14px;
+  border-radius:14px;
+  border:1px solid rgba(251,191,36,.28);
+  background:linear-gradient(135deg,rgba(251,191,36,.1),rgba(245,158,11,.05));
+  overflow:hidden;
+}
+.event-banner.on{
+  border-color:rgba(251,191,36,.45);
+  background:linear-gradient(135deg,rgba(251,191,36,.2),rgba(245,158,11,.1));
+  box-shadow:0 0 24px rgba(251,191,36,.15);
+  animation:eventPulse 2.4s ease-in-out infinite;
+}
+.event-banner-in{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 14px;
+}
+.event-ico{font-size:20px;flex-shrink:0;line-height:1}
+.event-txt{flex:1;min-width:0;font-size:11.5px;line-height:1.35;color:#e7e0d5}
+.event-txt b{display:block;font-size:13px;font-weight:800;color:#fef3c7;margin-bottom:2px;letter-spacing:-.01em}
+.event-cd{
+  flex-shrink:0;
+  font-family:"JetBrains Mono",monospace;
+  font-size:12px;font-weight:800;
+  color:#1a1200;
+  background:linear-gradient(135deg,#fbbf24,#f59e0b);
+  padding:7px 10px;border-radius:9px;
+  letter-spacing:.02em;
+  box-shadow:0 2px 10px rgba(251,191,36,.35);
+  white-space:nowrap;
+}
+.event-banner:not(.on) .event-cd{
+  background:var(--inner);
+  color:#fcd34d;
+  border:1px solid rgba(251,191,36,.25);
+  box-shadow:none;
+}
+@keyframes eventPulse{
+  0%,100%{box-shadow:0 0 18px rgba(251,191,36,.1)}
+  50%{box-shadow:0 0 26px rgba(251,191,36,.28)}
+}
+
+/* Main nav tabs */
+.main-tabs{display:flex;gap:6px;margin:0 0 14px;padding:4px;background:var(--inner);border-radius:14px;border:1px solid var(--border)}
+.main-tab{flex:1;padding:11px 8px;border-radius:11px;border:none;background:transparent;color:var(--muted);font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:color .15s,background .15s}
+.main-tab.on{background:rgba(251,191,36,.2);color:#fef3c7;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.main-tab .mt-i{display:block;font-size:16px;margin-bottom:2px}
+.tab-panel{display:none}
+.tab-panel.on{display:block}
+
+.trim-times{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.trim-times .sl{margin-bottom:0}
+.trim-preview{font-size:11px;color:var(--muted);text-align:center;margin-top:6px;font-family:"JetBrains Mono",monospace}
+
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.modal-bg.show{display:flex}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px 18px;width:100%;max-width:320px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.modal h3{text-align:center;margin-bottom:16px;font-size:17px;font-weight:800;letter-spacing:-.02em}
+.modal input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--inner);color:#fff;font-size:14px;margin-bottom:8px;outline:none;font-family:inherit}
+.modal input:focus{border-color:rgba(251,191,36,.5)}
+.modal-a{display:flex;gap:8px;margin-top:6px}
+.modal-a .btn{margin:0;flex:1}
+.chk{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:12px;color:var(--muted)}
+.chk input{width:14px;height:14px;accent-color:var(--p)}
+
+.toast-w{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:200;width:min(340px,calc(100% - 20px));display:flex;flex-direction:column;gap:7px;pointer-events:none}
+.toast{pointer-events:auto;padding:12px 14px;border-radius:12px;font-size:12.5px;font-weight:600;display:flex;align-items:flex-start;gap:10px;background:rgba(18,16,14,.97);border:1px solid var(--border);color:#e7e0d5;box-shadow:0 12px 32px rgba(0,0,0,.4);animation:tin .25s ease}
+.toast.hide{animation:tout .2s ease forwards}
+.toast .i{font-size:15px;flex-shrink:0}
+.toast .b{flex:1;line-height:1.4}
+.toast .b b{display:block;margin-bottom:1px;font-size:13px}
+.toast.ok{border-color:rgba(52,211,153,.3)}.toast.ok .i{color:#34d399}
+.toast.err{border-color:rgba(248,113,113,.3)}.toast.err .i{color:#f87171}
+.toast.info{border-color:rgba(251,191,36,.35)}.toast.info .i{color:#fbbf24}
+@keyframes tin{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes tout{to{opacity:0;transform:translateY(-6px)}}
+
+/* ===== STORE ===== */
+.store-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.pkg{
+  background:var(--inner);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px 12px;
+  text-align:center;
+}
+.pkg-name{font-size:13px;font-weight:700;color:#fef3c7;margin-bottom:4px}
+.pkg-price{font-size:15px;font-weight:800;color:var(--p);margin-bottom:10px;font-family:"JetBrains Mono",monospace}
+.pkg .btn{padding:10px;font-size:12.5px;margin-top:0}
+.qris-box{text-align:center;margin-bottom:14px}
+.qris-box img{width:100%;max-width:220px;border-radius:12px;border:1px solid var(--border)}
+.qris-note{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.45}
+#beliBukti{width:100%;margin-bottom:10px;font-size:12px;color:var(--muted)}
+
+.mode-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin:10px 0 12px}
+.mode-card{
+  background:var(--inner);border:1px solid var(--border);border-radius:11px;padding:10px 6px;
+  text-align:center;cursor:pointer;transition:border-color .15s,background .15s;
+}
+.mode-card.on{border-color:rgba(251,191,36,.55);background:rgba(251,191,36,.14)}
+.mode-card.lock{opacity:.45}
+.mode-card .mc-t{font-size:11.5px;font-weight:800;color:#fef3c7}
+.mode-card .mc-s{font-size:9.5px;color:var(--muted);margin-top:3px;line-height:1.25}
+.ben-list{margin:10px 0 0;padding:0;list-style:none}
+.ben-list li{
+  font-size:12px;color:#e7e0d5;padding:7px 0 7px 20px;position:relative;
+  border-bottom:1px solid rgba(251,191,36,.08);line-height:1.35
+}
+.ben-list li:last-child{border-bottom:none}
+.ben-list li::before{content:'✓';position:absolute;left:0;color:#34d399;font-weight:800}
+.pkg.feat{grid-column:1/-1;text-align:left;padding:14px}
+.pkg.feat .pkg-name{font-size:14px}
+.pkg.feat .pkg-price{margin-bottom:8px}
+.pkg.feat .ben-list{margin-top:8px}
+.pkg.feat .btn{margin-top:12px}
+
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="toast-w" id="toastWrap"></div>
+
+<div class="header">
+  <div class="header-in">
+    <div class="logo">
+      <div class="logo-i">R</div>
+      <div class="logo-t">REZZZ <span>AUDIO</span></div>
+    </div>
+    <div class="user">
+      <div class="user-a" id="userAvatar">G</div>
+      <span id="chipName">Guest</span>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="event-banner" id="eventBanner">
+    <div class="event-banner-in">
+      <span class="event-ico" id="eventIco">🎉</span>
+      <div class="event-txt">
+        <b id="eventTitle">EVENT 10× FREE</b>
+        <span id="eventSub">Limit free naik jadi 10/hari</span>
+      </div>
+      <span class="event-cd" id="eventCountdown">--:--:--</span>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-k">Users</div>
+      <div class="stat-v" id="statUsers">—</div>
+      <div class="stat-s">TOTAL</div>
+    </div>
+    <div class="stat">
+      <div class="stat-k">Plan</div>
+      <div class="stat-v" id="statPlan" style="font-size:15px;padding-top:1px">FREE</div>
+      <div class="stat-s" id="statPlanSub">2 / DAY</div>
+    </div>
+  </div>
+
+  <!-- MAIN TABS -->
+  <div class="main-tabs">
+    <button class="main-tab on" id="tabBtnTools" onclick="switchMainTab('tools')">
+      <span class="mt-i">🎛</span>Tools
+    </button>
+    <button class="main-tab" id="tabBtnToko" onclick="switchMainTab('toko')">
+      <span class="mt-i">🛒</span>Toko
+    </button>
+    <button class="main-tab" id="tabBtnPotong" onclick="switchMainTab('potong')">
+      <span class="mt-i">✂</span>Potong
+    </button>
+  </div>
+
+  <!-- ===== TAB: TOOLS ===== -->
+  <div class="tab-panel on" id="panelTools">
+
+  <!-- LOGIN (Tools) -->
+  <div class="card" id="loginCardTools">
+    <div class="label">Account</div>
+    <div id="guestBtns">
+      <button class="btn btn-s" onclick="openModal('login')">Login</button>
+      <button class="btn btn-s" style="background:#5865F2;color:white;border:none;margin-top:8px" onclick="loginWithDiscord()">
+        Login dengan Discord
+      </button>
+    </div>
+    <div id="loggedBtns" style="display:none">
+      <div class="status ok" id="premiumStatus" style="display:none"></div>
+      <div class="status" id="loginStatus2"></div>
+      <button class="btn btn-s" onclick="redeem()" style="margin-top:8px">Redeem Premium</button>
+      <button class="btn btn-d" id="logoutBtn" onclick="logout()">Keluar</button>
+    </div>
+    <div class="status" id="loginStatus">Belum login · login dulu untuk konversi</div>
+  </div>
+
+  <!-- EDITOR -->
+  <div class="card" id="editorArea">
+    <div class="label">Editor</div>
+
+    <div class="q"><span class="l">Daily Limit</span><span class="r" id="limitText">— / 2</span></div>
+    <div class="q"><span class="l">Plan Status</span><span class="r" id="planText">Free</span></div>
+
+    <div class="label" style="margin-top:12px;margin-bottom:8px">Mode proses</div>
+    <div class="mode-grid">
+      <div class="mode-card on" id="modeBypass" onclick="setProcessMode('bypass')">
+        <div class="mc-t">Bypass</div>
+        <div class="mc-s">3x · -2dB · P+2<br>Anti-detect · Free</div>
+      </div>
+      <div class="mode-card" id="modeManual" onclick="setProcessMode('manual')">
+        <div class="mc-t">Manual</div>
+        <div class="mc-s">Atur sendiri<br>speed/dB/pitch</div>
+      </div>
+      <div class="mode-card" id="modeClean" onclick="setProcessMode('clean')">
+        <div class="mc-t">Clean Only</div>
+        <div class="mc-s">Rapikan audio<br>Premium 🔒</div>
+      </div>
+    </div>
+    <div class="tip" id="modeTip"><b>Bypass</b> gratis untuk semua · 3x / -2dB / P+2 + anti-detect (~90%). <b>Clean</b> = Premium. <b>Manual</b> = bebas.</div>
+
+    <div class="tabs">
+      <button class="tab on" id="btnUploadMode" onclick="switchMode('upload')">Upload</button>
+      <button class="tab" id="btnLinkMode" onclick="switchMode('link')">Dari Link 🔒</button>
+    </div>
+
+    <div id="uploadMode">
+      <label class="drop" for="audioFile">
+        <div class="drop-i">☁</div>
+        <div class="drop-t">Klik atau tarik file audio</div>
+        <div class="drop-s" id="fileName">MP3 · WAV · OGG</div>
+      </label>
+      <input type="file" id="audioFile" accept="audio/*" multiple>
+    </div>
+
+    <div id="linkMode" style="display:none">
+      <input class="inp" type="text" id="linkInput" placeholder="Tempel link YouTube / TikTok / SoundCloud...">
+      <div id="linkInputsPro" style="display:none">
+        <input class="inp" type="text" id="linkInput1" placeholder="Link 1 — YouTube / TikTok / SoundCloud">
+        <input class="inp" type="text" id="linkInput2" placeholder="Link 2 (opsional)">
+        <input class="inp" type="text" id="linkInput3" placeholder="Link 3 (opsional)">
+      </div>
+      <button class="btn btn-p" id="ambilLinkBtn" onclick="ambilAudioDariLink()">Ambil Audio dari Link</button>
+      <div class="tip" id="linkTip"><b>Free / Premium</b> · 1 link · auto <b>3x</b> · YT/TikTok/SC</div>
+    </div>
+
+    <div class="player empty" id="playerBox">
+      <div class="player-r">
+        <button class="play" id="playBtn" disabled>▶</button>
+        <div class="p-info">
+          <div class="p-name" id="playerTitle">Belum ada audio</div>
+          <div class="p-meta" id="playerSub">Pilih file untuk preview</div>
+        </div>
+      </div>
+      <div class="seek">
+        <div class="seek-f" id="seekFill"></div>
+        <input type="range" id="seekBar" min="0" max="1000" value="0" step="1">
+      </div>
+      <div class="times"><span id="timeCur">0:00</span><span id="timeDur">0:00</span></div>
+      <audio id="player" class="hid" preload="metadata"></audio>
+    </div>
+
+    <div class="label" style="margin-bottom:8px">Preset cepat</div>
+    <div class="presets">
+      <button type="button" onclick="setPreset(2.1,-1,this,1)">
+        <span class="ps">2.1x</span>
+        <span class="pd">-1 dB · P+1</span>
+      </button>
+      <button type="button" onclick="setPreset(2.3,-3,this,2)">
+        <span class="ps">2.3x</span>
+        <span class="pd">-3 dB · P+2</span>
+      </button>
+      <button type="button" onclick="setPreset(2.5,0,this,2)" id="preset25">
+        <span class="ps">2.5x</span>
+        <span class="pd">0 dB · P+2</span>
+      </button>
+      <button type="button" onclick="setPreset(2.7,1,this,3)">
+        <span class="ps">2.7x</span>
+        <span class="pd">+1 dB · P+3</span>
+      </button>
+      <button type="button" onclick="setPreset(3.0,-2,this,2)" class="on" id="preset3x">
+        <span class="ps">3.0x ★</span>
+        <span class="pd">-2 dB · P+2</span>
+      </button>
+      <button type="button" onclick="setPreset(3.2,2,this,4)">
+        <span class="ps">3.2x</span>
+        <span class="pd">+2 dB · P+4</span>
+      </button>
+    </div>
+
+    <div class="sl">
+      <div class="sl-t"><span>Speed</span><span id="speedText">3.0x</span></div>
+      <input type="range" id="speed" min="0.5" max="5" step="0.1" value="3.0">
+    </div>
+    <div class="sl">
+      <div class="sl-t"><span>dB</span><span id="dbText">-2 dB</span></div>
+      <input type="range" id="db" min="-20" max="20" value="-2">
+    </div>
+    <div class="sl">
+      <div class="sl-t"><span>Pitch</span><span id="pitchText">+2</span></div>
+      <input type="range" id="pitch" min="-12" max="12" step="1" value="2">
+    </div>
+
+    <div class="tip" id="descBox"><b>Rekomendasi: 3.0x / -2dB / P+2</b> · In Game ≈ <b>0.33</b><br><span style="opacity:.85">Sama seperti auto dari link · cocok Roblox</span></div>
+    <button class="btn btn-p" id="downloadBtn" disabled style="margin-top:12px">Konversi & Download MP3</button>
+  </div>
+
+  <div class="card">
+    <div class="hist-t">
+      <div class="label">History · 12 jam</div>
+      <button class="hist-b" type="button" onclick="renderHistory()">Refresh</button>
+    </div>
+    <div class="hist-list" id="histList"><div class="hist-e">Belum ada riwayat</div></div>
+  </div>
+
+  </div><!-- /panelTools -->
+
+  <!-- ===== TAB: TOKO ===== -->
+  <div class="tab-panel" id="panelToko">
+  <div class="card" id="accountCard">
+    <div class="label">Toko</div>
+    <div class="tip" style="margin-top:0;margin-bottom:12px">Login ada di tab <b>Tools</b>. Di sini kamu bisa beli / perpanjang Premium.</div>
+    <div class="price" style="margin-top:0;border-top:none;padding-top:0">
+      <div id="storePremiumBlock">
+        <div class="label" style="margin-bottom:10px">Store Premium</div>
+        <ul class="ben-list">
+          <li><b>3 mode:</b> Bypass · Manual · Clean Only</li>
+          <li><b>Link</b> YouTube / TikTok / SoundCloud</li>
+          <li>Speed · dB · Pitch · upload s/d <b>20MB</b></li>
+          <li>Preset siap pakai (3x / -2dB / P+2 rekomendasi)</li>
+          <li><b>3 Hari</b>: 25 konversi/hari · <b>7 Hari</b>: 80/hari</li>
+          <li><b>30 Hari / Permanen / Pro</b>: unlimited</li>
+          <li>Chat Discord &amp; WhatsApp</li>
+        </ul>
+        <div class="store-grid" style="margin-top:12px">
+          <div class="pkg" style="opacity:.55">
+            <div class="pkg-name">1 Hari</div>
+            <div class="pkg-price">Rp 10.000</div>
+            <div style="font-size:10px;color:var(--bad);margin-bottom:8px;font-weight:700">Stock: 0</div>
+            <button class="btn btn-s" disabled style="opacity:.5;cursor:not-allowed">Habis</button>
+          </div>
+          <div class="pkg" style="opacity:.55">
+            <div class="pkg-name">2 Hari</div>
+            <div class="pkg-price">Rp 15.000</div>
+            <div style="font-size:10px;color:var(--bad);margin-bottom:8px;font-weight:700">Stock: 0</div>
+            <button class="btn btn-s" disabled style="opacity:.5;cursor:not-allowed">Habis</button>
+          </div>
+          <div class="pkg">
+            <div class="pkg-name">3 Hari</div>
+            <div class="pkg-price">Rp 25.000</div>
+            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">25 / hari</div>
+            <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 11</div>
+            <button class="btn btn-p" onclick="openBeli('3hari',25000,'3 Hari')">Beli</button>
+          </div>
+          <div class="pkg">
+            <div class="pkg-name">7 Hari</div>
+            <div class="pkg-price">Rp 35.000</div>
+            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">80 / hari</div>
+            <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 17</div>
+            <button class="btn btn-p" onclick="openBeli('7hari',35000,'7 Hari')">Beli</button>
+          </div>
+          <div class="pkg">
+            <div class="pkg-name">30 Hari</div>
+            <div class="pkg-price">Rp 100.000</div>
+            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited</div>
+            <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 8</div>
+            <button class="btn btn-p" onclick="openBeli('30hari',100000,'30 Hari')">Beli</button>
+          </div>
+          <div class="pkg">
+            <div class="pkg-name">Permanen</div>
+            <div class="pkg-price">Rp 200.000</div>
+            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited</div>
+            <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 29</div>
+            <button class="btn btn-p" onclick="openBeli('permanen',200000,'Permanen')">Beli</button>
+          </div>
+          <div class="pkg feat">
+            <div class="pkg-name">Permanen Pro</div>
+            <div class="pkg-price">Rp 350.000</div>
+            <div style="font-size:11px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 50</div>
+            <ul class="ben-list">
+              <li>Semua fitur premium + akses selamanya</li>
+              <li>Mode Bypass · Manual · Clean Only · unlimited</li>
+              <li>Upload file <b>unlimited</b></li>
+              <li>Semua preset + pitch custom</li>
+              <li><b>Langsung 3 link</b> sekaligus (1 baris 1 link) — bukan 1 per 1</li>
+              <li>Tempel link YT / TikTok / SoundCloud</li>
+            </ul>
+            <button class="btn btn-p" onclick="openBeli('permanen_pro',350000,'Permanen Pro')">Beli Permanen Pro</button>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
+        <div class="label" style="margin-bottom:10px">Dukungan · Live Chat</div>
+        <div class="ct" style="margin-top:0">
+          <a class="dc" href="https://discord.com/users/zinbotol" target="_blank">💬 Chat Discord</a>
+          <a class="wa" href="https://wa.me/6283135744309?text=Halo%20Admin%20Rezzz%20Audio%2C%20saya%20butuh%20bantuan" target="_blank">💬 Chat WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div><!-- /panelToko -->
+
+  <!-- ===== TAB: POTONG ===== -->
+  <div class="tab-panel" id="panelPotong">
+  <div class="card" id="trimArea">
+    <div class="label">Potong Musik</div>
+    <div class="tip" style="margin-top:0;margin-bottom:12px">Potong bagian audio yang kamu mau. Atur <b>Start</b> &amp; <b>End</b>, lalu download.</div>
+
+    <label class="drop" for="trimFile">
+      <div class="drop-i">✂</div>
+      <div class="drop-t">Pilih file audio</div>
+      <div class="drop-s" id="trimFileName">MP3 · WAV · OGG</div>
+    </label>
+    <input type="file" id="trimFile" accept="audio/*">
+
+    <div class="player empty" id="trimPlayerBox" style="margin-top:12px">
+      <div class="player-r">
+        <button class="play" id="trimPlayBtn" disabled>▶</button>
+        <div class="p-info">
+          <div class="p-name" id="trimPlayerTitle">Belum ada audio</div>
+          <div class="p-meta" id="trimPlayerSub">Pilih file dulu</div>
+        </div>
+      </div>
+      <div class="seek">
+        <div class="seek-f" id="trimSeekFill"></div>
+        <input type="range" id="trimSeekBar" min="0" max="1000" value="0" step="1">
+      </div>
+      <div class="times"><span id="trimTimeCur">0:00</span><span id="trimTimeDur">0:00</span></div>
+      <audio id="trimPlayer" class="hid" preload="metadata"></audio>
+    </div>
+
+    <div class="trim-times">
+      <div class="sl">
+        <div class="sl-t"><span>Start</span><span id="trimStartText">0:00</span></div>
+        <input type="range" id="trimStart" min="0" max="1000" value="0" step="1">
+      </div>
+      <div class="sl">
+        <div class="sl-t"><span>End</span><span id="trimEndText">0:00</span></div>
+        <input type="range" id="trimEnd" min="0" max="1000" value="1000" step="1">
+      </div>
+    </div>
+    <div class="trim-preview" id="trimPreview">Durasi potong: —</div>
+
+    <button class="btn btn-p" id="trimDownloadBtn" disabled style="margin-top:14px">Potong & Download MP3</button>
+    <div class="tip">Gratis · tanpa login · file dipotong di browser (tidak diupload).</div>
+  </div>
+  </div><!-- /panelPotong -->
+
+  <div class="foot">© 2026 Rezzz Studio</div>
+</div>
+
+<div class="modal-bg" id="modalOverlay">
+  <div class="modal">
+    <h3 id="modalTitle">Daftar</h3>
+    <input type="text" id="modalUsername" placeholder="Username" autocomplete="username">
+    <input type="password" id="modalPassword" placeholder="Password" autocomplete="current-password">
+    <label class="chk" id="rememberRow" style="display:none">
+      <input type="checkbox" id="rememberMe" checked>
+      <span>Simpan login</span>
+    </label>
+    <div class="modal-a">
+      <button class="btn btn-g" onclick="closeModal()">Batal</button>
+      <button class="btn btn-p" id="modalSubmit" onclick="submitModal()">Daftar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL BELI -->
+<div class="modal-bg" id="beliModal">
+  <div class="modal" style="max-width:340px">
+    <h3 id="beliTitle">Beli Premium</h3>
+    <div class="qris-box">
+      <img src="qris.png" alt="QRIS Rezzz Store">
+      <div class="qris-note">
+        Scan QRIS sesuai harga paket.<br>
+        Setelah transfer, isi form di bawah.
+      </div>
+    </div>
+    <input class="inp" type="tel" id="beliWA" placeholder="Nomor WhatsApp (08...)" inputmode="numeric">
+    <label for="beliBukti" class="btn btn-s" style="display:block;text-align:center;margin-bottom:8px;cursor:pointer">
+      📷 Pilih / Upload Bukti TF
+    </label>
+    <input type="file" id="beliBukti" accept="image/*" style="display:none">
+    <div id="beliBuktiName" style="font-size:11px;color:var(--muted);text-align:center;margin-bottom:10px;min-height:16px"></div>
+    <div class="modal-a">
+      <button class="btn btn-s" onclick="closeBeli()">Batal</button>
+      <button class="btn btn-p" id="beliSubmit" onclick="submitBeli()">Kirim Bukti</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL REDEEM -->
+<div class="modal-bg" id="redeemModal">
+  <div class="modal" style="max-width:320px">
+    <h3>Redeem Premium</h3>
+    <p style="font-size:12px;color:var(--muted);text-align:center;margin:-8px 0 14px;line-height:1.4">
+      Masukkan kode yang didapat setelah pembayaran
+    </p>
+    <input class="inp" type="text" id="redeemCode" placeholder="Contoh: REZZZ7HARI" autocomplete="off" style="text-transform:uppercase;text-align:center;letter-spacing:.06em;font-weight:700">
+    <div class="modal-a">
+      <button class="btn btn-s" onclick="closeRedeem()">Batal</button>
+      <button class="btn btn-p" id="redeemSubmit" onclick="submitRedeem()">Redeem</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const sb = window.supabase.createClient('https://piqsobwblwzwbenbzhkx.supabase.co','sb_publishable_pL17zeNQZJg9ky-E9gak1A_hx3BccCl');
+const REZZ_API = "/api/download";
+const FREE_LIMIT = 2;
+const FREE_EVENT_LIMIT = 10; // limit free saat event 24 jam
+const MAX_SIZE_FREE = 10 * 1024 * 1024;
+const MAX_SIZE_PREM = 20 * 1024 * 1024;
+const MAX_DUR_FREE = 400;
+const MAX_DUR_PREM = 800;
+/** Batas harian premium pendek: 3hari=25, 7hari=80. null = unlimited */
+const PREM_LIMIT_3D = 25;
+const PREM_LIMIT_7D = 80;
+/** Event free boost: aktif 1x/minggu (Jumat 00:00 lokal, 24 jam) */
+const EVENT_WEEKDAY = 5; // 0=Min ... 5=Jumat ... 6=Sabtu
+const EVENT_DURATION_MS = 24 * 60 * 60 * 1000;
+/** Mulai sekarang: event dipaksa aktif dari timestamp ini selama 24 jam, lalu lanjut jadwal mingguan */
+const EVENT_FORCE_START = new Date('2026-08-11T00:53:00+08:00'); // WITA — mulai sekarang
+
+let currentFiles = [], isLoggedIn = false, isPremium = false, isPro = false, modalMode = 'daftar';
+/** null = unlimited (saat premium panjang / pro / permanen) */
+let premiumDailyLimit = null;
+
+let processMode = 'bypass'; // bypass | manual | clean
+
+function setProcessMode(mode) {
+  if (!isLoggedIn) return toast('Login dulu.','info','Perlu login');
+  // Free: Bypass + Manual boleh. Clean Only = premium (upsell)
+  if (mode === 'clean' && !isPremium) {
+    toast('Clean Only khusus Premium.','err','Premium only');
+    setTimeout(function(){
+      if (confirm('Clean Only untuk Premium.\\n\\nBuka WhatsApp untuk beli?')) {
+        window.open('https://wa.me/6283135744309?text='+encodeURIComponent('Halo, mau beli premium Rezzz Audio'),'_blank');
+      }
+    }, 350);
+    mode = 'bypass';
+  }
+  processMode = mode;
+  ['bypass','manual','clean'].forEach(function(m) {
+    const el = $('mode' + m.charAt(0).toUpperCase() + m.slice(1));
+    if (el) el.classList.toggle('on', m === mode);
+  });
+  const tip = $('modeTip');
+  if (mode === 'bypass') {
+    setPreset(3.0, -2, $('preset3x'), 2);
+    if (tip) tip.innerHTML = '<b>Bypass</b> aktif · <b>3.0x / -2dB / P+2</b> + anti-detect · cocok Roblox · free & premium.';
+    toast('Bypass: 3x / -2dB / P+2 + anti-detect','ok','Mode');
+  } else if (mode === 'clean') {
+    setPreset(1.0, 0, null, 0);
+    if ($('speed')) $('speed').value = 1;
+    if ($('db')) $('db').value = 0;
+    if ($('pitch')) $('pitch').value = 0;
+    updateSpeed(1); updateDb(0); updatePitch(0);
+    document.querySelectorAll('.presets button').forEach(b=>b.classList.remove('on'));
+    if (tip) tip.innerHTML = '<b>Clean Only</b> · speed 1x, pitch 0 · rapikan volume (soft limit) tanpa ubah tempo.';
+    toast('Clean Only: tanpa ubah tempo','ok','Mode');
+  } else {
+    if (tip) tip.innerHTML = '<b>Manual</b> · atur speed, dB, pitch sendiri. Preset tetap bisa dipakai.';
+    toast('Manual editor','ok','Mode');
+  }
+  updateModeLocks();
+}
+
+function updateModeLocks() {
+  // Hanya Clean yang dikunci untuk free; Bypass bebas dipakai biar tertarik upgrade
+  const elClean = $('modeClean');
+  if (elClean) elClean.classList.toggle('lock', !isPremium);
+  const elBypass = $('modeBypass');
+  if (elBypass) elBypass.classList.remove('lock');
+  if (!isPremium && processMode === 'clean') {
+    processMode = 'bypass';
+    if ($('modeClean')) $('modeClean').classList.remove('on');
+    if ($('modeBypass')) $('modeBypass').classList.add('on');
+    if ($('modeManual')) $('modeManual').classList.remove('on');
+    setPreset(3.0, -2, $('preset3x'), 2);
+  }
+}
+
+
+function simpleHash(str) {
+  let h = 2166136261;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return ('0000000' + (h >>> 0).toString(16)).slice(-8);
+}
+function getBrowserFingerprint() {
+  try {
+    const parts = [
+      navigator.userAgent || '',
+      navigator.language || '',
+      (navigator.languages || []).join(',') || '',
+      screen.width + 'x' + screen.height + 'x' + (screen.colorDepth || ''),
+      new Date().getTimezoneOffset(),
+      navigator.hardwareConcurrency || '',
+      navigator.platform || '',
+      navigator.maxTouchPoints || 0,
+      (typeof window.devicePixelRatio !== 'undefined' ? window.devicePixelRatio : ''),
+      !!window.sessionStorage,
+      !!window.localStorage,
+      !!window.indexedDB
+    ];
+    try {
+      const c = document.createElement('canvas');
+      c.width = 120; c.height = 40;
+      const ctx = c.getContext('2d');
+      if (ctx) {
+        ctx.textBaseline = 'top';
+        ctx.font = '14px Arial';
+        ctx.fillStyle = '#f60';
+        ctx.fillRect(0, 0, 80, 20);
+        ctx.fillStyle = '#069';
+        ctx.fillText('rezzz-fp', 2, 2);
+        parts.push(c.toDataURL().slice(-48));
+      }
+    } catch (_) {}
+    return 'fp_' + simpleHash(parts.join('|'));
+  } catch (_) {
+    return 'fp_unknown';
+  }
+}
+const deviceId = (() => {
+  let id = localStorage.getItem('deviceId');
+  if (!id) {
+    id = 'dev_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+    localStorage.setItem('deviceId', id);
+  }
+  return id;
+})();
+const fingerprint = getBrowserFingerprint();
+try {
+  if (!document.cookie.includes('rezz_did=')) {
+    document.cookie = 'rezz_did=' + deviceId + ';path=/;max-age=31536000;SameSite=Lax';
+  }
+  if (!document.cookie.includes('rezz_fp=')) {
+    document.cookie = 'rezz_fp=' + fingerprint + ';path=/;max-age=31536000;SameSite=Lax';
+  }
+} catch (_) {}
+function getCookie(name) {
+  try {
+    const m = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+    return m ? decodeURIComponent(m[1]) : null;
+  } catch (_) { return null; }
+}
+const effectiveDeviceId = getCookie('rezz_did') || deviceId;
+const effectiveFp = getCookie('rezz_fp') || fingerprint;
+
+function $(id) { return document.getElementById(id); }
+function toast(msg, type, title) {
+  type = type || 'info';
+  const w = $('toastWrap');
+  if (!w) return;
+  const icons = { ok:'✓', err:'✕', info:'✦' };
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.innerHTML = '<span class="i">' + (icons[type]||'✦') + '</span><span class="b">' + (title?'<b>'+title+'</b>':'') + msg + '</span>';
+  w.appendChild(el);
+  setTimeout(() => { el.classList.add('hide'); setTimeout(() => el.remove(), 220); }, 3000);
+}
+function fmtTime(s) {
+  if (!isFinite(s) || s < 0) return '0:00';
+  return Math.floor(s/60) + ':' + String(Math.floor(s%60)).padStart(2,'0');
+}
+function pickUserRow(rows) {
+  if (!rows||!rows.length) return null;
+  if (rows.length===1) return rows[0];
+  const now = Date.now();
+  return rows.find(r => {
+    const f = r.is_premium===true||r.is_premium==='true'||r.is_premium===1;
+    if (!f) return false;
+    if (!r.premium_until) return true;
+    const t = new Date(r.premium_until).getTime();
+    return !isNaN(t) && t > now;
+  }) || rows[0];
+}
+
+function setPlayerUI(has, title) {
+  const box = $('playerBox'), btn = $('playBtn');
+  if (has) {
+    box.classList.remove('empty');
+    if (btn) btn.disabled = false;
+    if ($('playerTitle')) $('playerTitle').textContent = title || 'Preview';
+    if ($('playerSub')) $('playerSub').textContent = 'Speed ' + $('speed').value + 'x · ' + $('db').value + ' dB';
+  } else {
+    box.classList.add('empty');
+    if (btn) { btn.disabled = true; btn.textContent = '▶'; }
+    if ($('playerTitle')) $('playerTitle').textContent = 'Belum ada audio';
+    if ($('playerSub')) $('playerSub').textContent = 'Pilih file untuk preview';
+    if ($('seekFill')) $('seekFill').style.width = '0%';
+    if ($('seekBar')) $('seekBar').value = 0;
+    if ($('timeCur')) $('timeCur').textContent = '0:00';
+    if ($('timeDur')) $('timeDur').textContent = '0:00';
+  }
+}
+function showLoggedUI(logged) {
+  if ($('guestBtns')) $('guestBtns').style.display = logged ? 'none' : 'block';
+  if ($('loggedBtns')) $('loggedBtns').style.display = logged ? 'block' : 'none';
+  if ($('loginStatus')) $('loginStatus').style.display = logged ? 'none' : 'block';
+  if (logged && $('loginStatus2')) {
+    $('loginStatus2').textContent = 'Login: ' + (localStorage.getItem('loginUser') || '');
+  }
+}
+
+/** Event free 10x: 1x per minggu, atau force-start 24 jam dari EVENT_FORCE_START */
+function getFreeEventWindow() {
+  const now = new Date();
+  // 1) Force window (mulai sekarang)
+  if (EVENT_FORCE_START && !isNaN(EVENT_FORCE_START.getTime())) {
+    const fStart = new Date(EVENT_FORCE_START);
+    const fEnd = new Date(fStart.getTime() + EVENT_DURATION_MS);
+    if (now >= fStart && now < fEnd) {
+      // next = Jumat setelah force berakhir
+      const next = new Date(fEnd);
+      next.setHours(0, 0, 0, 0);
+      const d = next.getDay();
+      const add = (EVENT_WEEKDAY - d + 7) % 7;
+      next.setDate(next.getDate() + (add === 0 ? 7 : add));
+      return { start: fStart, end: fEnd, next, active: true };
+    }
+  }
+  // 2) Jadwal mingguan (Jumat 00:00 lokal, 24 jam)
+  const day = now.getDay();
+  const start = new Date(now);
+  start.setHours(0, 0, 0, 0);
+  const diff = (day - EVENT_WEEKDAY + 7) % 7;
+  start.setDate(start.getDate() - diff);
+  const end = new Date(start.getTime() + EVENT_DURATION_MS);
+  const active = now >= start && now < end;
+  let next = new Date(start);
+  if (now >= end) next.setDate(next.getDate() + 7);
+  // kalau force belum lewat sepenuhnya tapi sudah lewat active, next tetap dari force end → Jumat
+  if (EVENT_FORCE_START && !isNaN(EVENT_FORCE_START.getTime())) {
+    const fEnd = new Date(EVENT_FORCE_START.getTime() + EVENT_DURATION_MS);
+    if (now < fEnd) {
+      // masih di dalam force window (sudah di-handle di atas)
+    } else if (now >= fEnd && next < fEnd) {
+      next = new Date(fEnd);
+      next.setHours(0, 0, 0, 0);
+      const d = next.getDay();
+      const add = (EVENT_WEEKDAY - d + 7) % 7;
+      next.setDate(next.getDate() + (add === 0 ? 7 : add));
+    }
+  }
+  return { start, end, next, active };
+}
+function isFreeEventActive() {
+  return getFreeEventWindow().active;
+}
+function getEffectiveFreeLimit() {
+  return isFreeEventActive() ? FREE_EVENT_LIMIT : FREE_LIMIT;
+}
+function fmtCountdown(ms) {
+  if (ms <= 0) return '00:00:00';
+  const s = Math.floor(ms / 1000);
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+  return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
+}
+function fmtEventDate(d) {
+  return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+}
+function updateEventBanner() {
+  const banner = $('eventBanner');
+  if (!banner) return;
+  const win = getFreeEventWindow();
+  const ico = $('eventIco');
+  const title = $('eventTitle');
+  const sub = $('eventSub');
+  const cd = $('eventCountdown');
+  banner.style.display = 'block';
+  if (win.active) {
+    banner.classList.add('on');
+    if (ico) ico.textContent = '🎉';
+    if (title) title.textContent = 'EVENT 10× FREE';
+    if (sub) sub.textContent = 'Limit free naik jadi 10/hari · berakhir dalam';
+    if (cd) cd.textContent = fmtCountdown(win.end - Date.now());
+  } else {
+    banner.classList.remove('on');
+    if (ico) ico.textContent = '📅';
+    if (title) title.textContent = 'EVENT 10× FREE';
+    if (sub) sub.textContent = 'Event selanjutnya · 1× seminggu (Jumat)';
+    if (cd) cd.textContent = fmtEventDate(win.next);
+  }
+}
+
+function updateLimitUI(used, prem) {
+  const usedN = Number(used) || 0;
+  const lt = $('limitText'), pt = $('planText');
+  let limLabel, planSub;
+  if (!prem) {
+    const lim = getEffectiveFreeLimit();
+    const sisa = Math.max(0, lim - usedN);
+    limLabel = sisa + ' / ' + lim;
+    planSub = lim + ' / DAY' + (isFreeEventActive() ? ' · EVENT' : '');
+  } else if (premiumDailyLimit != null && premiumDailyLimit > 0) {
+    const sisa = Math.max(0, premiumDailyLimit - usedN);
+    limLabel = sisa + ' / ' + premiumDailyLimit;
+    planSub = premiumDailyLimit + ' / DAY';
+  } else {
+    limLabel = 'Unlimited';
+    planSub = isPro ? 'PRO UNLIMITED' : 'UNLIMITED';
+  }
+  if (lt) { lt.className = 'r' + (prem || isFreeEventActive() ? ' ok' : ''); lt.textContent = limLabel; }
+  if ($('statPlan')) $('statPlan').textContent = isPro ? 'PRO' : (prem ? 'PREMIUM' : (isFreeEventActive() ? 'EVENT' : 'FREE'));
+  if ($('statPlanSub')) $('statPlanSub').textContent = planSub;
+  if (pt) { pt.className = 'r' + (prem || isFreeEventActive() ? ' ok' : ''); pt.textContent = isPro ? 'Premium Pro' : (prem ? 'Premium' : (isFreeEventActive() ? 'Free Event 10x' : 'Free')); }
+  const u = localStorage.getItem('loginUser');
+  if ($('chipName')) $('chipName').textContent = u || 'Guest';
+  if ($('userAvatar')) {
+    const avatar = localStorage.getItem('discordAvatar');
+    if (avatar) {
+      $('userAvatar').innerHTML = '<img src="'+avatar+'" alt="">';
+    } else {
+      $('userAvatar').textContent = (u||'G').charAt(0).toUpperCase();
+    }
+  }
+  // Update link input UI for Pro (multi-line)
+  updateLinkInputUI();
+  updateEventBanner();
+}
+
+const player = $('player');
+$('playBtn').addEventListener('click', async () => {
+  if (!player.src) return;
+  try {
+    if (player.paused) { await player.play(); $('playBtn').textContent = '⏸'; }
+    else { player.pause(); $('playBtn').textContent = '▶'; }
+  } catch(e) { toast(e.message||'Gagal putar','err','Preview'); }
+});
+player.addEventListener('timeupdate', () => {
+  if (!player.duration) return;
+  $('seekFill').style.width = ((player.currentTime/player.duration)*100) + '%';
+  $('seekBar').value = Math.round((player.currentTime/player.duration)*1000);
+  $('timeCur').textContent = fmtTime(player.currentTime);
+});
+player.addEventListener('loadedmetadata', () => { $('timeDur').textContent = fmtTime(player.duration); });
+player.addEventListener('ended', () => { $('playBtn').textContent = '▶'; });
+player.addEventListener('play', () => { $('playBtn').textContent = '⏸'; });
+player.addEventListener('pause', () => { $('playBtn').textContent = '▶'; });
+$('seekBar').addEventListener('input', () => {
+  if (!player.duration) return;
+  player.currentTime = ($('seekBar').value/1000) * player.duration;
+  $('seekFill').style.width = ($('seekBar').value/10) + '%';
+});
+
+async function autoLogin() {
+  const u = localStorage.getItem('loginUser'), p = localStorage.getItem('loginPass');
+  if (!u || !p) { lockEditor(); showLoggedUI(false); return; }
+  try {
+    const { data: rows, error } = await sb.from('rezzz-audio').select('*').eq('username', u).eq('password', p.trim());
+    const data = pickUserRow(rows);
+    if (error || !data) { logout(true); return; }
+    if (data.device_id && data.device_id !== effectiveDeviceId && data.device_id !== deviceId) toast('Login di sini akan mengeluarkan perangkat lama.','info','Akun dipakai di perangkat lain');
+    await sb.from('rezzz-audio').update({ device_id: effectiveDeviceId, fingerprint: effectiveFp }).eq('username', u);
+    isLoggedIn = true;
+    showLoggedUI(true);
+    unlockEditor();
+    await checkPremiumStatus();
+  } catch(e) { logout(true); }
+}
+
+function logout(silent) {
+  localStorage.removeItem('loginUser');
+  localStorage.removeItem('loginPass');
+  localStorage.removeItem('discordAvatar');
+  sb.auth.signOut().catch(()=>{});
+  isLoggedIn = false; isPremium = false; isPro = false; premiumDailyLimit = null;
+  showLoggedUI(false);
+  if ($('premiumStatus')) $('premiumStatus').style.display = 'none';
+  lockEditor();
+  updateLinkInputUI();
+  updateStoreVisibility(null);
+  if (!silent) toast('Kamu sudah keluar.','info','Logout');
+}
+
+async function loginWithDiscord() {
+  const { data, error } = await sb.auth.signInWithOAuth({
+    provider: 'discord',
+    options: {
+      redirectTo: window.location.origin
+    }
+  });
+  if (error) toast(error.message, 'err', 'Discord Login');
+}
+
+async function handleDiscordSession() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return false;
+
+  const user = session.user;
+  const discordId = user.user_metadata?.provider_id || user.identities?.[0]?.id || user.id;
+  const username = user.user_metadata?.full_name || user.user_metadata?.name || user.user_metadata?.preferred_username || ('discord_' + String(discordId).slice(0,8));
+  const avatar = user.user_metadata?.avatar_url || null;
+
+  let { data: existing } = await sb.from('rezzz-audio').select('*').eq('discord_id', discordId).maybeSingle();
+
+  if (!existing) {
+    const { data: byName } = await sb.from('rezzz-audio').select('*').eq('username', username).maybeSingle();
+    if (byName) {
+      await sb.from('rezzz-audio').update({ discord_id: discordId }).eq('username', username);
+      existing = byName;
+    } else {
+      const { error } = await sb.from('rezzz-audio').insert([{
+        username: username,
+        password: 'discord_' + Math.random().toString(36).slice(2, 12),
+        discord_id: discordId,
+        is_premium: false,
+        daily_count: 0,
+        last_reset: new Date().toISOString().slice(0,10),
+        device_id: effectiveDeviceId,
+        fingerprint: effectiveFp
+      }]);
+      if (error) {
+        console.error(error);
+        toast('Gagal membuat akun Discord: ' + error.message, 'err');
+        return false;
+      }
+      existing = { username };
+    }
+  }
+
+  localStorage.setItem('loginUser', existing.username);
+  if (avatar) localStorage.setItem('discordAvatar', avatar);
+
+  isLoggedIn = true;
+  showLoggedUI(true);
+  unlockEditor();
+  await checkPremiumStatus();
+  updateLimitUI(0, isPremium);
+  toast('Login Discord berhasil', 'ok');
+  return true;
+}
+
+/** Hitung batas harian premium: 3hari=25, 7hari=80, sisanya unlimited (null). */
+function resolvePremiumDailyLimit(data, isProFlag, untilDate) {
+  if (isProFlag) return null;
+  // Kolom opsional dari redeem (jika sudah ada di DB)
+  if (data && data.premium_daily_limit != null && data.premium_daily_limit !== '') {
+    const n = Number(data.premium_daily_limit);
+    if (!isNaN(n) && n > 0) return n;
+    return null; // 0 / null di DB = unlimited
+  }
+  if (!untilDate) return null; // permanen tanpa tanggal
+  const now = new Date();
+  if (untilDate.getFullYear() >= 2090) return null; // permanen / pro style
+  const sisa = Math.ceil((untilDate - now) / 86400000);
+  if (sisa > 7) return null; // 30 hari ke atas
+  if (sisa > 3) return PREM_LIMIT_7D;
+  return PREM_LIMIT_3D;
+}
+
+async function checkPremiumStatus() {
+  const username = localStorage.getItem('loginUser');
+  if (!username) { isPremium = false; isPro = false; premiumDailyLimit = null; return false; }
+  try {
+    const { data: rows } = await sb.from('rezzz-audio').select('*').eq('username', username);
+    const data = pickUserRow(rows);
+    if (!data) { isPremium = false; isPro = false; premiumDailyLimit = null; return false; }
+    if (data.device_id && data.device_id !== effectiveDeviceId && data.device_id !== deviceId) {
+      toast('Silakan login ulang.','err','Akun dipakai di perangkat lain');
+      logout(true); return false;
+    }
+    const now = new Date();
+    const flag = data.is_premium===true||data.is_premium==='true'||data.is_premium===1||data.is_premium==='1';
+    isPro = data.is_pro===true||data.is_pro==='true'||data.is_pro===1||data.is_pro==='1'
+      || String(data.is_pro).toLowerCase()==='true';
+    let until = data.premium_until ? new Date(data.premium_until) : null;
+    if (until && isNaN(until.getTime())) until = null;
+    const el = $('premiumStatus');
+    if (flag && until && until > now) {
+      isPremium = true;
+      premiumDailyLimit = resolvePremiumDailyLimit(data, isPro, until);
+      const sisa = Math.ceil((until-now)/86400000);
+      if (el) {
+        el.style.display='block'; el.className='status ok';
+        const limNote = premiumDailyLimit != null ? (' · '+premiumDailyLimit+'/hari') : '';
+        if (isPro) {
+          el.innerHTML='💎 Premium Pro · sisa '+Math.max(sisa,1)+' hari · '+until.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
+        } else {
+          el.innerHTML='💎 Premium · sisa '+Math.max(sisa,1)+' hari'+limNote+' · '+until.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
+        }
+      }
+      updateStoreVisibility(sisa);
+      await refreshLimit(); return true;
+    }
+    if (flag && until && until <= now) {
+      await sb.from('rezzz-audio').update({ is_premium:false, is_pro:false, premium_daily_limit: null }).eq('username', username);
+      isPremium = false; isPro = false; premiumDailyLimit = null;
+      if (el) { el.style.display='block'; el.className='status bad'; el.innerText='Premium habis · redeem lagi'; }
+      updateStoreVisibility(null);
+      await refreshLimit(); return false;
+    }
+    if (flag && !until) {
+      // Premium tanpa tanggal (permanen / pro) → unlimited
+      isPremium = true;
+      premiumDailyLimit = null;
+      if (el) {
+        el.style.display='block'; el.className='status ok';
+        el.innerHTML = isPro ? '💎 Premium Pro aktif' : '💎 Premium aktif';
+      }
+      updateStoreVisibility(99999);
+      await refreshLimit(); return true;
+    }
+    isPremium = false; isPro = false; premiumDailyLimit = null;
+    if (el) el.style.display = 'none';
+    updateStoreVisibility(null);
+    await refreshLimit(); return false;
+  } catch(e) { isPremium = false; isPro = false; premiumDailyLimit = null; updateStoreVisibility(null); return false; }
+}
+
+async function refreshLimit() {
+  const username = localStorage.getItem('loginUser');
+  if (!username || !isLoggedIn) { updateLimitUI(0,false); return; }
+  try {
+    const { data: rows } = await sb.from('rezzz-audio').select('daily_count,last_reset,is_premium,premium_until,is_pro').eq('username', username);
+    const data = pickUserRow(rows);
+    if (!data) { updateLimitUI(0,false); return; }
+    const today = new Date().toISOString().slice(0,10);
+    let used = data.daily_count || 0;
+    if (data.last_reset !== today) used = 0;
+    const flag = data.is_premium===true||data.is_premium==='true'||data.is_premium===1||data.is_premium==='1';
+    let prem = false;
+    let until = null;
+    if (flag) {
+      if (data.premium_until) {
+        until = new Date(data.premium_until);
+        prem = !isNaN(until.getTime()) ? until > new Date() : true;
+        if (isNaN(until.getTime())) until = null;
+      } else prem = true;
+    }
+    const proFlag = data.is_pro===true||data.is_pro==='true'||data.is_pro===1||data.is_pro==='1'
+      || String(data.is_pro).toLowerCase()==='true';
+    if (prem) {
+      premiumDailyLimit = resolvePremiumDailyLimit(data, proFlag || isPro, until);
+    } else {
+      premiumDailyLimit = null;
+    }
+    updateLimitUI(used, prem || isPremium);
+  } catch(_) { updateLimitUI(0, isPremium); }
+}
+
+async function updateTotalUsers() {
+  try {
+    const { count, error } = await sb.from('rezzz-audio').select('*',{count:'exact',head:true});
+    if ($('statUsers')) $('statUsers').textContent = error ? '—' : String(count||0);
+  } catch(_) { if ($('statUsers')) $('statUsers').textContent = '—'; }
+}
+function lockEditor() { $('editorArea').classList.add('locked'); if ($('limitText')) $('limitText').textContent = '—/'+getEffectiveFreeLimit(); }
+function unlockEditor() { $('editorArea').classList.remove('locked'); try{updateModeLocks();}catch(_){} refreshLimit(); }
+
+function openModal(mode) {
+  modalMode = mode;
+  $('modalTitle').innerText = mode==='daftar'?'Daftar':'Login';
+  $('modalSubmit').innerText = mode==='daftar'?'Daftar':'Login';
+  $('modalUsername').value = ''; $('modalPassword').value = '';
+  $('rememberRow').style.display = mode==='login'?'flex':'none';
+  $('modalOverlay').classList.add('show');
+}
+function closeModal() { $('modalOverlay').classList.remove('show'); }
+
+async function submitModal() {
+  const username = $('modalUsername').value.trim();
+  const password = $('modalPassword').value.trim();
+  if (!username||!password) return toast('Username dan password wajib.','err','Form');
+  if (password.length<3) return toast('Password minimal 3 karakter.','err','Password');
+  if (modalMode==='daftar') {
+    const { data: exist } = await sb.from('rezzz-audio').select('username').eq('username',username).limit(1).maybeSingle();
+    if (exist) return toast('Username sudah dipakai.','err','Gagal');
+    const idsToCheck = [...new Set([effectiveDeviceId, deviceId].filter(Boolean))];
+    const fpsToCheck = [...new Set([effectiveFp, fingerprint].filter(Boolean))];
+    for (const did of idsToCheck) {
+      const { data: used } = await sb.from('rezzz-audio').select('username').eq('device_id', did).limit(1).maybeSingle();
+      if (used) return toast('Perangkat ini sudah punya akun. Login saja.','err','1 device 1 akun');
+    }
+    for (const fp of fpsToCheck) {
+      const { data: usedFp } = await sb.from('rezzz-audio').select('username').eq('fingerprint', fp).limit(1).maybeSingle();
+      if (usedFp) return toast('Perangkat ini sudah punya akun. Login saja.','err','1 device 1 akun');
+    }
+    const { error } = await sb.from('rezzz-audio').insert([{
+      username, password,
+      is_premium: false,
+      daily_count: 0,
+      last_reset: new Date().toISOString().slice(0,10),
+      device_id: effectiveDeviceId,
+      fingerprint: effectiveFp
+    }]);
+    if (error) toast(error.message,'err','Gagal');
+    else { toast('Silakan login.','ok','Akun dibuat'); closeModal(); updateTotalUsers(); }
+  } else {
+    const { data: rows, error } = await sb.from('rezzz-audio').select('*').eq('username',username);
+    if (error) return toast(error.message,'err','Error');
+    if (!rows||!rows.length) return toast('Username tidak ditemukan.','err','Login');
+    const matched = rows.filter(r => r.password===password);
+    if (!matched.length) return toast('Password salah.','err','Login');
+    const data = pickUserRow(matched);
+    if (data.device_id && data.device_id!==effectiveDeviceId && data.device_id!==deviceId) {
+      if (!confirm('Akun login di perangkat lain.\nLanjutkan?')) return;
+    }
+    await sb.from('rezzz-audio').update({ device_id: effectiveDeviceId, fingerprint: effectiveFp }).eq('username',username);
+    localStorage.setItem('loginUser',username);
+    if ($('rememberMe').checked) localStorage.setItem('loginPass',password);
+    else localStorage.removeItem('loginPass');
+    isLoggedIn = true;
+    showLoggedUI(true);
+    unlockEditor();
+    await checkPremiumStatus();
+    toast('Selamat datang.','ok','Login berhasil');
+    closeModal();
+  }
+}
+
+function redeem() {
+  const username = localStorage.getItem('loginUser');
+  if (!username) return toast('Login dulu.','info','Perlu login');
+  $('redeemCode').value = '';
+  $('redeemModal').classList.add('show');
+  setTimeout(() => $('redeemCode').focus(), 150);
+}
+function closeRedeem() {
+  $('redeemModal').classList.remove('show');
+}
+async function submitRedeem() {
+  const username = localStorage.getItem('loginUser');
+  if (!username) return toast('Login dulu.','info','Perlu login');
+  const kode = ($('redeemCode').value || '').trim().toUpperCase();
+  if (!kode) return toast('Masukkan kode dulu.','err','Kode');
+
+  const btn = $('redeemSubmit');
+  btn.disabled = true;
+  btn.textContent = 'Memproses...';
+
+  try {
+    const { data, error } = await sb.from('redeem_codes').select('*').eq('code', kode);
+    if (error) return toast(error.message, 'err', 'Error');
+    if (!data || !data.length) return toast('Kode tidak ditemukan.', 'err', 'Kode');
+    const kd = data[0];
+    if (kd.used === true || kd.used === 'true' || kd.used === 1 || kd.used === '1') {
+      return toast('Kode sudah dipakai.', 'err', 'Kode');
+    }
+    const hari = Number(kd.days) || 3;
+    const codePro = kd.is_pro===true||kd.is_pro==='true'||kd.is_pro===1||kd.is_pro==='1'
+      || kd.is_pro===True
+      || String(kd.is_pro).toLowerCase()==='true'
+      || hari >= 36500
+      || (kode && kode.indexOf('PRO') !== -1);
+    // Batas harian: 3 hari → 25, 7 hari → 80, 30+/pro/permanen → unlimited
+    let dailyLim = null;
+    if (!codePro) {
+      if (hari <= 3) dailyLim = PREM_LIMIT_3D;
+      else if (hari <= 7) dailyLim = PREM_LIMIT_7D;
+    }
+    const { data: userRows } = await sb.from('rezzz-audio').select('premium_until,is_premium,is_pro').eq('username', username);
+    const ur = pickUserRow(userRows);
+    const now = new Date();
+    let base = now;
+    if (ur && ur.premium_until) {
+      const prev = new Date(ur.premium_until);
+      if (!isNaN(prev.getTime()) && prev > now) base = prev;
+    }
+    let until;
+    if (codePro) {
+      until = new Date('2099-12-31T23:59:59+00:00');
+    } else {
+      until = new Date(base);
+      until.setDate(until.getDate() + hari);
+    }
+    const patch = { is_premium: true, premium_until: until.toISOString(), is_pro: !!codePro, premium_daily_limit: dailyLim };
+    const { error: upErr } = await sb.from('rezzz-audio').update(patch).eq('username', username);
+    if (upErr) {
+      // Fallback jika kolom premium_daily_limit belum ada di DB
+      const { error: upErr2 } = await sb.from('rezzz-audio').update({ is_premium: true, premium_until: until.toISOString(), is_pro: !!codePro }).eq('username', username);
+      if (upErr2) throw upErr2;
+    }
+    if (codePro) {
+      await sb.from('rezzz-audio').update({ is_pro: true, is_premium: true, premium_until: until.toISOString(), premium_daily_limit: null }).eq('username', username);
+    }
+    await sb.from('redeem_codes').update({ used: true }).eq('code', kode);
+    await checkPremiumStatus();
+    closeRedeem();
+    if (codePro) toast('Permanen Pro aktif · 3 link batch + unlimited','ok','Pro aktif');
+    else {
+      const limTxt = dailyLim != null ? (' · limit ' + dailyLim + '/hari') : ' · unlimited';
+      toast('+' + hari + ' hari' + limTxt + ' · sampai ' + until.toLocaleDateString('id-ID'), 'ok', 'Premium aktif');
+    }
+  } catch (e) {
+    toast(e.message, 'err', 'Error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Redeem';
+  }
+}
+
+$('audioFile').addEventListener('change', async e => {
+  if (!isLoggedIn) { toast('Login dulu.','info','Perlu login'); $('audioFile').value=''; return; }
+  await checkPremiumStatus();
+  const files = Array.from(e.target.files||[]);
+  if (!files.length) return;
+  const maxSize = isPremium ? MAX_SIZE_PREM : MAX_SIZE_FREE;
+  for (const f of files) {
+    if (f.size > maxSize) {
+      const limMB = isPremium ? 20 : 10;
+      toast(f.name+' >'+limMB+'MB (batas '+(isPremium?'premium':'free')+').','err','File besar');
+      $('audioFile').value=''; currentFiles=[]; $('downloadBtn').disabled=true; return;
+    }
+  }
+  currentFiles = files;
+  if (files.length===1) {
+    $('fileName').textContent = files[0].name;
+    player.src = URL.createObjectURL(files[0]);
+    setPlayerUI(true, files[0].name);
+    player.onloadedmetadata = () => {
+      const maxDur = isPremium ? MAX_DUR_PREM : MAX_DUR_FREE;
+      if (player.duration > maxDur) {
+        toast('Durasi max '+maxDur+'s ('+(isPremium?'premium':'free')+').','err','Terlalu panjang');
+        player.src=''; currentFiles=[]; $('fileName').textContent='MP3 · WAV · OGG';
+        setPlayerUI(false); $('downloadBtn').disabled=true; return;
+      }
+      $('timeDur').textContent = fmtTime(player.duration);
+      setPlayerUI(true, files[0].name);
+      $('downloadBtn').disabled = false;
+    };
+  } else {
+    $('fileName').textContent = files.length+' file dipilih';
+    player.src = URL.createObjectURL(files[0]);
+    setPlayerUI(true, files[0].name+' · +'+(files.length-1));
+    $('downloadBtn').disabled = false;
+  }
+});
+
+function setPreset(s,d,btn,pitchVal) {
+  if (!isLoggedIn) return toast('Login dulu.','info','Perlu login');
+  const p = (pitchVal != null) ? pitchVal : 2; // default pitch +2
+  $('speed').value=s; $('db').value=d;
+  if ($('pitch')) $('pitch').value=p;
+  updateSpeed(s); updateDb(d); updatePitch(p);
+  document.querySelectorAll('.presets button').forEach(b=>b.classList.remove('on'));
+  if (btn) btn.classList.add('on');
+}
+function updatePitch(v) {
+  v = Number(v) || 0;
+  const el = $('pitchText');
+  if (el) el.textContent = (v > 0 ? '+'+v : String(v));
+  if ($('playerSub')&&player.src) {
+    $('playerSub').textContent='Speed '+$('speed').value+'x · '+$('db').value+' dB · P'+(v>0?'+':'')+v;
+  }
+  $('descBox').innerHTML='<b>'+$('speed').value+'x / '+$('db').value+'dB / P'+(v>0?'+':'')+v+'</b> · In Game ≈ <b>'+(1/parseFloat($('speed').value)).toFixed(2)+'</b>';
+}
+function updateSpeed(v) {
+  player.playbackRate=v; $('speedText').textContent=v+'x';
+  $('descBox').innerHTML='<b>'+v+'x / '+$('db').value+'dB</b> · In Game ≈ <b>'+(1/v).toFixed(2)+'</b>';
+  if ($('playerSub')&&player.src) $('playerSub').textContent='Speed '+v+'x · '+$('db').value+' dB';
+}
+$('speed').addEventListener('input',()=>{ if(!isLoggedIn)return; updateSpeed(parseFloat($('speed').value)); document.querySelectorAll('.presets button').forEach(b=>b.classList.remove('on')); });
+function updateDb(v) {
+  $('dbText').textContent=v+' dB';
+  try{player.volume=Math.max(0.05,Math.min(1,Math.pow(10,Number(v)/20)));}catch(_){}
+  if ($('playerSub')&&player.src) $('playerSub').textContent='Speed '+$('speed').value+'x · '+v+' dB';
+  $('descBox').innerHTML='<b>'+$('speed').value+'x / '+v+'dB</b> · In Game ≈ <b>'+(1/parseFloat($('speed').value)).toFixed(2)+'</b>';
+}
+$('db').addEventListener('input',()=>{ if(!isLoggedIn)return; updateDb(parseFloat($('db').value)); });
+try{updateDb(parseFloat($('db').value));}catch(_){}
+if ($('pitch')) {
+  $('pitch').addEventListener('input',()=>{ if(!isLoggedIn)return; updatePitch(parseFloat($('pitch').value)); });
+  try{updatePitch(parseFloat($('pitch').value));}catch(_){}
+}
+
+function floatTo16(input) {
+  const out=new Int16Array(input.length);
+  for(let i=0;i<input.length;i++){let s=Math.max(-1,Math.min(1,input[i]));out[i]=s<0?s*0x8000:s*0x7FFF;}
+  return out;
+}
+function softLimit(buf,th) {
+  th=th||0.92;
+  for(let c=0;c<buf.numberOfChannels;c++){
+    const d=buf.getChannelData(c);
+    for(let i=0;i<d.length;i++){const x=d[i],ax=Math.abs(x);if(ax>th)d[i]=Math.sign(x)*(th+(1-th)*Math.tanh((ax-th)/(1-th+1e-6)));}
+  }
+  return buf;
+}
+function peakNormalize(buf, target) {
+  target = target == null ? 0.94 : target;
+  let peakA = 0;
+  for (let ch = 0; ch < buf.numberOfChannels; ch++) {
+    const d = buf.getChannelData(ch);
+    for (let i = 0; i < d.length; i++) peakA = Math.max(peakA, Math.abs(d[i]));
+  }
+  if (peakA > 0.001 && peakA !== target) {
+    const g = target / peakA;
+    for (let ch = 0; ch < buf.numberOfChannels; ch++) {
+      const d = buf.getChannelData(ch);
+      for (let i = 0; i < d.length; i++) d[i] *= g;
+    }
+  }
+  return buf;
+}
+/** Noise floor sangat ringan — bantu ubah fingerprint tanpa terdengar jelas */
+function addSubtleNoise(buf, amount) {
+  // amount ~0.0012 aman: terasa di fingerprint, hampir tidak merusak musik
+  amount = amount == null ? 0.0012 : amount;
+  for (let ch = 0; ch < buf.numberOfChannels; ch++) {
+    const d = buf.getChannelData(ch);
+    // noise high-freq bias (pink-ish) biar tidak "mendengung" di bass
+    let state = 0;
+    for (let i = 0; i < d.length; i++) {
+      const white = Math.random() * 2 - 1;
+      state = 0.85 * state + 0.15 * white; // soft low-pass of noise
+      const hf = white - state;             // mostly high frequency
+      const mix = hf * 0.7 + white * 0.3;
+      d[i] += mix * amount;
+    }
+  }
+  return buf;
+}
+function bufferToMp3(buf) {
+  const ch=buf.numberOfChannels,rate=buf.sampleRate,enc=new lamejs.Mp3Encoder(ch,rate,256);
+  const left=floatTo16(buf.getChannelData(0)),right=ch>1?floatTo16(buf.getChannelData(1)):left;
+  const blocks=[],size=1152;
+  for(let i=0;i<left.length;i+=size){
+    const l=left.subarray(i,i+size),r=right.subarray(i,i+size);
+    const b=ch===1?enc.encodeBuffer(l):enc.encodeBuffer(l,r);
+    if(b.length)blocks.push(b);
+  }
+  const end=enc.flush(); if(end.length)blocks.push(end);
+  return new Blob(blocks,{type:'audio/mp3'});
+}
+async function processAudio(file,speedVal,dbVal,pitchVal) {
+  const ab=await file.arrayBuffer();
+  const ctx=new (window.AudioContext||window.webkitAudioContext)();
+  let src=await ctx.decodeAudioData(ab);
+  const rate=src.sampleRate, dur=src.duration/speedVal, frames=Math.max(1,Math.ceil(dur*rate));
+  const off=new OfflineAudioContext(src.numberOfChannels,frames,rate);
+  const source=off.createBufferSource(); source.buffer=src; source.playbackRate.value=speedVal;
+  // pitch (semitone) + micro-detune acak biar fingerprint beda tiap render
+  const p = Number(pitchVal);
+  const baseCents = (isNaN(p) ? 2 : p) * 100;
+  const micro = (processMode === 'bypass') ? ((Math.random() * 14) - 7) : ((Math.random() * 4) - 2); // ±7 cent bypass
+  source.detune.value = baseCents + micro;
+
+  const hp = off.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = processMode === 'bypass' ? 55 : 40; hp.Q.value = 0.7;
+  const peak = off.createBiquadFilter(); peak.type = 'peaking'; peak.frequency.value = 2800; peak.Q.value = 0.75; peak.gain.value = processMode === 'bypass' ? 1.2 : 0.8;
+  const peak2 = off.createBiquadFilter(); peak2.type = 'peaking'; peak2.frequency.value = 5200; peak2.Q.value = 0.9; peak2.gain.value = processMode === 'bypass' ? 0.7 : 0.25;
+  const shelf = off.createBiquadFilter(); shelf.type = 'highshelf'; shelf.frequency.value = 9000; shelf.gain.value = processMode === 'bypass' ? 0.6 : 0.2;
+  const gain = off.createGain(); gain.gain.value = Math.pow(10, dbVal / 20);
+  const lp = off.createBiquadFilter(); lp.type = 'lowpass';
+  const nyq = rate * 0.5;
+  // cut lebih agresif saat speed tinggi biar artefak speed-up tetap “rapi”
+  const cut = Math.min(nyq * 0.9, Math.max(11000, nyq / Math.max(1, speedVal * (processMode === 'bypass' ? 0.62 : 0.55))));
+  lp.frequency.value = cut; lp.Q.value = 0.707;
+
+  // chain: source → HP → peak → peak2 → shelf → gain → LP → out
+  source.connect(hp);
+  hp.connect(peak);
+  peak.connect(peak2);
+  peak2.connect(shelf);
+  shelf.connect(gain);
+  gain.connect(lp);
+  lp.connect(off.destination);
+  source.start(0);
+  let rendered = await off.startRendering();
+
+  if (processMode === 'bypass') {
+    rendered = softLimit(rendered, 0.90);
+    rendered = addSubtleNoise(rendered, 0.0012);
+    rendered = peakNormalize(rendered, 0.93);
+  } else if (processMode === 'clean') {
+    rendered = softLimit(rendered, 0.88);
+    rendered = peakNormalize(rendered, 0.95);
+  } else {
+    rendered = softLimit(rendered, 0.92);
+    rendered = peakNormalize(rendered, 0.94);
+  }
+  try { await ctx.close(); } catch (_) {}
+  return rendered;
+}
+
+$('downloadBtn').addEventListener('click', async () => {
+  if (!isLoggedIn) return toast('Login dulu.','info','Perlu login');
+  if (!currentFiles.length) return toast('Pilih file dulu.','info','Belum ada file');
+  const username = localStorage.getItem('loginUser');
+  await checkPremiumStatus();
+  if (!isLoggedIn) return;
+  const { data: rows, error } = await sb.from('rezzz-audio').select('*').eq('username',username);
+  const data = pickUserRow(rows);
+  if (error||!data) return toast('Coba login ulang.','err','Error');
+  const today = new Date().toISOString().slice(0,10);
+  if (data.last_reset!==today) { await sb.from('rezzz-audio').update({daily_count:0,last_reset:today}).eq('username',username); data.daily_count=0; }
+  const total = currentFiles.length;
+  // Batas harian: free=2 (atau 10 saat event), premium 3hari=25, 7hari=80, sisanya unlimited
+  const freeLim = getEffectiveFreeLimit();
+  const effectiveLimit = !isPremium
+    ? freeLim
+    : (premiumDailyLimit != null && premiumDailyLimit > 0 ? premiumDailyLimit : null);
+  if (effectiveLimit != null) {
+    const sisa = effectiveLimit - (data.daily_count || 0);
+    if (sisa <= 0) {
+      toast(isPremium ? ('Limit premium hari ini habis (' + effectiveLimit + '/hari).') : ('Limit free habis' + (isFreeEventActive() ? ' (event 10x).' : '.')), 'err', 'Limit');
+      if (!isPremium) {
+        setTimeout(()=>{ if(confirm('Limit habis!\n\nPremium dari Rp15rb.\nBuka WhatsApp?')) window.open('https://wa.me/6283135744309?text='+encodeURIComponent('Halo, mau beli premium Rezzz Audio'),'_blank'); },400);
+      }
+      return;
+    }
+    if (total > sisa) return toast('Sisa ' + sisa + 'x hari ini, kamu pilih ' + total + ' file.', 'err', 'Limit');
+  }
+  $('downloadBtn').disabled=true;
+  let speedVal=parseFloat($('speed').value), dbVal=parseFloat($('db').value), pitchVal=parseFloat($('pitch')?$('pitch').value:2);
+  if (processMode === 'bypass') { speedVal=3; dbVal=-2; pitchVal=2; }
+  if (processMode === 'clean') { speedVal=1; dbVal=0; pitchVal=0; }
+  const maxDur = isPremium ? MAX_DUR_PREM : MAX_DUR_FREE;
+  const makeName = i => {
+    const f = currentFiles[i];
+    const base = ((f && f.name) ? f.name : ('audio_'+(i+1)+'.mp3'))
+      .replace(/\.[^.]+$/,'')
+      .replace(/[\\/:*?"<>|]/g,'_')
+      .trim() || ('audio_'+(i+1));
+    const speedTag = String(speedVal).replace(/\.0$/,'') + 'x';
+    return base + speedTag + '.mp3';
+  };
+  let ok=0;
+  for (let i=0;i<total;i++) {
+    const file=currentFiles[i];
+    $('downloadBtn').textContent='Proses '+(i+1)+'/'+total+'...';
+    try {
+      const tmp=URL.createObjectURL(file), audioProbe=new Audio();
+      await new Promise((res,rej)=>{audioProbe.onloadedmetadata=res;audioProbe.onerror=rej;audioProbe.src=tmp;});
+      URL.revokeObjectURL(tmp);
+      if (audioProbe.duration > maxDur) {
+        toast(file.name+' di-skip (>'+maxDur+'s).','info','Skip');
+        continue;
+      }
+      // Hitung daily_count juga untuk premium berbatas (3d/7d)
+      if (effectiveLimit != null) {
+        await sb.from('rezzz-audio').update({daily_count:(data.daily_count||0)+1}).eq('username',username);
+        data.daily_count=(data.daily_count||0)+1;
+      }
+      const rendered=await processAudio(file,speedVal,dbVal,pitchVal);
+      const blob=bufferToMp3(rendered);
+      const dl=document.createElement('a');
+      dl.href=URL.createObjectURL(blob); dl.download=makeName(i); dl.click();
+      URL.revokeObjectURL(dl.href);
+      ok++;
+      addHistory({name:makeName(i),speed:speedVal,db:dbVal,pitch:pitchVal,original:file.name});
+      await refreshLimit();
+      if (total>1) await new Promise(r=>setTimeout(r,400));
+    } catch(err) { toast(file.name+' — '+err.message,'err','Gagal'); }
+  }
+  $('downloadBtn').disabled=false;
+  $('downloadBtn').textContent='Konversi & Download MP3';
+  await refreshLimit();
+  if (ok) toast(ok+'/'+total+' file berhasil','ok','Selesai');
+});
+
+async function addHistory(entry) {
+  try {
+    const { error } = await sb.from('rezzz_history').insert([{
+      username: localStorage.getItem('loginUser')||'anon',
+      file_name: entry.name||'file', original_name: entry.original||'',
+      speed: entry.speed, db_val: entry.db, created_at: new Date().toISOString()
+    }]);
+    if (error) console.warn('addHistory insert failed:', error.message);
+  } catch(e) { console.warn('addHistory error:', e); }
+  renderHistory();
+}
+async function renderHistory() {
+  const list = $('histList');
+  if (!list) return;
+  list.innerHTML = '<div class="hist-e">Memuat...</div>';
+  const cut = new Date(Date.now() - 12 * 3600 * 1000).toISOString();
+  // Cleanup lama: jangan biarkan gagal (RLS/permission) merusak tampilan list
+  try {
+    await sb.from('rezzz_history').delete().lt('created_at', cut);
+  } catch (_) {}
+  try {
+    const { data, error } = await sb.from('rezzz_history')
+      .select('*')
+      .gte('created_at', cut)
+      .order('created_at', { ascending: false })
+      .limit(40);
+    if (error) throw error;
+    if (!data || !data.length) {
+      list.innerHTML = '<div class="hist-e">Belum ada riwayat</div>';
+      return;
+    }
+    list.innerHTML = data.map(h => {
+      const when = h.created_at
+        ? new Date(h.created_at).toLocaleString('id-ID', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })
+        : '';
+      const name = String(h.file_name || 'file').replace(/[<>&]/g, '');
+      const user = String(h.username || 'user').replace(/[<>&]/g, '');
+      const sp = h.speed != null ? h.speed : '';
+      const dbv = h.db_val != null ? h.db_val : '';
+      const game = sp ? (1 / Number(sp)).toFixed(4) : '';
+      return '<div class="hist-i"><div class="hist-i-t"><span class="hist-n">' + name + '</span><span class="hist-tm">' + when + '</span></div><div class="tags"><span class="tag">@' + user + '</span><span class="tag">' + sp + 'x</span><span class="tag">' + dbv + ' dB</span>' + (game ? '<span class="tag">IG ' + game + '</span>' : '') + '</div></div>';
+    }).join('');
+  } catch (e) {
+    console.warn('renderHistory error:', e);
+    list.innerHTML = '<div class="hist-e">Riwayat belum siap</div>';
+  }
+}
+
+function updateLinkInputUI() {
+  const single = $('linkInput');
+  const proBox = $('linkInputsPro');
+  const tip = $('linkTip');
+  if (isPro) {
+    if (single) single.style.display = 'none';
+    if (proBox) proBox.style.display = 'block';
+    if (tip) tip.innerHTML = '<b>Premium Pro</b> · isi sampai <b>3 kolom</b> · auto <b>3x / -2dB / P+2</b> · YT/TikTok/SC';
+  } else {
+    if (proBox) proBox.style.display = 'none';
+    if (single) single.style.display = 'block';
+    if (tip) {
+      if (isPremium) {
+        tip.innerHTML = '<b>Premium</b> · 1 link · auto <b>3x / -2dB / P+2</b> · YT/TikTok/SC<br><span style="opacity:.85">Upgrade Pro untuk 3 kolom link</span>';
+      } else {
+        tip.innerHTML = '<b>Free</b> · 1 link · auto <b>3x</b> · hitung limit harian · YT/TikTok/SC<br><span style="opacity:.85">Pro: 3 kolom link sekaligus</span>';
+      }
+    }
+  }
+}
+
+/** Toko selalu tampil lengkap (ada tab Toko) */
+function updateStoreVisibility(sisaHari) {
+  const block = $('storePremiumBlock');
+  if (block) block.style.display = 'block';
+}
+
+function switchMode(mode) {
+  if (mode === 'link') {
+    if (!isLoggedIn) return toast('Login dulu.','info','Perlu login');
+  }
+  $('uploadMode').style.display = mode==='upload'?'block':'none';
+  $('linkMode').style.display = mode==='link'?'block':'none';
+  $('btnUploadMode').classList.toggle('on', mode==='upload');
+  $('btnLinkMode').classList.toggle('on', mode==='link');
+  updateLinkInputUI();
+}
+
+function isMediaLink(v) {
+  v = (v || '').trim();
+  return v && (v.includes('youtube') || v.includes('youtu.be') || v.includes('tiktok') || v.includes('soundcloud') || v.startsWith('http'));
+}
+if ($('linkInput')) {
+  $('linkInput').addEventListener('paste', () => {
+    setTimeout(() => {
+      if (isMediaLink($('linkInput').value)) ambilAudioDariLink(true);
+    }, 100);
+  });
+}
+['linkInput1','linkInput2','linkInput3'].forEach(function(id) {
+  const el = $(id);
+  if (!el) return;
+  el.addEventListener('paste', () => {
+    setTimeout(() => {
+      // Pro: jangan auto-download batch; user isi dulu baru klik tombol
+    }, 100);
+  });
+});
+function cleanYoutubeUrl(url) {
+  try {
+    if (url.includes('youtu.be/')) {
+      const id = url.split('youtu.be/')[1].split(/[?&#]/)[0];
+      return 'https://www.youtube.com/watch?v='+id;
+    }
+    if (url.includes('youtube.com')||url.includes('youtube-nocookie.com')) {
+      const u = new URL(url); const v = u.searchParams.get('v');
+      if (v) return 'https://www.youtube.com/watch?v='+v;
+    }
+  } catch(_){}
+  return url.split('?')[0].split('&')[0];
+}
+function parseFilenameFromCD(cd) {
+  if (!cd) return '';
+  let m = cd.match(/filename\*\s*=\s*(?:UTF-8''|utf-8'')([^;\n]+)/i);
+  if (m && m[1]) {
+    try { return decodeURIComponent(m[1].trim().replace(/^["']|["']$/g, '')); } catch(_) {}
+  }
+  m = cd.match(/filename\s*=\s*((['"]).*?\2|[^;\n]*)/i);
+  if (m && m[1]) {
+    let s = m[1].trim().replace(/^["']|["']$/g, '');
+    try { s = decodeURIComponent(s); } catch(_) {}
+    return s;
+  }
+  return '';
+}
+function looksLikeVideoId(name) {
+  const base = String(name || '').replace(/\.[^.]+$/, '');
+  // YouTube id biasanya 11 karakter [A-Za-z0-9_-]
+  return /^[A-Za-z0-9_-]{10,12}$/.test(base);
+}
+async function fetchYoutubeTitle(watchUrl) {
+  const tryFetch = async (apiUrl) => {
+    const r = await fetch(apiUrl);
+    if (!r.ok) return '';
+    const j = await r.json();
+    return (j && j.title) ? String(j.title).trim() : '';
+  };
+  try {
+    // 1) YouTube oEmbed
+    let t = await tryFetch('https://www.youtube.com/oembed?format=json&url=' + encodeURIComponent(watchUrl));
+    if (t) return t;
+  } catch (_) {}
+  try {
+    // 2) noembed (CORS-friendly fallback)
+    let t = await tryFetch('https://noembed.com/embed?url=' + encodeURIComponent(watchUrl));
+    if (t) return t;
+  } catch (_) {}
+  return '';
+}
+async function fetchOneLink(url) {
+  const cleanUrl = cleanYoutubeUrl(url);
+  const res = await fetch(REZZ_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:cleanUrl})});
+  if (!res.ok) throw new Error((await res.text().catch(()=>''))||('HTTP '+res.status));
+  const blob = await res.blob();
+  if (!blob||blob.size<1000) throw new Error('File terlalu kecil / gagal');
+  const maxSize = isPro ? (500*1024*1024) : (isPremium ? MAX_SIZE_PREM : MAX_SIZE_FREE);
+  if (blob.size > maxSize) {
+    throw new Error('File >' + Math.round(maxSize/1024/1024) + 'MB (batas ' + (isPremium?'premium':'free') + ')');
+  }
+
+  // 1) header API  2) judul YouTube oEmbed  3) fallback id
+  let fname = parseFilenameFromCD(res.headers.get('content-disposition'));
+  if (!fname || looksLikeVideoId(fname)) {
+    if (/youtube\.com|youtu\.be/i.test(cleanUrl)) {
+      const title = await fetchYoutubeTitle(cleanUrl);
+      if (title) fname = title + '.mp3';
+    }
+  }
+  if (!fname) {
+    try {
+      const id = cleanUrl.includes('v=') ? cleanUrl.split('v=')[1].split('&')[0] : 'audio';
+      fname = id + '.mp3';
+    } catch(_) { fname = 'audio.mp3'; }
+  }
+
+  fname = fname.replace(/[\\/:*?"<>|]/g, '_').replace(/\s+/g, ' ').trim();
+  if (!/\.(mp3|m4a|ogg|wav|webm)$/i.test(fname)) fname += '.mp3';
+  return new File([blob], fname, { type: 'audio/mpeg' });
+}
+async function ambilAudioDariLink(autoDownload) {
+  if (!isLoggedIn) return toast('Login dulu.','info','Perlu login');
+  await checkPremiumStatus();
+  // Free boleh pakai link (tetap kena limit harian saat download)
+  let urls = [];
+  if (isPro && $('linkInputsPro') && $('linkInputsPro').style.display !== 'none') {
+    ['linkInput1','linkInput2','linkInput3'].forEach(function(id) {
+      const v = ($(id) && $(id).value || '').trim();
+      if (v) urls.push(v);
+    });
+  } else {
+    const one = ($('linkInput').value||'').trim();
+    if (one) urls = [one];
+  }
+  if (!urls.length) return toast('Tempel link dulu.','err','Link kosong');
+  // Free & Premium: 1 link. Pro: max 3 kolom
+  if (!isPro && urls.length > 1) {
+    toast((isPremium ? 'Premium' : 'Free') + ': 1 link saja. Upgrade Pro untuk 3 kolom.','info','Limit');
+    urls = urls.slice(0,1);
+  }
+  if (urls.length > 3) urls = urls.slice(0,3);
+  const btn = $('ambilLinkBtn');
+  btn.disabled=true;
+  const got = [];
+  try {
+    for (let i=0;i<urls.length;i++) {
+      btn.textContent = 'Ambil '+(i+1)+'/'+urls.length+'...';
+      try {
+        const file = await fetchOneLink(urls[i]);
+        got.push(file);
+      } catch(err) {
+        toast('Link '+(i+1)+': '+(err.message||'gagal'),'err','Gagal');
+      }
+    }
+    if (!got.length) throw new Error('Tidak ada audio yang berhasil diambil');
+    currentFiles = got;
+    const fname = got[0].name + (got.length>1 ? (' · +'+(got.length-1)) : '');
+    $('fileName').textContent = got.length>1 ? (got.length+' file dari link') : got[0].name;
+    player.src = URL.createObjectURL(got[0]);
+    setPreset(3.0,-2,$('preset3x'),2);
+    setPlayerUI(true, fname);
+    $('downloadBtn').disabled = false;
+    toast(got.length+' audio siap · set 3x','ok','Berhasil');
+    switchMode('upload');
+    // Auto konversi + download (nama ORI + 3x lewat makeName)
+    if (autoDownload !== false && got.length === 1) {
+      await new Promise(r => {
+        if (player.readyState >= 1) return r();
+        player.onloadedmetadata = () => r();
+        setTimeout(r, 2500);
+      });
+      const maxDur = isPremium ? MAX_DUR_PREM : MAX_DUR_FREE;
+      if (player.duration > maxDur) {
+        toast('Durasi max '+maxDur+'s. File terlalu panjang.','err','Terlalu panjang');
+        return;
+      }
+      $('downloadBtn').click();
+    }
+  } catch(err) {
+    console.error(err);
+    toast(err.message||'Gagal ambil audio.','err','Gagal');
+  } finally {
+    btn.disabled=false; btn.textContent='Ambil Audio dari Link';
+  }
+}
+
+// ===== BELI PREMIUM =====
+const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1535903518500585532/d5Q28cMciRVpLzrS4Pfx6xwykNSDXmzFdFcmSQUEi26EODKx83PM8VHb_Eck67QYd8ru';
+let currentBeli = { package: '', price: 0, label: '' };
+
+function openBeli(pkg, price, label) {
+  currentBeli = { package: pkg, price, label };
+  $('beliTitle').textContent = 'Beli ' + label + ' · Rp ' + price.toLocaleString('id-ID');
+  $('beliWA').value = '';
+  $('beliBukti').value = '';
+  if ($('beliBuktiName')) $('beliBuktiName').textContent = '';
+  $('beliModal').classList.add('show');
+}
+function closeBeli() {
+  $('beliModal').classList.remove('show');
+}
+$('beliBukti').addEventListener('change', function() {
+  const f = this.files[0];
+  if ($('beliBuktiName')) {
+    $('beliBuktiName').textContent = f ? ('✓ ' + f.name) : '';
+  }
+});
+
+async function submitBeli() {
+  const wa = ($('beliWA').value || '').trim().replace(/\D/g, '');
+  const file = $('beliBukti').files[0];
+  if (!wa || wa.length < 10) return toast('Isi nomor WhatsApp yang valid.','err','WA');
+  if (!file) return toast('Upload bukti transfer dulu.','err','Bukti');
+
+  const btn = $('beliSubmit');
+  btn.disabled = true;
+  btn.textContent = 'Mengirim...';
+
+  try {
+    const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+    const path = 'bukti/' + Date.now() + '_' + wa + '.' + ext;
+    const { error: upErr } = await sb.storage.from('bukti').upload(path, file, {
+      cacheControl: '3600', upsert: false
+    });
+    if (upErr) throw upErr;
+
+    const { data: urlData } = sb.storage.from('bukti').getPublicUrl(path);
+    const buktiUrl = urlData.publicUrl;
+
+    const username = localStorage.getItem('loginUser') || null;
+    const { error: insErr } = await sb.from('orders').insert([{
+      package: currentBeli.package,
+      price: currentBeli.price,
+      wa: wa,
+      bukti_url: buktiUrl,
+      status: 'pending',
+      username
+    }]);
+    if (insErr) throw insErr;
+
+    const embed = {
+      title: '🛒 ORDER BARU — REZZZ AUDIO',
+      color: 0xfbbf24,
+      fields: [
+        { name: 'Paket', value: currentBeli.label, inline: true },
+        { name: 'Harga', value: 'Rp ' + currentBeli.price.toLocaleString('id-ID'), inline: true },
+        { name: 'WhatsApp', value: wa, inline: false },
+        { name: 'Username', value: username || 'Guest', inline: true },
+        { name: 'Bukti TF', value: '[Klik untuk lihat](' + buktiUrl + ')', inline: false }
+      ],
+      timestamp: new Date().toISOString(),
+      footer: { text: 'Rezzz Audio Store' }
+    };
+
+    await fetch(DISCORD_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ embeds: [embed] })
+    });
+
+    toast('Bukti terkirim! Tunggu kode di WhatsApp.','ok','Berhasil');
+    closeBeli();
+  } catch (err) {
+    console.error(err);
+    toast(err.message || 'Gagal mengirim.','err','Error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Kirim Bukti';
+  }
+}
+
+// ===== MAIN TABS =====
+function switchMainTab(name) {
+  ['tools','toko','potong'].forEach(function(n) {
+    const panel = $('panel' + n.charAt(0).toUpperCase() + n.slice(1));
+    const btn = $('tabBtn' + n.charAt(0).toUpperCase() + n.slice(1));
+    if (panel) panel.classList.toggle('on', n === name);
+    if (btn) btn.classList.toggle('on', n === name);
+  });
+}
+
+// ===== POTONG MUSIK =====
+let trimFileObj = null;
+let trimDuration = 0;
+const trimPlayer = $('trimPlayer');
+
+function fmtTrim(s) {
+  if (!isFinite(s) || s < 0) return '0:00';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return m + ':' + String(sec).padStart(2, '0');
+}
+
+function updateTrimPreview() {
+  if (!trimDuration) {
+    if ($('trimPreview')) $('trimPreview').textContent = 'Durasi potong: —';
+    return;
+  }
+  const start = (parseFloat($('trimStart').value) / 1000) * trimDuration;
+  const end = (parseFloat($('trimEnd').value) / 1000) * trimDuration;
+  const dur = Math.max(0, end - start);
+  if ($('trimStartText')) $('trimStartText').textContent = fmtTrim(start);
+  if ($('trimEndText')) $('trimEndText').textContent = fmtTrim(end);
+  if ($('trimPreview')) $('trimPreview').textContent = 'Durasi potong: ' + fmtTrim(dur) + '  (' + dur.toFixed(1) + 's)';
+}
+
+if ($('trimFile')) {
+  $('trimFile').addEventListener('change', async function(e) {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    trimFileObj = f;
+    if ($('trimFileName')) $('trimFileName').textContent = f.name;
+    const url = URL.createObjectURL(f);
+    trimPlayer.src = url;
+    const box = $('trimPlayerBox');
+    if (box) box.classList.remove('empty');
+    if ($('trimPlayBtn')) $('trimPlayBtn').disabled = false;
+    if ($('trimPlayerTitle')) $('trimPlayerTitle').textContent = f.name;
+    if ($('trimPlayerSub')) $('trimPlayerSub').textContent = 'Siap dipotong';
+    trimPlayer.onloadedmetadata = function() {
+      trimDuration = trimPlayer.duration || 0;
+      if ($('trimTimeDur')) $('trimTimeDur').textContent = fmtTrim(trimDuration);
+      if ($('trimStart')) $('trimStart').value = 0;
+      if ($('trimEnd')) $('trimEnd').value = 1000;
+      updateTrimPreview();
+      if ($('trimDownloadBtn')) $('trimDownloadBtn').disabled = false;
+    };
+  });
+}
+
+if ($('trimPlayBtn')) {
+  $('trimPlayBtn').addEventListener('click', async function() {
+    if (!trimPlayer.src) return;
+    try {
+      if (trimPlayer.paused) {
+        // play from start marker
+        const start = (parseFloat($('trimStart').value) / 1000) * trimDuration;
+        const end = (parseFloat($('trimEnd').value) / 1000) * trimDuration;
+        if (trimPlayer.currentTime < start || trimPlayer.currentTime >= end) {
+          trimPlayer.currentTime = start;
+        }
+        await trimPlayer.play();
+        $('trimPlayBtn').textContent = '⏸';
+      } else {
+        trimPlayer.pause();
+        $('trimPlayBtn').textContent = '▶';
+      }
+    } catch (err) {
+      toast(err.message || 'Gagal putar', 'err', 'Preview');
+    }
+  });
+}
+
+if (trimPlayer) {
+  trimPlayer.addEventListener('timeupdate', function() {
+    if (!trimDuration) return;
+    const end = (parseFloat($('trimEnd').value) / 1000) * trimDuration;
+    if (trimPlayer.currentTime >= end) {
+      trimPlayer.pause();
+      if ($('trimPlayBtn')) $('trimPlayBtn').textContent = '▶';
+    }
+    if ($('trimSeekFill')) $('trimSeekFill').style.width = ((trimPlayer.currentTime / trimDuration) * 100) + '%';
+    if ($('trimSeekBar')) $('trimSeekBar').value = Math.round((trimPlayer.currentTime / trimDuration) * 1000);
+    if ($('trimTimeCur')) $('trimTimeCur').textContent = fmtTrim(trimPlayer.currentTime);
+  });
+  trimPlayer.addEventListener('ended', function() {
+    if ($('trimPlayBtn')) $('trimPlayBtn').textContent = '▶';
+  });
+  trimPlayer.addEventListener('play', function() {
+    if ($('trimPlayBtn')) $('trimPlayBtn').textContent = '⏸';
+  });
+  trimPlayer.addEventListener('pause', function() {
+    if ($('trimPlayBtn')) $('trimPlayBtn').textContent = '▶';
+  });
+}
+
+if ($('trimSeekBar')) {
+  $('trimSeekBar').addEventListener('input', function() {
+    if (!trimDuration) return;
+    trimPlayer.currentTime = (parseFloat($('trimSeekBar').value) / 1000) * trimDuration;
+    if ($('trimSeekFill')) $('trimSeekFill').style.width = ($('trimSeekBar').value / 10) + '%';
+  });
+}
+
+if ($('trimStart')) $('trimStart').addEventListener('input', function() {
+  let s = parseFloat($('trimStart').value);
+  let e = parseFloat($('trimEnd').value);
+  if (s > e) { s = e; $('trimStart').value = s; }
+  updateTrimPreview();
+});
+if ($('trimEnd')) $('trimEnd').addEventListener('input', function() {
+  let s = parseFloat($('trimStart').value);
+  let e = parseFloat($('trimEnd').value);
+  if (e < s) { e = s; $('trimEnd').value = e; }
+  updateTrimPreview();
+});
+
+if ($('trimDownloadBtn')) {
+  $('trimDownloadBtn').addEventListener('click', async function() {
+    if (!trimFileObj || !trimDuration) return toast('Pilih file dulu.', 'info', 'Potong');
+    const start = (parseFloat($('trimStart').value) / 1000) * trimDuration;
+    const end = (parseFloat($('trimEnd').value) / 1000) * trimDuration;
+    if (end - start < 0.15) return toast('Durasi potong terlalu pendek.', 'err', 'Potong');
+
+    const btn = $('trimDownloadBtn');
+    btn.disabled = true;
+    btn.textContent = 'Memotong...';
+
+    try {
+      const ab = await trimFileObj.arrayBuffer();
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const srcBuf = await ctx.decodeAudioData(ab);
+      const rate = srcBuf.sampleRate;
+      const startFrame = Math.floor(start * rate);
+      const endFrame = Math.min(Math.floor(end * rate), srcBuf.length);
+      const frames = Math.max(1, endFrame - startFrame);
+      const out = ctx.createBuffer(srcBuf.numberOfChannels, frames, rate);
+      for (let c = 0; c < srcBuf.numberOfChannels; c++) {
+        const src = srcBuf.getChannelData(c);
+        const dst = out.getChannelData(c);
+        for (let i = 0; i < frames; i++) dst[i] = src[startFrame + i] || 0;
+      }
+      try { await ctx.close(); } catch (_) {}
+
+      const blob = bufferToMp3(out);
+      const base = (trimFileObj.name || 'audio').replace(/\.[^.]+$/, '').replace(/[\\/:*?"<>|]/g, '_') || 'audio';
+      const dl = document.createElement('a');
+      dl.href = URL.createObjectURL(blob);
+      dl.download = base + '_cut.mp3';
+      dl.click();
+      URL.revokeObjectURL(dl.href);
+      toast('Berhasil dipotong!', 'ok', 'Selesai');
+    } catch (err) {
+      toast(err.message || 'Gagal potong', 'err', 'Error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Potong & Download MP3';
+    }
+  });
+}
+
+// Init
+updateTotalUsers();
+autoLogin();
+handleDiscordSession();
+renderHistory();
+try{updateModeLocks();}catch(_){}
+try{updateLinkInputUI();}catch(_){}
+try{updateStoreVisibility(null);}catch(_){}
+updateEventBanner();
+let _lastEventActive = isFreeEventActive();
+setInterval(function(){
+  updateEventBanner();
+  const nowActive = isFreeEventActive();
+  if (nowActive !== _lastEventActive) {
+    _lastEventActive = nowActive;
+    if (isLoggedIn) refreshLimit();
+    else updateLimitUI(0, false);
+    if (nowActive) toast('Event Free 10× aktif 24 jam!','ok','Event');
+    else toast('Event Free 10× berakhir. Limit kembali 2/hari.','info','Event');
+  }
+}, 1000);
+</script>
+</body>
+</html>
