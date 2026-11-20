@@ -6,6 +6,7 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
+
 app.use(cors({ origin: true }));
 app.use(express.json({ limit: '2mb' }));
 
@@ -16,9 +17,13 @@ const COOKIES_PATH = path.join(__dirname, 'cookies.txt');
 app.get('/', (req, res) => {
   res.json({
     status: 'Rezzz Audio API aktif',
-    version: '2.1-hybrid',
+    version: '2.1-hybrid-railway',
     cookies: fs.existsSync(COOKIES_PATH) ? 'ada' : 'tidak ada'
   });
+});
+
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok' });
 });
 
 function buildArgs(url, useCookies) {
@@ -43,19 +48,27 @@ function buildArgs(url, useCookies) {
   }
 
   args.push(url);
-  return { args, id, outputTemplate };
+  return { args, id };
 }
 
 function runYtDlp(args) {
   return new Promise((resolve, reject) => {
-    execFile('yt-dlp', args, { timeout: 180000 }, (error, stdout, stderr) => {
+    execFile('yt-dlp', args, { timeout: 180000, maxBuffer: 4 * 1024 * 1024 }, (error, stdout, stderr) => {
       if (error) {
-        reject({ error, stderr });
+        reject({ error, stderr, stdout });
       } else {
         resolve({ stdout, stderr });
       }
     });
   });
+}
+
+function findDownloadedFile(id) {
+  const files = fs.readdirSync(TEMP).filter(
+    f => f.startsWith(`rezzz-${id}.`) && !f.endsWith('.part')
+  );
+
+  return files.length ? path.join(TEMP, files[0]) : null;
 }
 
 app.post('/download', async (req, res) => {
@@ -83,45 +96,45 @@ app.post('/download', async (req, res) => {
     return res.status(400).json({ error: 'Link tidak didukung' });
   }
 
-  let lastError = null;
-
-  // 1. Coba dengan cookies dulu (kalau ada)
   if (fs.existsSync(COOKIES_PATH)) {
     try {
       console.log('Mencoba dengan cookies...');
       const { args, id } = buildArgs(url, true);
       await runYtDlp(args);
 
-      const files = fs.readdirSync(TEMP).filter(f => f.startsWith(`rezzz-${id}`));
-      if (files.length > 0) {
-        const filePath = path.join(TEMP, files[0]);
-        return res.download(filePath, files[0], (err) => {
+      const filePath = findDownloadedFile(id);
+
+      if (filePath) {
+        return res.download(filePath, path.basename(filePath), err => {
           fs.unlink(filePath, () => {});
+          if (err) console.error('Download response error:', err.message);
         });
       }
     } catch (err) {
       console.log('Gagal dengan cookies, coba tanpa cookies...');
-      lastError = err;
     }
   }
 
-  // 2. Fallback tanpa cookies
   try {
     console.log('Mencoba tanpa cookies...');
     const { args, id } = buildArgs(url, false);
     await runYtDlp(args);
 
-    const files = fs.readdirSync(TEMP).filter(f => f.startsWith(`rezzz-${id}`));
-    if (files.length === 0) {
-      return res.status(500).json({ error: 'File tidak ditemukan setelah download' });
+    const filePath = findDownloadedFile(id);
+
+    if (!filePath) {
+      return res.status(500).json({
+        error: 'File tidak ditemukan setelah download'
+      });
     }
 
-    const filePath = path.join(TEMP, files[0]);
-    return res.download(filePath, files[0], (err) => {
+    return res.download(filePath, path.basename(filePath), err => {
       fs.unlink(filePath, () => {});
+      if (err) console.error('Download response error:', err.message);
     });
   } catch (err) {
     console.error('Gagal total:', err.error?.message || err);
+
     return res.status(500).json({
       error: 'Gagal download',
       detail: (err.error?.message || '') + (err.stderr ? '\n' + err.stderr : '')
