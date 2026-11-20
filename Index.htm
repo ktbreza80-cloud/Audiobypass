@@ -8,191 +8,1152 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#08070a;
-  --card:#12100e;
-  --inner:#1a1714;
-  --border:rgba(251,191,36,.14);
-  --text:#faf7f2;
-  --muted:#a89f91;
-  --p:#fbbf24;
-  --c:#f59e0b;
-  --ok:#34d399;
+  --bg:#000000;
+  --bg2:#050505;
+  --card:#0a0a0a;
+  --card2:#0e0e0e;
+  --inner:#111111;
+  --inner2:#141414;
+  --border:rgba(180, 255, 0, 0.18);
+  --border-s:rgba(200, 255, 40, 0.35);
+  --border-h:rgba(210, 255, 60, 0.5);
+  --text:#f4f4f5;
+  --text2:#e4e4e7;
+  --muted:#9ca3af;
+  --muted2:#6b7280;
+  --p:#3b82f6;
+  --p2:#2563eb;
+  --c:#60a5fa;
+  --ok:#4ade80;
   --bad:#f87171;
-  --gold:#fbbf24;
+  --r:#3b82f6;
+  --g:#2563eb;
+  --b:#60a5fa;
+  --shadow:0 8px 32px rgba(0, 0, 0, 0.55);
+  --radius:16px;
+  --radius-sm:12px;
 }
-body{font-family:"Plus Jakarta Sans",system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
-.bg{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 50% -15%,rgba(251,191,36,.1),transparent 60%),radial-gradient(ellipse 40% 30% at 85% 85%,rgba(245,158,11,.04),transparent 50%)}
+body{
+  font-family:"Plus Jakarta Sans",system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  letter-spacing:-.01em;
+}
+.bg{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% -10%, rgba(59, 130, 246, 0.08), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 90% 0%, rgba(255, 45, 85, 0.07), transparent 50%),
+    radial-gradient(ellipse 50% 40% at 50% 100%, rgba(37, 99, 235, 0.05), transparent 50%),
+    linear-gradient(180deg, #000 0%, #050403 100%);
+}
 
-.header{position:sticky;top:0;z-index:40;background:rgba(8,7,10,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:12px 16px}
+/* ===== HEADER ===== */
+.header{
+  position:sticky;top:0;z-index:40;
+  background:rgba(0, 0, 0, 0.92);
+  backdrop-filter:blur(22px) saturate(1.5);
+  -webkit-backdrop-filter:blur(22px) saturate(1.5);
+  border-bottom:1px solid rgba(45, 160, 150, 0.16);
+  padding:14px 16px;
+  box-shadow:0 1px 0 rgba(255,255,255,0.03) inset;
+}
 .header-in{max-width:420px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
-.logo{display:flex;align-items:center;gap:10px}
-.logo-i{width:32px;height:32px;border-radius:10px;background:linear-gradient(145deg,#fbbf24 0%,#f59e0b 50%,#d97706 100%);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;color:#1a1200;box-shadow:0 2px 14px rgba(251,191,36,.3)}
-.logo-t{font-weight:800;font-size:15px;letter-spacing:-.02em}
-.logo-t span{background:linear-gradient(90deg,#fde68a,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.user{display:flex;align-items:center;gap:8px;padding:5px 12px 5px 5px;border-radius:999px;background:var(--card);border:1px solid var(--border);font-size:12px;font-weight:600;color:var(--muted)}
-.user-a{width:24px;height:24px;border-radius:50%;background:linear-gradient(145deg,#fbbf24,#d97706);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#1a1200;overflow:hidden}
+.logo{display:flex;align-items:center;gap:11px}
+.logo-i{
+  width:34px;height:34px;border-radius:11px;
+  background:linear-gradient(135deg, #3b82f6 0%, #60a5fa 30%, #2563eb 60%, #1d4ed8 100%);
+  background-size:300% 300%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:14px;color:rgb(8, 30, 28);
+  box-shadow:0 0 0 1px rgba(255,255,255,0.2) inset, 0 4px 20px rgba(59, 130, 246, 0.4);
+  position:relative;
+  overflow:visible;
+}
+.logo-i::after{
+  content:'';position:absolute;inset:-1px;border-radius:12px;
+  background:linear-gradient(135deg, rgba(255,255,255,0.3), transparent 55%);
+  pointer-events:none;
+}
+.logo-t{font-weight:800;font-size:15.5px;letter-spacing:-.03em;color:var(--text)}
+.logo-t span{
+  background:linear-gradient(90deg,#3b82f6,#2563eb,#60a5fa,#93c5fd,#1d4ed8,#3b82f6);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:textFlow 3s linear infinite;
+}
+.user{
+  display:flex;align-items:center;gap:8px;
+  padding:5px 12px 5px 5px;border-radius:999px;
+  background:linear-gradient(180deg, rgba(12, 14, 14, 0.95), rgba(4, 6, 6, 0.98));
+  border:1px solid var(--border);
+  font-size:12px;font-weight:600;color:var(--muted);
+  box-shadow:0 2px 8px rgba(0,0,0,0.3);
+}
+.user-a{
+  width:26px;height:26px;border-radius:50%;
+  background:linear-gradient(135deg, rgb(59, 130, 246), rgb(15, 150, 140));
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:800;color:rgb(8, 30, 28);overflow:hidden;
+  box-shadow:0 0 0 1.5px rgba(59, 130, 246, 0.4);
+}
 .user-a img{width:100%;height:100%;object-fit:cover}
 
-.page{position:relative;z-index:1;max-width:420px;margin:0 auto;padding:16px 14px 48px}
+.page{position:relative;z-index:1;max-width:420px;margin:0 auto;padding:18px 14px 56px}
 
-.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 1px 0 rgba(251,191,36,.04) inset}
-.label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fcd34d;margin-bottom:14px;opacity:.9}
+/* ===== CARDS ===== */
+.card{
+  background:linear-gradient(165deg, rgba(8, 10, 10, 0.98) 0%, rgba(0, 0, 0, 0.99) 100%);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:18px 16px;
+  margin-bottom:14px;
+  box-shadow:var(--shadow), 0 1px 0 rgba(255,255,255,0.04) inset;
+  position:relative;
+  overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.45), rgba(37, 99, 235, 0.4), rgba(96, 165, 250, 0.4), transparent);
+  pointer-events:none;
+}
+.label{
+  font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:rgb(147, 197, 253);margin-bottom:14px;opacity:.95;
+  display:flex;align-items:center;gap:8px;
+}
+.label::after{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(90deg, rgba(45, 160, 150, 0.3), transparent);
+}
 
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
-.stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 14px 12px;box-shadow:0 1px 0 rgba(251,191,36,.04) inset}
-.stat-k{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.stat-v{font-size:20px;font-weight:800;font-family:"JetBrains Mono",monospace;background:linear-gradient(90deg,#fef3c7,#fbbf24,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.02em}
-.stat-s{font-size:10px;color:var(--muted);margin-top:3px;opacity:.85}
+/* ===== STATS ===== */
+.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:14px}
+.stat{
+  background:linear-gradient(160deg, rgba(8, 10, 10, 0.98), rgba(0, 0, 0, 0.99));
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px 12px 12px;
+  box-shadow:0 4px 16px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.03) inset;
+  position:relative;
+  overflow:hidden;
+}
+.stat:nth-child(1)::after{
+  content:'';position:absolute;top:-18px;right:-18px;width:48px;height:48px;
+  background:radial-gradient(circle, rgba(59, 130, 246, 0.22), transparent 70%);
+  pointer-events:none;
+}
+.stat:nth-child(2)::after{
+  content:'';position:absolute;top:-18px;right:-18px;width:48px;height:48px;
+  background:radial-gradient(circle, rgba(37, 99, 235, 0.18), transparent 70%);
+  pointer-events:none;
+}
+.stat:nth-child(3)::after{
+  content:'';position:absolute;top:-18px;right:-18px;width:48px;height:48px;
+  background:radial-gradient(circle, rgba(96, 165, 250, 0.18), transparent 70%);
+  pointer-events:none;
+}
+.stat-k{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.stat-v{
+  font-size:18px;font-weight:800;font-family:"JetBrains Mono",monospace;
+  background:linear-gradient(100deg, rgb(96, 165, 250), rgb(59, 130, 246), rgb(37, 99, 235));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  letter-spacing:-.03em;line-height:1.15;
+}
+.stat-s{font-size:9.5px;color:var(--muted2);margin-top:4px;font-weight:600;letter-spacing:.02em}
 
-.q{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:10px;background:var(--inner);font-size:12.5px;margin-bottom:6px}
-.q .l{color:#e7e0d5;font-weight:600}
-.q .r{font-family:"JetBrains Mono",monospace;font-weight:700}
+/* ===== QUICK INFO ROWS ===== */
+.q{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:11px 13px;border-radius:11px;
+  background:linear-gradient(180deg, rgb(12, 14, 14), rgb(6, 8, 8));
+  border:1px solid rgba(120, 120, 180, 0.1);
+  font-size:12.5px;margin-bottom:7px;
+}
+.q .l{color:var(--text2);font-weight:600}
+.q .r{font-family:"JetBrains Mono",monospace;font-weight:700;color:rgb(96, 165, 250)}
 .q .r.ok{color:var(--ok)}
 
-.tabs{display:flex;gap:6px;margin:14px 0 12px;padding:3px;background:var(--inner);border-radius:12px;border:1px solid var(--border)}
-.tab{flex:1;padding:9px;border-radius:9px;border:none;background:transparent;color:var(--muted);font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:color .15s}
-.tab.on{background:rgba(251,191,36,.18);color:#fef3c7;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+/* ===== TABS ===== */
+.tabs{
+  display:flex;gap:5px;margin:14px 0 12px;padding:4px;
+  background:var(--inner);
+  border-radius:13px;border:1px solid var(--border);
+}
+.tab{
+  flex:1;padding:10px;border-radius:10px;border:none;background:transparent;
+  color:var(--muted);font-size:12.5px;font-weight:700;cursor:pointer;
+  font-family:inherit;text-align:center;
+  transition:all .18s ease;
+}
+.tab.on{
+  background:linear-gradient(135deg, rgba(59, 130, 246, 0.22), rgba(180, 130, 20, 0.18));
+  color:rgb(191, 219, 254);
+  box-shadow:0 2px 12px rgba(0,0,0,0.3), 0 0 0 1px rgba(45, 180, 170, 0.35);
+}
 
+/* ===== DROPZONE ===== */
 .drop{
   display:block;
-  border:1.5px dashed rgba(251,191,36,.3);
-  border-radius:14px;
-  padding:32px 14px;
-  text-align:center;
-  cursor:pointer;
-  background:rgba(251,191,36,.03);
-  transition:border-color .2s,background .2s;
+  border:1.5px dashed rgba(45, 160, 150, 0.35);
+  border-radius:16px;
+  padding:34px 14px;
+  text-align:center;cursor:pointer;
+  background:linear-gradient(180deg, rgba(45, 160, 150, 0.06), rgba(15, 35, 32, 0.03));
+  transition:all .22s ease;
+  position:relative;
 }
-.drop:hover{border-color:rgba(251,191,36,.55);background:rgba(251,191,36,.07)}
-.drop-i{font-size:28px;margin-bottom:8px;opacity:.7}
-.drop-t{font-weight:700;font-size:13.5px}
+.drop:hover{
+  border-color:rgba(59, 130, 246, 0.55);
+  background:linear-gradient(180deg, rgba(59, 130, 246, 0.1), rgba(180, 130, 20, 0.06));
+  box-shadow:0 0 28px rgba(59, 130, 246, 0.16);
+}
+.drop-i{font-size:30px;margin-bottom:9px;opacity:.8;filter:drop-shadow(0 2px 8px rgba(59, 130, 246, 0.35))}
+.drop-t{font-weight:700;font-size:13.5px;color:var(--text2)}
 .drop-s{font-size:11px;color:var(--muted);margin-top:5px;word-break:break-all}
 input[type=file]{display:none}
 
-.inp{width:100%;padding:13px 14px;border-radius:11px;border:1px solid var(--border);background:var(--inner);color:#fff;font-size:13px;outline:none;font-family:inherit;margin-bottom:10px;transition:border-color .15s}
-.inp:focus{border-color:rgba(251,191,36,.5)}
-.inp::placeholder{color:#6b6358}
+/* ===== INPUTS ===== */
+.inp{
+  width:100%;padding:13px 14px;border-radius:12px;
+  border:1px solid var(--border);background:var(--inner);
+  color:rgb(255,255,255);font-size:13px;outline:none;font-family:inherit;
+  margin-bottom:10px;transition:border-color .18s, box-shadow .18s;
+}
+.inp:focus{
+  border-color:rgba(59, 130, 246, 0.55);
+  box-shadow:0 0 0 3px rgba(59, 130, 246, 0.14);
+}
+.inp::placeholder{color:var(--muted2)}
 
-.btn{width:100%;border:none;border-radius:11px;padding:13px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s,transform .1s}
-.btn:active:not(:disabled){transform:scale(.98)}
-.btn:disabled{opacity:.4;cursor:not-allowed}
-.btn-p{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1200;box-shadow:0 4px 16px rgba(251,191,36,.3)}
-.btn-s{background:var(--inner);color:#e7e0d5;border:1px solid var(--border)}
-.btn-d{background:rgba(50,15,20,.35);color:#f0a8a8;border:1px solid rgba(80,40,45,.3)}
+/* ===== BUTTONS ===== */
+.btn{
+  width:100%;border:none;border-radius:12px;padding:13.5px;
+  font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;
+  transition:opacity .15s, transform .12s, box-shadow .2s;
+  letter-spacing:.01em;
+}
+.btn:active:not(:disabled){transform:scale(.975)}
+.btn:disabled{opacity:.38;cursor:not-allowed}
+.btn-p{
+  background:linear-gradient(135deg, rgb(96, 165, 250) 0%, rgb(59, 130, 246) 50%, rgb(200, 140, 20) 100%);
+  color:rgb(8, 30, 28);
+  box-shadow:0 4px 22px rgba(59, 130, 246, 0.35), 0 1px 0 rgba(255,255,255,0.25) inset;
+  text-shadow:none;
+}
+.btn-p:hover:not(:disabled){
+  box-shadow:0 6px 28px rgba(59, 130, 246, 0.45), 0 0 20px rgba(37, 99, 235, 0.22), 0 1px 0 rgba(255,255,255,0.3) inset;
+}
+.btn-s{
+  background:linear-gradient(180deg, rgb(12, 14, 14), rgb(6, 8, 8));
+  color:var(--text2);border:1px solid var(--border);
+  box-shadow:0 2px 8px rgba(0,0,0,0.25);
+}
+.btn-d{
+  background:linear-gradient(180deg, rgba(80, 20, 30, 0.5), rgba(50, 12, 20, 0.55));
+  color:rgb(255, 160, 170);border:1px solid rgba(120, 40, 60, 0.4);
+}
 .btn-g{background:transparent;color:var(--muted);border:1px solid var(--border)}
 .btn+.btn{margin-top:8px}
 
-.player{background:var(--inner);border-radius:12px;padding:14px;margin:14px 0;border:1px solid rgba(251,191,36,.1)}
+/* ===== PLAYER ===== */
+.player{
+  background:linear-gradient(165deg, var(--inner2), var(--inner));
+  border-radius:14px;padding:15px;margin:14px 0;
+  border:1px solid rgba(120, 120, 180, 0.12);
+  box-shadow:0 4px 16px rgba(0,0,0,0.25);
+}
 .player.empty{opacity:.4}
-.player-r{display:flex;align-items:center;gap:12px}
-.play{width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(145deg,#fbbf24,#d97706);color:#1a1200;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 12px rgba(251,191,36,.35)}
+.player-r{display:flex;align-items:center;gap:13px}
+.play{
+  width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
+  background:linear-gradient(135deg, rgb(96, 165, 250), rgb(20, 170, 155));
+  color:rgb(8, 30, 28);font-size:15px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  box-shadow:0 3px 16px rgba(59, 130, 246, 0.45), 0 1px 0 rgba(255,255,255,0.25) inset;
+  transition:transform .15s, box-shadow .2s;
+}
+.play:hover:not(:disabled){
+  transform:scale(1.05);
+  box-shadow:0 4px 20px rgba(59, 130, 246, 0.55), 0 0 16px rgba(37, 99, 235, 0.3);
+}
 .play:disabled{opacity:.3;cursor:not-allowed}
 .p-info{flex:1;min-width:0}
-.p-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.p-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text2)}
 .p-meta{font-size:10.5px;color:var(--muted);margin-top:3px;font-family:"JetBrains Mono",monospace}
-.seek{position:relative;height:5px;border-radius:99px;background:#252018;cursor:pointer;overflow:hidden;margin-top:12px}
-.seek-f{position:absolute;left:0;top:0;bottom:0;width:0%;background:linear-gradient(90deg,#fbbf24,#f59e0b);border-radius:99px}
+.seek{
+  position:relative;height:5px;border-radius:99px;
+  background:rgba(30, 28, 40, 0.95);cursor:pointer;overflow:hidden;margin-top:13px;
+  box-shadow:0 1px 2px rgba(0,0,0,0.35) inset;
+}
+.seek-f{
+  position:absolute;left:0;top:0;bottom:0;width:0%;
+  background:linear-gradient(90deg, rgb(96, 165, 250), rgb(37, 99, 235), rgb(59, 130, 246));
+  border-radius:99px;
+  box-shadow:0 0 12px rgba(59, 130, 246, 0.4);
+}
 .seek input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;-webkit-appearance:none;appearance:none;background:transparent}
-.times{display:flex;justify-content:space-between;margin-top:6px;font-size:10px;color:var(--muted);font-family:"JetBrains Mono",monospace}
+.times{display:flex;justify-content:space-between;margin-top:7px;font-size:10px;color:var(--muted);font-family:"JetBrains Mono",monospace}
 audio.hid{display:none!important}
 
-
-.presets{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px}
+/* ===== PRESETS ===== */
+.presets{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
 .presets button{
-  background:var(--inner);border:1px solid var(--border);color:var(--muted);
-  border-radius:11px;padding:10px 6px;font-size:11px;font-weight:600;cursor:pointer;
-  font-family:inherit;transition:background .15s,color .15s,border-color .15s;line-height:1.25;text-align:center
+  background:linear-gradient(180deg, rgb(12, 14, 14), rgb(6, 8, 8));
+  border:1px solid var(--border);color:var(--muted);
+  border-radius:12px;padding:11px 6px;font-size:11px;font-weight:600;cursor:pointer;
+  font-family:inherit;transition:all .18s ease;line-height:1.25;text-align:center;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
 }
-.presets button.on{background:rgba(251,191,36,.2);border-color:rgba(251,191,36,.45);color:#fef3c7}
-.presets button .ps{display:block;font-size:13px;font-weight:800;color:#fef3c7;margin-bottom:3px}
+.presets button:hover{border-color:var(--border-s);color:var(--text2)}
+.presets button.on{
+  background:linear-gradient(145deg, rgba(59, 130, 246, 0.2), rgba(180, 130, 20, 0.14));
+  border-color:rgba(59, 130, 246, 0.5);color:rgb(191, 219, 254);
+  box-shadow:0 0 0 1px rgba(45, 180, 170, 0.28), 0 4px 16px rgba(15, 140, 130, 0.15);
+}
+.presets button .ps{
+  display:block;font-size:13.5px;font-weight:800;margin-bottom:3px;letter-spacing:-.02em;
+  background:linear-gradient(100deg, rgb(96, 165, 250), rgb(59, 130, 246), rgb(37, 99, 235));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
 .presets button .pd{display:block;font-size:9.5px;color:var(--muted);font-weight:500;line-height:1.3}
-.presets button.on .pd{color:#e7e0d5}
+.presets button.on .pd{color:rgb(147, 197, 253)}
 
+/* ===== SLIDERS ===== */
+.sl{margin-bottom:13px}
+.sl-t{display:flex;justify-content:space-between;font-size:12px;font-weight:700;margin-bottom:8px;color:var(--text2)}
+.sl-t span:last-child{
+  font-size:11px;font-family:"JetBrains Mono",monospace;
+  background:rgba(45, 160, 150, 0.15);border:1px solid rgba(45, 200, 185, 0.35);
+  padding:2px 9px;border-radius:999px;color:rgb(96, 165, 250);
+}
+input[type=range]{
+  width:100%;height:5px;-webkit-appearance:none;appearance:none;
+  background:rgba(30, 28, 40, 0.95);border-radius:8px;outline:none;
+  box-shadow:0 1px 2px rgba(0,0,0,0.3) inset;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:18px;height:18px;border-radius:50%;
+  background:linear-gradient(135deg, rgb(96, 165, 250), rgb(20, 170, 155));
+  cursor:pointer;border:2px solid rgba(255,255,255,0.2);
+  box-shadow:0 2px 8px rgba(0,0,0,0.4), 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
 
-.sl{margin-bottom:12px}
-.sl-t{display:flex;justify-content:space-between;font-size:12px;font-weight:700;margin-bottom:7px;color:#e7e0d5}
-.sl-t span:last-child{font-size:11px;font-family:"JetBrains Mono",monospace;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.2);padding:2px 8px;border-radius:999px;color:#fde68a}
-input[type=range]{width:100%;height:4px;-webkit-appearance:none;appearance:none;background:#252018;border-radius:8px;outline:none}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:linear-gradient(145deg,#fbbf24,#d97706);cursor:pointer;border:2px solid rgba(255,255,255,.12);box-shadow:0 1px 4px rgba(0,0,0,.35)}
+/* ===== TIPS ===== */
+.tip{
+  padding:12px 13px;border-radius:11px;
+  background:linear-gradient(180deg, rgba(24, 24, 38, 0.7), rgba(16, 16, 26, 0.8));
+  border:1px solid var(--border);
+  font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:10px;
+}
+.tip b{color:rgb(147, 197, 253);font-weight:700}
 
-.tip{padding:11px 12px;border-radius:10px;background:var(--inner);border:1px solid var(--border);font-size:11.5px;color:var(--muted);line-height:1.5;margin-top:10px}
-.tip b{color:#fef3c7}
-
+/* ===== HISTORY ===== */
 .hist-t{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .hist-t .label{margin:0}
-.hist-b{background:none;border:1px solid rgba(248,113,113,.22);color:#f87171;font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;cursor:pointer;font-family:inherit}
+.hist-t .label::after{display:none}
+.hist-b{
+  background:none;border:1px solid rgba(255, 80, 100, 0.3);color:rgb(255, 100, 120);
+  font-size:11px;font-weight:700;padding:5px 11px;border-radius:8px;
+  cursor:pointer;font-family:inherit;transition:background .15s;
+}
+.hist-b:hover{background:rgba(255, 80, 100, 0.08)}
 .hist-list{max-height:200px;overflow-y:auto}
-.hist-i{padding:11px 12px;margin-bottom:7px;border-radius:11px;background:var(--inner);border:1px solid rgba(251,191,36,.08)}
-.hist-i-t{display:flex;justify-content:space-between;gap:6px;margin-bottom:6px}
-.hist-n{font-weight:700;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hist-i{
+  padding:12px 13px;margin-bottom:8px;border-radius:12px;
+  background:linear-gradient(180deg, rgb(12, 14, 14), rgb(6, 8, 8));
+  border:1px solid rgba(120, 120, 180, 0.1);
+  transition:border-color .15s;
+}
+.hist-i:hover{border-color:rgba(140, 140, 220, 0.25)}
+.hist-i-t{display:flex;justify-content:space-between;gap:6px;margin-bottom:7px}
+.hist-n{font-weight:700;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text2)}
 .hist-tm{font-size:10px;color:var(--muted);flex-shrink:0}
 .tags{display:flex;flex-wrap:wrap;gap:4px}
-.tag{font-size:10px;padding:2px 7px;border-radius:5px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.15);color:#fcd34d;font-family:"JetBrains Mono",monospace}
-.hist-e{text-align:center;padding:18px;color:var(--muted);font-size:12.5px}
+.tag{
+  font-size:10px;padding:2px 8px;border-radius:6px;
+  background:rgba(45, 160, 150, 0.12);border:1px solid rgba(45, 200, 185, 0.25);
+  color:rgb(96, 165, 250);font-family:"JetBrains Mono",monospace;
+}
+.hist-e{text-align:center;padding:20px;color:var(--muted);font-size:12.5px}
 
+/* ===== PRICE / STORE ===== */
 .price{margin-top:12px;border-top:1px solid var(--border);padding-top:12px}
 .pr{display:flex;justify-content:space-between;font-size:12.5px;padding:8px 11px;margin-bottom:4px;color:var(--muted);background:var(--inner);border-radius:8px}
-.pr b{color:#fef3c7;font-weight:700}
+.pr b{color:rgb(147, 197, 253);font-weight:700}
 .ct{display:flex;gap:8px;margin-top:10px}
-.ct a{flex:1;text-align:center;padding:11px;border-radius:10px;text-decoration:none;font-weight:700;font-size:12.5px;color:#fff}
-.wa{background:#16a34a}.dc{background:#4f46e5}
+.ct a{
+  flex:1;text-align:center;padding:12px;border-radius:11px;
+  text-decoration:none;font-weight:700;font-size:12.5px;color:rgb(255,255,255);
+  transition:transform .12s, box-shadow .2s;
+}
+.ct a:active{transform:scale(.97)}
+.wa{background:linear-gradient(135deg, rgb(0, 200, 100), rgb(0, 150, 70));box-shadow:0 3px 14px rgba(0, 180, 80, 0.3)}
+.dc{background:linear-gradient(135deg, rgb(100, 110, 255), rgb(70, 60, 200));box-shadow:0 3px 14px rgba(90, 90, 240, 0.3)}
 
-.status{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--inner);font-size:12px;text-align:center;color:var(--muted);border:1px solid var(--border)}
-.status.ok{border-color:rgba(52,211,153,.28);color:#6ee7b7;font-weight:700}
-.status.bad{border-color:rgba(248,113,113,.28);color:#fca5a5;font-weight:700}
+.status{
+  margin-top:10px;padding:11px 13px;border-radius:11px;
+  background:var(--inner);font-size:12px;text-align:center;color:var(--muted);
+  border:1px solid var(--border);
+}
+.status.ok{border-color:rgba(0, 220, 140, 0.35);color:rgb(80, 240, 180);font-weight:700;background:rgba(0, 220, 140, 0.07)}
+.status.bad{border-color:rgba(255, 80, 100, 0.35);color:rgb(255, 140, 150);font-weight:700;background:rgba(255, 80, 100, 0.07)}
 
 .locked{opacity:.4;pointer-events:none}
-.foot{text-align:center;margin-top:16px;color:#4a4338;font-size:10.5px;letter-spacing:.02em}
+.foot{text-align:center;margin-top:20px;color:rgb(80, 100, 98);font-size:10.5px;letter-spacing:.03em}
 
-/* Event free 10x banner — selalu tampil (aktif / next) */
+
+/* ===== BORDER GRADIENT BERPUTAR (tosca + hitam) ===== */
+@property --spin-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes borderSpin {
+  to { --spin-angle: 360deg; }
+}
+@keyframes borderSpinFallback {
+  to { transform: rotate(360deg); }
+}
+@keyframes textFlow {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes progShine {
+  0% { background-position: -120% 0; }
+  100% { background-position: 220% 0; }
+}
+@keyframes progSpin {
+  to { transform: rotate(360deg); }
+}
+@keyframes toscaFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Shared spinning border ring */
+.spin-border {
+  position: relative !important;
+  isolation: isolate;
+  border-color: transparent !important;
+}
+.spin-border::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: inherit !important;
+  padding: 1.5px !important;
+  background: conic-gradient(
+    from var(--spin-angle, 0deg),
+    #3b82f6 0%,
+    #ff2d55 14%,
+    #60a5fa 28%,
+    #ff4d6d 42%,
+    #2563eb 56%,
+    #e11d48 70%,
+    #1d4ed8 84%,
+    #ff2d55 92%,
+    #3b82f6 100%
+  ) !important;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0) !important;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0) !important;
+  -webkit-mask-composite: xor !important;
+  mask-composite: exclude !important;
+  animation: borderSpin 2.8s linear infinite !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+/* Fallback for browsers tanpa @property: rotating layer */
+@supports not (background: conic-gradient(from var(--spin-angle), red, blue)) {
+  .spin-border::before {
+    padding: 0 !important;
+    inset: -1px !important;
+    background: conic-gradient(
+      #3b82f6,
+      #ff2d55,
+      #60a5fa,
+      #e11d48,
+      #2563eb,
+      #ff4d6d,
+      #1d4ed8,
+      #ff2d55,
+      #3b82f6
+    ) !important;
+    -webkit-mask: none !important;
+    mask: none !important;
+    animation: borderSpinFallback 2.8s linear infinite !important;
+    z-index: -1 !important;
+  }
+  .spin-border {
+    overflow: hidden !important;
+  }
+}
+
+/* Apply ke semua kolom / kartu */
+.card,
+.stat,
+.pkg,
+.mode-card,
+.presets button,
+.q,
+.player,
+.drop,
+.event-banner,
+.promo-deal,
+.proc-wrap,
+.modal,
+.main-tabs,
+.tabs {
+  position: relative !important;
+  isolation: isolate;
+  border-color: transparent !important;
+}
+.card::before,
+.stat::before,
+.pkg::before,
+.mode-card::before,
+.presets button::before,
+.q::before,
+.player::before,
+.drop::before,
+.event-banner::before,
+.promo-deal::before,
+.proc-wrap::before,
+.modal::before,
+.main-tabs::before,
+.tabs::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: inherit !important;
+  padding: 1.5px !important;
+  background: conic-gradient(
+    from var(--spin-angle, 0deg),
+    #3b82f6 0%,
+    #ff2d55 14%,
+    #60a5fa 28%,
+    #ff4d6d 42%,
+    #2563eb 56%,
+    #e11d48 70%,
+    #1d4ed8 84%,
+    #ff2d55 92%,
+    #3b82f6 100%
+  ) !important;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0) !important;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0) !important;
+  -webkit-mask-composite: xor !important;
+  mask-composite: exclude !important;
+  animation: borderSpin 2.8s linear infinite !important;
+  pointer-events: none !important;
+  z-index: 2 !important;
+}
+
+/* Variasi kecepatan biar tidak seragam */
+.stat:nth-child(1)::before { animation-duration: 2.4s !important; }
+.stat:nth-child(2)::before { animation-duration: 3.2s !important; animation-direction: reverse !important; }
+.stat:nth-child(3)::before { animation-duration: 2.8s !important; }
+.pkg:nth-child(odd)::before { animation-duration: 3.4s !important; }
+.pkg:nth-child(even)::before { animation-duration: 2.6s !important; animation-direction: reverse !important; }
+.mode-card:nth-child(2)::before { animation-direction: reverse !important; animation-duration: 3s !important; }
+.presets button:nth-child(odd)::before { animation-duration: 3.5s !important; }
+.presets button:nth-child(even)::before { animation-duration: 2.5s !important; animation-direction: reverse !important; }
+.presets button.on::before {
+  padding: 2px !important;
+  animation-duration: 1.8s !important;
+  background: conic-gradient(
+    from var(--spin-angle, 0deg),
+    #3b82f6 0%,
+    #ff2d55 15%,
+    #2563eb 30%,
+    #e11d48 45%,
+    #60a5fa 60%,
+    #ff4d6d 75%,
+    #93c5fd 90%,
+    #3b82f6 100%
+  ) !important;
+}
+
+/* Logo — border putar + isi tosca */
+.logo-i {
+  background: linear-gradient(145deg, #0a0805, #0a1010) !important;
+  border: none !important;
+  overflow: visible !important;
+  animation: none !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important;
+}
+.logo-i::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: -2px !important;
+  border-radius: 13px !important;
+  padding: 2px !important;
+  background: conic-gradient(
+    from var(--spin-angle, 0deg),
+    #3b82f6, #ff2d55, #93c5fd, #e11d48, #60a5fa, #ff4d6d, #2563eb, #ff2d55, #3b82f6
+  ) !important;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0) !important;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0) !important;
+  -webkit-mask-composite: xor !important;
+  mask-composite: exclude !important;
+  animation: borderSpin 2s linear infinite !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+.logo-i::after {
+  background: linear-gradient(135deg, rgba(94,234,212,0.25), transparent 55%) !important;
+}
+
+/* Teks logo tetap gradient soft */
+.logo-t span {
+  background: linear-gradient(90deg, #3b82f6, #2563eb, #60a5fa, #93c5fd, #1d4ed8, #3b82f6) !important;
+  background-size: 200% auto !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: textFlow 3s linear infinite !important;
+}
+
+/* Tombol — border putar + fill gelap tosca */
+.btn-p {
+  background: linear-gradient(165deg, #12100a, #0a0805) !important;
+  color: #3b82f6 !important;
+  border: none !important;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.35) !important;
+  animation: none !important;
+  position: relative !important;
+  overflow: visible !important;
+  z-index: 0 !important;
+}
+.btn-p::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: inherit !important;
+  padding: 2px !important;
+  background: conic-gradient(
+    from var(--spin-angle, 0deg),
+    #3b82f6 0%,
+    #ff2d55 14%,
+    #2563eb 28%,
+    #e11d48 42%,
+    #60a5fa 56%,
+    #ff4d6d 70%,
+    #1d4ed8 84%,
+    #3b82f6 100%
+  ) !important;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0) !important;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0) !important;
+  -webkit-mask-composite: xor !important;
+  mask-composite: exclude !important;
+  animation: borderSpin 2.2s linear infinite !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
+.btn-p::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: 2px !important;
+  border-radius: 10px !important;
+  background: linear-gradient(165deg, #12100a, #0a0805) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+.btn-p:hover:not(:disabled) {
+  color: #93c5fd !important;
+  box-shadow: 0 6px 24px rgba(59,130,246,0.25) !important;
+}
+.btn-p.busy::before {
+  animation-duration: 1.2s !important;
+}
+
+/* Stats angka */
+.stat-v {
+  background: linear-gradient(90deg, #3b82f6, #2563eb, #60a5fa, #93c5fd, #3b82f6) !important;
+  background-size: 200% auto !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: textFlow 3.5s linear infinite !important;
+}
+
+/* Matikan ::after radial lama di stat yang bisa nutup border */
+.stat:nth-child(1)::after,
+.stat:nth-child(2)::after,
+.stat:nth-child(3)::after {
+  display: none !important;
+}
+
+/* Play */
+.play {
+  background: linear-gradient(145deg, #12100a, #0a0805) !important;
+  color: #3b82f6 !important;
+  box-shadow: none !important;
+  position: relative !important;
+  overflow: visible !important;
+  animation: none !important;
+}
+.play::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: -2px !important;
+  border-radius: 50% !important;
+  padding: 2px !important;
+  background: conic-gradient(
+    from var(--spin-angle, 0deg),
+    #3b82f6, #ff2d55, #2563eb, #e11d48, #60a5fa, #ff4d6d, #3b82f6
+  ) !important;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0) !important;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0) !important;
+  -webkit-mask-composite: xor !important;
+  mask-composite: exclude !important;
+  animation: borderSpin 2s linear infinite !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+/* Seek */
+.seek-f {
+  background: linear-gradient(90deg, #1d4ed8, #60a5fa, #2563eb, #3b82f6) !important;
+  background-size: 200% 100% !important;
+  animation: toscaFlow 2s linear infinite !important;
+  box-shadow: 0 0 12px rgba(59,130,246,0.45) !important;
+}
+
+/* Event CD */
+.event-cd {
+  background: linear-gradient(145deg, #12100a, #0a0805) !important;
+  color: #3b82f6 !important;
+  box-shadow: none !important;
+  position: relative !important;
+  overflow: visible !important;
+  border: none !important;
+}
+.event-cd::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: inherit !important;
+  padding: 1.5px !important;
+  background: conic-gradient(
+    from var(--spin-angle, 0deg),
+    #3b82f6, #ff2d55, #2563eb, #e11d48, #60a5fa, #3b82f6
+  ) !important;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0) !important;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0) !important;
+  -webkit-mask-composite: xor !important;
+  mask-composite: exclude !important;
+  animation: borderSpin 2s linear infinite !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
+
+/* Tab aktif — border putar lebih cepat */
+.main-tab.on,
+.tab.on {
+  background: linear-gradient(145deg, rgba(13,31,28,0.95), rgba(10,22,20,0.98)) !important;
+  color: #93c5fd !important;
+  box-shadow: none !important;
+  position: relative !important;
+}
+.main-tab.on::before,
+.tab.on::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: inherit !important;
+  padding: 1.5px !important;
+  background: conic-gradient(
+    from var(--spin-angle, 0deg),
+    #3b82f6, #ff2d55, #2563eb, #e11d48, #60a5fa, #ff4d6d, #3b82f6
+  ) !important;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0) !important;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0) !important;
+  -webkit-mask-composite: xor !important;
+  mask-composite: exclude !important;
+  animation: borderSpin 2s linear infinite !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+/* Badge diskon */
+.pkg.deal .deal-badge {
+  background: linear-gradient(145deg, #12100a, #0a0805) !important;
+  color: #3b82f6 !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.4) !important;
+  position: relative !important;
+  overflow: visible !important;
+  z-index: 3 !important;
+}
+.pkg.deal .deal-badge::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: inherit !important;
+  padding: 1px !important;
+  background: conic-gradient(
+    from var(--spin-angle, 0deg),
+    #3b82f6, #ff2d55, #2563eb, #e11d48, #60a5fa, #3b82f6
+  ) !important;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0) !important;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0) !important;
+  -webkit-mask-composite: xor !important;
+  mask-composite: exclude !important;
+  animation: borderSpin 1.8s linear infinite !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
+.pkg.deal .pkg-price,
+.pkg.feat.deal .pkg-price {
+  background: linear-gradient(90deg, #3b82f6, #2563eb, #60a5fa, #93c5fd, #3b82f6) !important;
+  background-size: 200% auto !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  animation: textFlow 3s linear infinite !important;
+}
+
+/* Pastikan isi di atas border */
+.card > *,
+.stat > *,
+.pkg > *,
+.mode-card > *,
+.player > *,
+.drop > *,
+.event-banner-in,
+.promo-deal-ico,
+.promo-deal-txt,
+.proc-wrap > *,
+.modal > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Progress proses audio */
+.proc-wrap {
+  display: none;
+  margin-top: 12px;
+  padding: 14px 14px 12px;
+  border-radius: 14px;
+  background: linear-gradient(165deg, rgba(6, 10, 10, 0.98), rgba(0, 0, 0, 0.99));
+  overflow: hidden;
+  position: relative;
+}
+.proc-wrap.on { display: block; animation: tin .28s ease; }
+.proc-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px; gap: 10px;
+}
+.proc-label {
+  font-size: 12.5px; font-weight: 700; color: rgb(190, 240, 230);
+  display: flex; align-items: center; gap: 8px;
+}
+.proc-spin {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid rgba(59, 130, 246, 0.25);
+  border-top-color: #3b82f6;
+  animation: progSpin .65s linear infinite;
+  flex-shrink: 0;
+}
+.proc-pct {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px; font-weight: 800;
+  background: linear-gradient(90deg, #3b82f6, #2563eb, #60a5fa, #3b82f6);
+  background-size: 200% auto;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textFlow 2s linear infinite;
+  letter-spacing: -.02em;
+}
+.proc-bar {
+  height: 9px; border-radius: 99px;
+  background: rgba(10, 16, 16, 0.95);
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4) inset;
+  position: relative;
+}
+.proc-fill {
+  height: 100%; width: 0%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #1d4ed8, #60a5fa, #2563eb, #3b82f6);
+  background-size: 200% 100%;
+  animation: toscaFlow 1.5s linear infinite;
+  box-shadow: 0 0 16px rgba(59, 130, 246, 0.55);
+  transition: width .2s ease-out;
+  position: relative;
+  min-width: 0;
+}
+.proc-fill::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background-size: 40% 100%;
+  animation: progShine 1.2s ease-in-out infinite;
+}
+.proc-sub {
+  margin-top: 8px; font-size: 11px; color: var(--muted);
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: .02em;
+}
+
+
+/* ===== PREMIUM BUTTONS (emas + merah) ===== */
+.btn{
+  position:relative;
+  letter-spacing:.04em;
+  text-transform:none;
+  font-weight:800 !important;
+}
+.btn-p{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.18) 0%, transparent 45%),
+    linear-gradient(135deg, #93c5fd 0%, #3b82f6 22%, #60a5fa 45%, #1d4ed8 70%, #c4890a 100%) !important;
+  color:#1a1205 !important;
+  border:none !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.35) inset,
+    0 -1px 0 rgba(0,0,0,0.2) inset,
+    0 4px 16px rgba(255,180,40,0.35),
+    0 8px 28px rgba(0,0,0,0.45) !important;
+  text-shadow:0 1px 0 rgba(255,255,255,0.25) !important;
+  animation:none !important;
+  overflow:visible !important;
+  z-index:0 !important;
+}
+.btn-p::before{
+  content:'' !important;
+  position:absolute !important;
+  inset:-2px !important;
+  border-radius:14px !important;
+  padding:2px !important;
+  background:conic-gradient(
+    from var(--spin-angle, 0deg),
+    #3b82f6 0%,
+    #ff2d55 18%,
+    #93c5fd 35%,
+    #e11d48 52%,
+    #60a5fa 68%,
+    #ff4d6d 82%,
+    #3b82f6 100%
+  ) !important;
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0) !important;
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0) !important;
+  -webkit-mask-composite:xor !important;
+  mask-composite:exclude !important;
+  animation:borderSpin 2.4s linear infinite !important;
+  pointer-events:none !important;
+  z-index:-1 !important;
+}
+.btn-p::after{
+  content:'' !important;
+  position:absolute !important;
+  inset:0 !important;
+  border-radius:inherit !important;
+  background:linear-gradient(180deg, rgba(255,255,255,0.22) 0%, transparent 40%, rgba(0,0,0,0.08) 100%) !important;
+  pointer-events:none !important;
+  z-index:0 !important;
+}
+.btn-p:hover:not(:disabled){
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.25) 0%, transparent 45%),
+    linear-gradient(135deg, #fff0a0 0%, #3b82f6 25%, #2563eb 50%, #60a5fa 100%) !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.4) inset,
+    0 6px 24px rgba(255,180,40,0.5),
+    0 0 28px rgba(255,45,85,0.2),
+    0 10px 32px rgba(0,0,0,0.5) !important;
+  transform:translateY(-1px);
+}
+.btn-p:active:not(:disabled){
+  transform:translateY(1px) scale(.98);
+  box-shadow:0 1px 0 rgba(255,255,255,0.2) inset, 0 2px 10px rgba(0,0,0,0.4) !important;
+}
+.btn-p.busy::before{
+  animation-duration:1.1s !important;
+}
+.btn-p > * , .btn-p{
+  /* text above shine */
+}
+.btn-s{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 50%),
+    linear-gradient(180deg, #161616, #0a0a0a) !important;
+  color:#f0e6c8 !important;
+  border:1px solid rgba(59,130,246,0.28) !important;
+  box-shadow:0 2px 12px rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.05) inset !important;
+  position:relative !important;
+  overflow:visible !important;
+}
+.btn-s::before{
+  content:'' !important;
+  position:absolute !important;
+  inset:0 !important;
+  border-radius:inherit !important;
+  padding:1px !important;
+  background:conic-gradient(
+    from var(--spin-angle, 0deg),
+    #3b82f6 0%,
+    transparent 25%,
+    #ff2d55 50%,
+    transparent 75%,
+    #3b82f6 100%
+  ) !important;
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0) !important;
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0) !important;
+  -webkit-mask-composite:xor !important;
+  mask-composite:exclude !important;
+  animation:borderSpin 3.5s linear infinite !important;
+  pointer-events:none !important;
+  opacity:.85;
+}
+.btn-s:hover:not(:disabled){
+  border-color:rgba(59,130,246,0.5) !important;
+  color:#93c5fd !important;
+  box-shadow:0 4px 18px rgba(255,180,40,0.15), 0 2px 12px rgba(0,0,0,0.45) !important;
+}
+.btn-d{
+  background:linear-gradient(180deg, #2a1018, #1a080e) !important;
+  color:#ffb0bc !important;
+  border:1px solid rgba(255,80,100,0.4) !important;
+  box-shadow:0 2px 12px rgba(0,0,0,0.4) !important;
+  position:relative !important;
+}
+.btn-d::before{
+  content:'' !important;
+  position:absolute !important;
+  inset:0 !important;
+  border-radius:inherit !important;
+  padding:1px !important;
+  background:conic-gradient(from var(--spin-angle,0deg), #ff2d55, #3b82f6, #e11d48, #3b82f6, #ff2d55) !important;
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0) !important;
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0) !important;
+  -webkit-mask-composite:xor !important;
+  mask-composite:exclude !important;
+  animation:borderSpin 3s linear infinite !important;
+  pointer-events:none !important;
+  opacity:.7;
+}
+.btn-g{
+  background:transparent !important;
+  color:var(--muted) !important;
+  border:1px solid rgba(59,130,246,0.2) !important;
+}
+.btn-g:hover{
+  border-color:rgba(59,130,246,0.4) !important;
+  color:#93c5fd !important;
+}
+
+/* Play button premium gold */
+.play{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 50%),
+    linear-gradient(145deg, #93c5fd, #3b82f6, #1d4ed8) !important;
+  color:#1a1205 !important;
+  box-shadow:0 3px 16px rgba(255,180,40,0.4), 0 1px 0 rgba(255,255,255,0.3) inset !important;
+  animation:none !important;
+}
+.play::before{
+  background:conic-gradient(
+    from var(--spin-angle, 0deg),
+    #3b82f6, #ff2d55, #93c5fd, #e11d48, #60a5fa, #ff2d55, #3b82f6
+  ) !important;
+}
+
+/* Secondary filled buttons that used inline discord blue - leave those */
+
+/* ===== EVENT BANNER ===== */
 .event-banner{
-  display:block;
-  margin-bottom:14px;
-  border-radius:14px;
-  border:1px solid rgba(251,191,36,.28);
-  background:linear-gradient(135deg,rgba(251,191,36,.1),rgba(245,158,11,.05));
+  display:block;margin-bottom:14px;border-radius:15px;
+  border:1px solid rgba(45, 160, 150, 0.35);
+  background:linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(180, 130, 20, 0.08), rgba(96, 165, 250, 0.06));
   overflow:hidden;
+  box-shadow:0 4px 20px rgba(0,0,0,0.25);
 }
 .event-banner.on{
-  border-color:rgba(251,191,36,.45);
-  background:linear-gradient(135deg,rgba(251,191,36,.2),rgba(245,158,11,.1));
-  box-shadow:0 0 24px rgba(251,191,36,.15);
-  animation:eventPulse 2.4s ease-in-out infinite;
+  border-color:rgba(59, 130, 246, 0.55);
+  background:linear-gradient(135deg, rgba(59, 130, 246, 0.18), rgba(15, 160, 145, 0.12), rgba(96, 165, 250, 0.1));
+  box-shadow:0 0 28px rgba(59, 130, 246, 0.22), 0 4px 20px rgba(0,0,0,0.3);
+  animation:eventPulse 2.6s ease-in-out infinite;
 }
-.event-banner-in{
-  display:flex;align-items:center;gap:10px;
-  padding:12px 14px;
+.event-banner-in{display:flex;align-items:center;gap:11px;padding:13px 15px}
+.event-ico{font-size:22px;flex-shrink:0;line-height:1;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.35))}
+.event-txt{flex:1;min-width:0;font-size:11.5px;line-height:1.35;color:var(--text2)}
+.event-txt b{
+  display:block;font-size:13.5px;font-weight:800;margin-bottom:2px;letter-spacing:-.02em;
+  background:linear-gradient(100deg, rgb(96, 165, 250), rgb(59, 130, 246), rgb(37, 99, 235));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
-.event-ico{font-size:20px;flex-shrink:0;line-height:1}
-.event-txt{flex:1;min-width:0;font-size:11.5px;line-height:1.35;color:#e7e0d5}
-.event-txt b{display:block;font-size:13px;font-weight:800;color:#fef3c7;margin-bottom:2px;letter-spacing:-.01em}
 .event-cd{
-  flex-shrink:0;
-  font-family:"JetBrains Mono",monospace;
-  font-size:12px;font-weight:800;
-  color:#1a1200;
-  background:linear-gradient(135deg,#fbbf24,#f59e0b);
-  padding:7px 10px;border-radius:9px;
-  letter-spacing:.02em;
-  box-shadow:0 2px 10px rgba(251,191,36,.35);
+  flex-shrink:0;font-family:"JetBrains Mono",monospace;
+  font-size:12px;font-weight:800;color:rgb(30, 22, 8);
+  background:linear-gradient(135deg, rgb(96, 165, 250), rgb(20, 170, 155));
+  padding:8px 11px;border-radius:10px;letter-spacing:.02em;
+  box-shadow:0 3px 14px rgba(59, 130, 246, 0.4), 0 1px 0 rgba(255,255,255,0.25) inset;
   white-space:nowrap;
 }
 .event-banner:not(.on) .event-cd{
-  background:var(--inner);
-  color:#fcd34d;
-  border:1px solid rgba(251,191,36,.25);
-  box-shadow:none;
+  background:var(--inner);color:rgb(96, 165, 250);
+  border:1px solid rgba(45, 160, 150, 0.3);box-shadow:none;
 }
 @keyframes eventPulse{
-  0%,100%{box-shadow:0 0 18px rgba(251,191,36,.1)}
-  50%{box-shadow:0 0 26px rgba(251,191,36,.28)}
+  0%,100%{box-shadow:0 0 20px rgba(59, 130, 246, 0.12), 0 4px 20px rgba(0,0,0,0.25)}
+  50%{box-shadow:0 0 32px rgba(59, 130, 246, 0.22), 0 0 24px rgba(37, 99, 235, 0.12), 0 4px 24px rgba(0,0,0,0.3)}
 }
 
-/* Main nav tabs */
-.main-tabs{display:flex;gap:6px;margin:0 0 14px;padding:4px;background:var(--inner);border-radius:14px;border:1px solid var(--border)}
-.main-tab{flex:1;padding:11px 8px;border-radius:11px;border:none;background:transparent;color:var(--muted);font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;transition:color .15s,background .15s}
-.main-tab.on{background:rgba(251,191,36,.2);color:#fef3c7;box-shadow:0 1px 4px rgba(0,0,0,.25)}
-.main-tab .mt-i{display:block;font-size:16px;margin-bottom:2px}
+/* ===== MAIN TABS ===== */
+.main-tabs{
+  display:flex;gap:5px;margin:0 0 14px;padding:4px;
+  background:var(--inner);border-radius:15px;border:1px solid var(--border);
+  box-shadow:0 2px 10px rgba(0,0,0,0.25);
+}
+.main-tab{
+  flex:1;padding:12px 8px;border-radius:12px;border:none;background:transparent;
+  color:var(--muted);font-size:12.5px;font-weight:700;cursor:pointer;
+  font-family:inherit;text-align:center;
+  transition:all .18s ease;
+}
+.main-tab.on{
+  background:linear-gradient(135deg, rgba(59, 130, 246, 0.22), rgba(180, 130, 20, 0.16));
+  color:rgb(191, 219, 254);
+  box-shadow:0 2px 12px rgba(0,0,0,0.3), 0 0 0 1px rgba(45, 180, 170, 0.32);
+}
+.main-tab .mt-i{display:block;font-size:17px;margin-bottom:3px}
 .tab-panel{display:none}
 .tab-panel.on{display:block}
 
@@ -200,67 +1161,587 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 .trim-times .sl{margin-bottom:0}
 .trim-preview{font-size:11px;color:var(--muted);text-align:center;margin-top:6px;font-family:"JetBrains Mono",monospace}
 
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:100;padding:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+/* ===== MODALS ===== */
+.modal-bg{
+  position:fixed;inset:0;background:rgba(0, 0, 0, 0.8);
+  display:none;align-items:center;justify-content:center;z-index:100;
+  padding:20px;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
 .modal-bg.show{display:flex}
-.modal{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px 18px;width:100%;max-width:320px;box-shadow:0 20px 50px rgba(0,0,0,.5)}
-.modal h3{text-align:center;margin-bottom:16px;font-size:17px;font-weight:800;letter-spacing:-.02em}
-.modal input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--border);background:var(--inner);color:#fff;font-size:14px;margin-bottom:8px;outline:none;font-family:inherit}
-.modal input:focus{border-color:rgba(251,191,36,.5)}
+.modal{
+  background:linear-gradient(165deg, rgba(8, 10, 10, 0.98), rgba(0, 0, 0, 0.99));
+  border:1px solid var(--border-s);
+  border-radius:20px;padding:24px 20px;width:100%;max-width:320px;
+  box-shadow:0 24px 60px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.04) inset;
+  position:relative;
+}
+.modal::before{
+  content:'';position:absolute;top:0;left:15%;right:15%;height:1px;
+  background:linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.55), rgba(37, 99, 235, 0.5), rgba(96, 165, 250, 0.5), transparent);
+}
+.modal h3{text-align:center;margin-bottom:16px;font-size:17.5px;font-weight:800;letter-spacing:-.03em;color:var(--text)}
+.modal input{
+  width:100%;padding:13px 14px;border-radius:11px;
+  border:1px solid var(--border);background:var(--inner);
+  color:rgb(255,255,255);font-size:14px;margin-bottom:8px;outline:none;font-family:inherit;
+  transition:border-color .15s, box-shadow .15s;
+}
+.modal input:focus{border-color:rgba(59, 130, 246, 0.55);box-shadow:0 0 0 3px rgba(59, 130, 246, 0.14)}
 .modal-a{display:flex;gap:8px;margin-top:6px}
 .modal-a .btn{margin:0;flex:1}
 .chk{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:12px;color:var(--muted)}
-.chk input{width:14px;height:14px;accent-color:var(--p)}
+.chk input{width:14px;height:14px;accent-color:rgb(59, 130, 246)}
 
+/* ===== TOAST ===== */
 .toast-w{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:200;width:min(340px,calc(100% - 20px));display:flex;flex-direction:column;gap:7px;pointer-events:none}
-.toast{pointer-events:auto;padding:12px 14px;border-radius:12px;font-size:12.5px;font-weight:600;display:flex;align-items:flex-start;gap:10px;background:rgba(18,16,14,.97);border:1px solid var(--border);color:#e7e0d5;box-shadow:0 12px 32px rgba(0,0,0,.4);animation:tin .25s ease}
+.toast{
+  pointer-events:auto;padding:13px 15px;border-radius:13px;
+  font-size:12.5px;font-weight:600;
+  display:flex;align-items:flex-start;gap:10px;
+  background:rgba(0, 0, 0, 0.95);border:1px solid var(--border);
+  color:var(--text2);box-shadow:0 14px 40px rgba(0,0,0,0.55);
+  animation:tin .28s ease;
+  backdrop-filter:blur(12px);
+}
 .toast.hide{animation:tout .2s ease forwards}
 .toast .i{font-size:15px;flex-shrink:0}
 .toast .b{flex:1;line-height:1.4}
 .toast .b b{display:block;margin-bottom:1px;font-size:13px}
-.toast.ok{border-color:rgba(52,211,153,.3)}.toast.ok .i{color:#34d399}
-.toast.err{border-color:rgba(248,113,113,.3)}.toast.err .i{color:#f87171}
-.toast.info{border-color:rgba(251,191,36,.35)}.toast.info .i{color:#fbbf24}
-@keyframes tin{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.toast.ok{border-color:rgba(0, 220, 140, 0.4)}.toast.ok .i{color:rgb(0, 230, 150)}
+.toast.err{border-color:rgba(255, 80, 100, 0.4)}.toast.err .i{color:rgb(255, 90, 110)}
+.toast.info{border-color:rgba(59, 130, 246, 0.4)}.toast.info .i{color:rgb(96, 165, 250)}
+@keyframes tin{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes tout{to{opacity:0;transform:translateY(-6px)}}
 
 /* ===== STORE ===== */
 .store-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
 .pkg{
-  background:var(--inner);
+  background:linear-gradient(165deg, var(--inner2), var(--inner));
   border:1px solid var(--border);
-  border-radius:12px;
-  padding:14px 12px;
-  text-align:center;
+  border-radius:14px;padding:15px 12px;text-align:center;
+  box-shadow:0 3px 12px rgba(0,0,0,0.25);
+  transition:border-color .18s, box-shadow .18s;
 }
-.pkg-name{font-size:13px;font-weight:700;color:#fef3c7;margin-bottom:4px}
-.pkg-price{font-size:15px;font-weight:800;color:var(--p);margin-bottom:10px;font-family:"JetBrains Mono",monospace}
+.pkg:hover{border-color:var(--border-s);box-shadow:0 4px 18px rgba(0,0,0,0.32)}
+.pkg-name{font-size:13px;font-weight:700;color:rgb(147, 197, 253);margin-bottom:4px}
+.pkg-price{
+  font-size:15.5px;font-weight:800;
+  background:linear-gradient(100deg, rgb(96, 165, 250), rgb(37, 99, 235));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:10px;font-family:"JetBrains Mono",monospace;
+  letter-spacing:-.02em;
+}
 .pkg .btn{padding:10px;font-size:12.5px;margin-top:0}
 .qris-box{text-align:center;margin-bottom:14px}
-.qris-box img{width:100%;max-width:220px;border-radius:12px;border:1px solid var(--border)}
-.qris-note{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.45}
+.qris-box img{width:100%;max-width:220px;border-radius:14px;border:1px solid var(--border);box-shadow:0 4px 16px rgba(0,0,0,0.35)}
+.qris-note{font-size:11px;color:var(--muted);margin-top:9px;line-height:1.5}
 #beliBukti{width:100%;margin-bottom:10px;font-size:12px;color:var(--muted)}
 
-.mode-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin:10px 0 12px}
+/* ===== MODE CARDS ===== */
+.mode-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 0 12px}
 .mode-card{
-  background:var(--inner);border:1px solid var(--border);border-radius:11px;padding:10px 6px;
-  text-align:center;cursor:pointer;transition:border-color .15s,background .15s;
+  background:linear-gradient(180deg, rgb(12, 14, 14), rgb(6, 8, 8));
+  border:1px solid var(--border);border-radius:12px;padding:11px 6px;
+  text-align:center;cursor:pointer;
+  transition:all .18s ease;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
 }
-.mode-card.on{border-color:rgba(251,191,36,.55);background:rgba(251,191,36,.14)}
-.mode-card.lock{opacity:.45}
-.mode-card .mc-t{font-size:11.5px;font-weight:800;color:#fef3c7}
-.mode-card .mc-s{font-size:9.5px;color:var(--muted);margin-top:3px;line-height:1.25}
+.mode-card:hover{border-color:var(--border-s)}
+.mode-card.on{
+  border-color:rgba(59, 130, 246, 0.5);
+  background:linear-gradient(145deg, rgba(59, 130, 246, 0.16), rgba(180, 130, 20, 0.12));
+  box-shadow:0 0 0 1px rgba(45, 180, 170, 0.25), 0 4px 14px rgba(15, 140, 130, 0.12);
+}
+.mode-card.lock{opacity:.42}
+.mode-card .mc-t{font-size:11.5px;font-weight:800;color:rgb(147, 197, 253);letter-spacing:-.01em}
+.mode-card .mc-s{font-size:9.5px;color:var(--muted);margin-top:4px;line-height:1.3}
+
 .ben-list{margin:10px 0 0;padding:0;list-style:none}
 .ben-list li{
-  font-size:12px;color:#e7e0d5;padding:7px 0 7px 20px;position:relative;
-  border-bottom:1px solid rgba(251,191,36,.08);line-height:1.35
+  font-size:12px;color:var(--text2);padding:8px 0 8px 22px;position:relative;
+  border-bottom:1px solid rgba(120, 120, 180, 0.08);line-height:1.4;
 }
 .ben-list li:last-child{border-bottom:none}
-.ben-list li::before{content:'✓';position:absolute;left:0;color:#34d399;font-weight:800}
-.pkg.feat{grid-column:1/-1;text-align:left;padding:14px}
-.pkg.feat .pkg-name{font-size:14px}
+.ben-list li::before{
+  content:'✓';position:absolute;left:0;color:rgb(0, 220, 150);font-weight:800;
+  font-size:12px;
+}
+.pkg.feat{
+  grid-column:1/-1;text-align:left;padding:16px;
+  background:linear-gradient(145deg, rgba(255, 50, 100, 0.08), rgba(60, 120, 255, 0.06), rgba(16, 16, 26, 0.95));
+  border-color:rgba(45, 180, 200, 0.35);
+  position:relative;
+  overflow:hidden;
+}
+.pkg.feat::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.55), rgba(37, 99, 235, 0.5), rgba(96, 165, 250, 0.5), transparent);
+}
+.pkg.feat .pkg-name{font-size:14.5px}
 .pkg.feat .pkg-price{margin-bottom:8px}
 .pkg.feat .ben-list{margin-top:8px}
-.pkg.feat .btn{margin-top:12px}
+.pkg.feat .btn{margin-top:13px}
+
+/* subtle scrollbar */
+.hist-list::-webkit-scrollbar{width:4px}
+.hist-list::-webkit-scrollbar-track{background:transparent}
+.hist-list::-webkit-scrollbar-thumb{background:rgba(45, 160, 150, 0.35);border-radius:4px}
+
+/* ===== DEAL / DISCOUNT ===== */
+.promo-deal{
+  display:flex;align-items:center;gap:10px;
+  margin:0 0 12px;padding:12px 14px;border-radius:13px;
+  border:1px solid rgba(59, 130, 246, 0.45);
+  background:linear-gradient(135deg, rgba(59, 130, 246, 0.16), rgba(180, 130, 20, 0.1), rgba(96, 165, 250, 0.08));
+  box-shadow:0 0 22px rgba(59, 130, 246, 0.18);
+  animation:dealPulse 2.8s ease-in-out infinite;
+}
+.promo-deal-ico{font-size:20px;flex-shrink:0;line-height:1}
+.promo-deal-txt{flex:1;min-width:0;font-size:11.5px;line-height:1.4;color:var(--text2)}
+.promo-deal-txt b{display:block;font-size:13px;font-weight:800;margin-bottom:2px;
+  background:linear-gradient(100deg, rgb(96, 165, 250), rgb(59, 130, 246), rgb(37, 99, 235));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.promo-deal-txt s{opacity:.55;text-decoration:line-through}
+.promo-deal-txt span b{-webkit-text-fill-color:unset;background:none;color:rgb(59, 130, 246);display:inline}
+@keyframes dealPulse{
+  0%,100%{box-shadow:0 0 16px rgba(59, 130, 246, 0.12)}
+  50%{box-shadow:0 0 28px rgba(59, 130, 246, 0.28), 0 0 18px rgba(37, 99, 235, 0.15)}
+}
+.pkg.deal{position:relative;overflow:visible;
+  border-color:rgba(59, 130, 246, 0.45) !important;
+  background:linear-gradient(145deg, rgba(59, 130, 246, 0.12), rgba(12, 40, 38, 0.6), rgba(16, 16, 26, 0.95)) !important;
+}
+.pkg.deal .deal-badge{
+  position:absolute;top:-8px;right:10px;
+  font-size:9px;font-weight:800;letter-spacing:.06em;
+  padding:3px 8px;border-radius:999px;
+  background:linear-gradient(135deg, rgb(96, 165, 250), rgb(20, 170, 155));
+  color:rgb(8, 30, 28);
+  box-shadow:0 2px 12px rgba(59, 130, 246, 0.45);
+  z-index:2;
+}
+.pkg.deal .pkg-price{
+  background:linear-gradient(100deg, rgb(96, 165, 250), rgb(59, 130, 246)) !important;
+  -webkit-background-clip:text !important;-webkit-text-fill-color:transparent !important;background-clip:text !important;
+}
+.pkg-price-wrap{margin-bottom:8px}
+.pkg-old{
+  display:block;font-size:11px;font-weight:600;
+  color:var(--muted);text-decoration:line-through;
+  margin-bottom:2px;opacity:.7;
+}
+.pkg.deal .pkg-price{margin-bottom:0}
+.pkg.feat .pkg-price-wrap .pkg-price{display:block}
+.pkg.feat.deal{
+  border-color:rgba(59, 130, 246, 0.5) !important;
+  background:linear-gradient(145deg, rgba(59, 130, 246, 0.14), rgba(12, 45, 42, 0.55), rgba(16, 16, 26, 0.95)) !important;
+}
+.pkg.feat.deal::before{
+  background:linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.55), rgba(37, 99, 235, 0.5), transparent) !important;
+}
+
+/* ===== SIMPLE BLOKMARKET-LIKE THEME OVERRIDE ===== */
+.bg{
+  background:
+    radial-gradient(ellipse 60% 40% at 50% -10%, rgba(59, 130, 246, 0.06), transparent 55%),
+    radial-gradient(ellipse 40% 30% at 90% 80%, rgba(37, 99, 235, 0.04), transparent 50%),
+    linear-gradient(180deg, #000 0%, #050505 100%) !important;
+  background-image:
+    linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px),
+    radial-gradient(ellipse 60% 40% at 50% -10%, rgba(59, 130, 246, 0.06), transparent 55%),
+    linear-gradient(180deg, #000 0%, #050505 100%) !important;
+  background-size: 48px 48px, 48px 48px, auto, auto !important;
+}
+.header{
+  background:rgba(0,0,0,0.88) !important;
+  border-bottom:1px solid rgba(59,130,246,0.12) !important;
+  box-shadow:none !important;
+}
+.logo-i{
+  background:linear-gradient(145deg, #3b82f6, #2563eb) !important;
+  color:#0a0a0a !important;
+  box-shadow:0 0 16px rgba(59,130,246,0.35) !important;
+  animation:none !important;
+  border:none !important;
+}
+.logo-i::before, .logo-i::after{display:none !important; content:none !important;}
+.logo-t span{
+  background:none !important;
+  -webkit-text-fill-color:#3b82f6 !important;
+  color:#3b82f6 !important;
+  animation:none !important;
+}
+.user{
+  background:#111 !important;
+  border:1px solid rgba(59,130,246,0.15) !important;
+  color:var(--muted) !important;
+  box-shadow:none !important;
+}
+.user-a{
+  background:linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+  color:#0a0a0a !important;
+  box-shadow:0 0 0 1.5px rgba(59,130,246,0.3) !important;
+}
+
+/* Kill spinning borders */
+.card::before, .stat::before, .pkg::before, .mode-card::before,
+.presets button::before, .q::before, .player::before, .drop::before,
+.event-banner::before, .promo-deal::before, .proc-wrap::before,
+.modal::before, .main-tabs::before, .tabs::before,
+.spin-border::before, .btn-p::before, .btn-s::before, .btn-d::before,
+.play::before, .event-cd::before, .main-tab.on::before, .tab.on::before,
+.pkg.deal .deal-badge::before{
+  display:none !important;
+  content:none !important;
+  animation:none !important;
+  background:none !important;
+}
+.card, .stat, .pkg, .mode-card, .presets button, .q, .player, .drop,
+.event-banner, .promo-deal, .proc-wrap, .modal, .main-tabs, .tabs{
+  border-color:var(--border) !important;
+  isolation:auto !important;
+}
+.card{
+  background:linear-gradient(180deg, #0c0c0c, #080808) !important;
+  border:1px solid rgba(59,130,246,0.12) !important;
+  box-shadow:0 4px 24px rgba(0,0,0,0.4) !important;
+  border-radius:16px !important;
+}
+.stat{
+  background:#0c0c0c !important;
+  border:1px solid rgba(59,130,246,0.12) !important;
+  box-shadow:none !important;
+}
+.stat-v{
+  background:none !important;
+  -webkit-text-fill-color:#3b82f6 !important;
+  color:#3b82f6 !important;
+  animation:none !important;
+}
+.stat-k{color:var(--muted) !important;}
+.label{color:#2563eb !important;}
+.label::after{background:linear-gradient(90deg, rgba(59,130,246,0.25), transparent) !important;}
+
+.q{
+  background:#111 !important;
+  border:1px solid rgba(59,130,246,0.1) !important;
+}
+.q .r{color:#3b82f6 !important;}
+.q .r.ok{color:var(--ok) !important;}
+
+.main-tabs, .tabs{
+  background:#0c0c0c !important;
+  border:1px solid rgba(59,130,246,0.12) !important;
+  box-shadow:none !important;
+}
+.main-tab, .tab{
+  color:var(--muted) !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+.main-tab.on, .tab.on{
+  background:rgba(59,130,246,0.1) !important;
+  color:#3b82f6 !important;
+  box-shadow:none !important;
+  border:1px solid rgba(59,130,246,0.25) !important;
+}
+
+.drop{
+  border:1.5px dashed rgba(59,130,246,0.3) !important;
+  background:rgba(59,130,246,0.03) !important;
+  box-shadow:none !important;
+}
+.drop:hover{
+  border-color:rgba(59,130,246,0.55) !important;
+  background:rgba(59,130,246,0.07) !important;
+  box-shadow:0 0 20px rgba(59,130,246,0.08) !important;
+}
+
+.inp, .modal input{
+  background:#111 !important;
+  border:1px solid rgba(59,130,246,0.15) !important;
+  color:#fff !important;
+}
+.inp:focus, .modal input:focus{
+  border-color:rgba(59,130,246,0.45) !important;
+  box-shadow:0 0 0 3px rgba(59,130,246,0.1) !important;
+}
+
+.btn-p{
+  background:linear-gradient(135deg, #3b82f6, #2563eb) !important;
+  color:#0a0a0a !important;
+  border:none !important;
+  box-shadow:0 4px 18px rgba(59,130,246,0.25) !important;
+  text-shadow:none !important;
+  animation:none !important;
+}
+.btn-p::after{display:none !important; content:none !important;}
+.btn-p:hover:not(:disabled){
+  background:linear-gradient(135deg, #60a5fa, #3b82f6) !important;
+  box-shadow:0 6px 24px rgba(59,130,246,0.35) !important;
+  color:#0a0a0a !important;
+  transform:translateY(-1px);
+}
+.btn-s{
+  background:#141414 !important;
+  color:#e4e4e7 !important;
+  border:1px solid rgba(59,130,246,0.2) !important;
+  box-shadow:none !important;
+}
+.btn-s:hover:not(:disabled){
+  border-color:rgba(59,130,246,0.4) !important;
+  color:#3b82f6 !important;
+}
+.btn-d{
+  background:#1a0a0e !important;
+  color:#fca5a5 !important;
+  border:1px solid rgba(248,113,113,0.35) !important;
+}
+.btn-g{
+  background:transparent !important;
+  color:var(--muted) !important;
+  border:1px solid rgba(59,130,246,0.15) !important;
+}
+.btn-g:hover{color:#3b82f6 !important; border-color:rgba(59,130,246,0.35) !important;}
+
+.player{
+  background:#0f0f0f !important;
+  border:1px solid rgba(59,130,246,0.12) !important;
+  box-shadow:none !important;
+}
+.play{
+  background:linear-gradient(145deg, #3b82f6, #2563eb) !important;
+  color:#0a0a0a !important;
+  box-shadow:0 3px 14px rgba(59,130,246,0.3) !important;
+  animation:none !important;
+}
+.play::before{display:none !important; content:none !important;}
+.seek-f{
+  background:linear-gradient(90deg, #2563eb, #3b82f6) !important;
+  animation:none !important;
+  box-shadow:0 0 10px rgba(59,130,246,0.35) !important;
+}
+input[type=range]::-webkit-slider-thumb{
+  background:linear-gradient(135deg, #3b82f6, #2563eb) !important;
+  box-shadow:0 2px 8px rgba(0,0,0,0.4), 0 0 0 3px rgba(59,130,246,0.15) !important;
+}
+
+.presets button{
+  background:#111 !important;
+  border:1px solid rgba(59,130,246,0.12) !important;
+  color:var(--muted) !important;
+  box-shadow:none !important;
+}
+.presets button.on{
+  background:rgba(59,130,246,0.1) !important;
+  border-color:rgba(59,130,246,0.4) !important;
+  color:#e4e4e7 !important;
+  box-shadow:none !important;
+}
+.presets button .ps{
+  background:none !important;
+  -webkit-text-fill-color:#3b82f6 !important;
+  color:#3b82f6 !important;
+}
+.presets button.on .pd{color:#2563eb !important;}
+
+.mode-card{
+  background:#111 !important;
+  border:1px solid rgba(59,130,246,0.12) !important;
+  box-shadow:none !important;
+}
+.mode-card.on{
+  background:rgba(59,130,246,0.08) !important;
+  border-color:rgba(59,130,246,0.4) !important;
+  box-shadow:none !important;
+}
+.mode-card .mc-t{color:#3b82f6 !important;}
+
+.tip{
+  background:#111 !important;
+  border:1px solid rgba(59,130,246,0.12) !important;
+  color:var(--muted) !important;
+}
+.tip b{color:#3b82f6 !important;}
+
+.event-banner{
+  border:1px solid rgba(59,130,246,0.2) !important;
+  background:rgba(59,130,246,0.05) !important;
+  box-shadow:none !important;
+  animation:none !important;
+}
+.event-banner.on{
+  border-color:rgba(59,130,246,0.4) !important;
+  background:rgba(59,130,246,0.1) !important;
+  box-shadow:0 0 20px rgba(59,130,246,0.1) !important;
+  animation:none !important;
+}
+.event-txt b{
+  background:none !important;
+  -webkit-text-fill-color:#3b82f6 !important;
+  color:#3b82f6 !important;
+}
+.event-cd{
+  background:linear-gradient(135deg, #3b82f6, #2563eb) !important;
+  color:#0a0a0a !important;
+  box-shadow:none !important;
+  border:none !important;
+}
+.event-cd::before{display:none !important; content:none !important;}
+.event-banner:not(.on) .event-cd{
+  background:#111 !important;
+  color:#2563eb !important;
+  border:1px solid rgba(59,130,246,0.25) !important;
+}
+
+.promo-deal{
+  border:1px solid rgba(59,130,246,0.3) !important;
+  background:rgba(59,130,246,0.08) !important;
+  box-shadow:none !important;
+  animation:none !important;
+}
+.promo-deal-txt b{
+  background:none !important;
+  -webkit-text-fill-color:#3b82f6 !important;
+  color:#3b82f6 !important;
+}
+.promo-deal-txt span b{color:#3b82f6 !important;}
+
+.pkg{
+  background:#0c0c0c !important;
+  border:1px solid rgba(59,130,246,0.12) !important;
+  box-shadow:none !important;
+}
+.pkg:hover{border-color:rgba(59,130,246,0.3) !important; box-shadow:none !important;}
+.pkg-name{color:#e4e4e7 !important;}
+.pkg-price{
+  background:none !important;
+  -webkit-text-fill-color:#3b82f6 !important;
+  color:#3b82f6 !important;
+  animation:none !important;
+}
+.pkg.deal, .pkg.feat.deal{
+  border-color:rgba(59,130,246,0.35) !important;
+  background:linear-gradient(145deg, rgba(59,130,246,0.08), #0c0c0c) !important;
+}
+.pkg.deal .deal-badge, .pkg.feat.deal .deal-badge{
+  background:linear-gradient(135deg, #3b82f6, #2563eb) !important;
+  color:#0a0a0a !important;
+  box-shadow:0 2px 10px rgba(59,130,246,0.3) !important;
+}
+.pkg.deal .deal-badge::before{display:none !important; content:none !important;}
+.pkg.feat{
+  background:linear-gradient(145deg, rgba(59,130,246,0.05), #0c0c0c) !important;
+  border-color:rgba(59,130,246,0.25) !important;
+}
+.pkg.feat::before{display:none !important; content:none !important;}
+.ben-list li::before{color:#4ade80 !important;}
+
+.hist-i{
+  background:#111 !important;
+  border:1px solid rgba(59,130,246,0.1) !important;
+}
+.hist-i:hover{border-color:rgba(59,130,246,0.25) !important;}
+.tag{
+  background:rgba(59,130,246,0.08) !important;
+  border:1px solid rgba(59,130,246,0.2) !important;
+  color:#2563eb !important;
+}
+.hist-b{
+  border:1px solid rgba(248,113,113,0.3) !important;
+  color:#f87171 !important;
+}
+
+.status.ok{
+  border-color:rgba(74,222,128,0.35) !important;
+  color:#4ade80 !important;
+  background:rgba(74,222,128,0.08) !important;
+}
+.status.bad{
+  border-color:rgba(248,113,113,0.35) !important;
+  color:#fca5a5 !important;
+  background:rgba(248,113,113,0.08) !important;
+}
+
+.modal{
+  background:#0c0c0c !important;
+  border:1px solid rgba(59,130,246,0.25) !important;
+  box-shadow:0 24px 60px rgba(0,0,0,0.7) !important;
+}
+.modal::before{display:none !important; content:none !important;}
+.toast{
+  background:rgba(10,10,10,0.96) !important;
+  border:1px solid rgba(59,130,246,0.2) !important;
+}
+.toast.ok{border-color:rgba(74,222,128,0.4) !important;}
+.toast.err{border-color:rgba(248,113,113,0.4) !important;}
+.toast.info{border-color:rgba(59,130,246,0.4) !important;}
+.toast.info .i{color:#3b82f6 !important;}
+.toast.ok .i{color:#4ade80 !important;}
+
+.proc-wrap{
+  background:#0c0c0c !important;
+  border:1px solid rgba(59,130,246,0.15) !important;
+}
+.proc-label{color:#e4e4e7 !important;}
+.proc-pct{
+  background:none !important;
+  -webkit-text-fill-color:#3b82f6 !important;
+  color:#3b82f6 !important;
+  animation:none !important;
+}
+.proc-spin{
+  border-color:rgba(59,130,246,0.2) !important;
+  border-top-color:#3b82f6 !important;
+}
+.proc-fill{
+  background:linear-gradient(90deg, #2563eb, #3b82f6) !important;
+  animation:none !important;
+  box-shadow:0 0 12px rgba(59,130,246,0.4) !important;
+}
+.sl-t span:last-child{
+  background:rgba(59,130,246,0.1) !important;
+  border:1px solid rgba(59,130,246,0.3) !important;
+  color:#3b82f6 !important;
+}
+.foot{color:#52525b !important;}
+.wa{background:linear-gradient(135deg, #22c55e, #16a34a) !important;}
+.dc{background:linear-gradient(135deg, #5865F2, #4752c4) !important;}
+
+/* ===== STATS 4 + PLAN CHIP + HISTORY THUMB ===== */
+.stats-4{grid-template-columns:1fr 1fr 1fr 1fr !important;gap:7px !important;}
+.stats-4 .stat{padding:12px 8px 10px !important;}
+.stats-4 .stat-v{font-size:15px !important;}
+.stats-4 .stat-k{font-size:8.5px !important;}
+.stats-4 .stat-s{font-size:8.5px !important;}
+.plan-chip{
+  display:flex;align-items:center;gap:10px;
+  margin:0 0 14px;padding:10px 14px;border-radius:12px;
+  background:#0c0c0c;border:1px solid rgba(59,130,246,0.12);
+  font-size:12px;
+}
+.plan-chip-k{color:var(--muted);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:10px;}
+.plan-chip-v{font-weight:800;color:#3b82f6;font-family:"JetBrains Mono",monospace;}
+.plan-chip-s{margin-left:auto;color:var(--muted);font-size:11px;font-weight:600;}
+.hist-i{display:flex !important;align-items:flex-start !important;gap:10px !important;padding:10px 12px !important;}
+.hist-thumb{
+  width:48px;height:48px;border-radius:10px;flex-shrink:0;
+  object-fit:cover;background:#111;border:1px solid rgba(59,130,246,0.15);
+}
+.hist-thumb.ph,.hist-ph{
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:#3b82f6;background:#141414;
+  width:48px;height:48px;border-radius:10px;flex-shrink:0;
+  border:1px solid rgba(59,130,246,0.15);
+}
+.hist-body{flex:1;min-width:0;}
+.hist-list{max-height:280px !important;}
+@media(max-width:380px){.stats-4{grid-template-columns:1fr 1fr !important;}}
+
+/* ===== END THEME OVERRIDE ===== */
 
 </style>
 </head>
@@ -286,23 +1767,38 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
     <div class="event-banner-in">
       <span class="event-ico" id="eventIco">🎉</span>
       <div class="event-txt">
-        <b id="eventTitle">EVENT 10× FREE</b>
-        <span id="eventSub">Limit free naik jadi 10/hari</span>
+        <b id="eventTitle">EVENT 20× FREE</b>
+        <span id="eventSub">Limit free naik jadi 20/hari</span>
       </div>
       <span class="event-cd" id="eventCountdown">--:--:--</span>
     </div>
   </div>
-  <div class="stats">
+  <div class="stats stats-4">
     <div class="stat">
       <div class="stat-k">Users</div>
       <div class="stat-v" id="statUsers">—</div>
       <div class="stat-s">TOTAL</div>
     </div>
     <div class="stat">
-      <div class="stat-k">Plan</div>
-      <div class="stat-v" id="statPlan" style="font-size:15px;padding-top:1px">FREE</div>
-      <div class="stat-s" id="statPlanSub">2 / DAY</div>
+      <div class="stat-k">Premium</div>
+      <div class="stat-v" id="statPremium">—</div>
+      <div class="stat-s">AKTIF</div>
     </div>
+    <div class="stat">
+      <div class="stat-k">Online</div>
+      <div class="stat-v" id="statOnline">—</div>
+      <div class="stat-s">SEKARANG</div>
+    </div>
+    <div class="stat">
+      <div class="stat-k">Musik</div>
+      <div class="stat-v" id="statMusic">—</div>
+      <div class="stat-s">KOMPRES</div>
+    </div>
+  </div>
+  <div class="plan-chip" id="planChipWrap">
+    <span class="plan-chip-k">Plan</span>
+    <span class="plan-chip-v" id="statPlan">FREE</span>
+    <span class="plan-chip-s" id="statPlanSub">3 / DAY</span>
   </div>
 
   <!-- MAIN TABS -->
@@ -337,36 +1833,48 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
       <button class="btn btn-d" id="logoutBtn" onclick="logout()">Keluar</button>
     </div>
     <div class="status" id="loginStatus">Belum login · login dulu untuk konversi</div>
+    <div id="discordJoinBox" style="margin-top:12px;display:none">
+      <div class="tip" id="discordJoinStatus" style="margin-top:0;margin-bottom:10px">
+        Join grup Discord → limit free naik jadi <b>10/hari</b>. Keluar server = balik 3/hari.
+      </div>
+      <button class="btn btn-s" id="discordJoinBtn" type="button" style="background:#5865F2;color:white;border:none">
+        Join Discord · Free 10x
+      </button>
+      <button class="btn btn-g" type="button" onclick="refreshDiscordMember()" style="margin-top:8px">
+        Cek ulang status Discord
+      </button>
+    </div>
   </div>
 
   <!-- EDITOR -->
   <div class="card" id="editorArea">
     <div class="label">Editor</div>
 
-    <div class="q"><span class="l">Daily Limit</span><span class="r" id="limitText">— / 2</span></div>
+    <div class="q"><span class="l">Daily Limit</span><span class="r" id="limitText">— / 3</span></div>
     <div class="q"><span class="l">Plan Status</span><span class="r" id="planText">Free</span></div>
 
     <div class="label" style="margin-top:12px;margin-bottom:8px">Mode proses</div>
     <div class="mode-grid">
       <div class="mode-card on" id="modeBypass" onclick="setProcessMode('bypass')">
         <div class="mc-t">Bypass</div>
-        <div class="mc-s">3x · -2dB · P+2<br>Anti-detect · Free</div>
+        <div class="mc-s">3x · -6dB<br>Tanpa pitch · Free</div>
       </div>
       <div class="mode-card" id="modeManual" onclick="setProcessMode('manual')">
         <div class="mc-t">Manual</div>
-        <div class="mc-s">Atur sendiri<br>speed/dB/pitch</div>
+        <div class="mc-s">Atur sendiri<br>speed / dB</div>
       </div>
       <div class="mode-card" id="modeClean" onclick="setProcessMode('clean')">
         <div class="mc-t">Clean Only</div>
-        <div class="mc-s">Rapikan audio<br>Premium 🔒</div>
+        <div class="mc-s">Rapikan ulang<br>file sudah edit</div>
       </div>
     </div>
-    <div class="tip" id="modeTip"><b>Bypass</b> gratis untuk semua · 3x / -2dB / P+2 + anti-detect (~90%). <b>Clean</b> = Premium. <b>Manual</b> = bebas.</div>
+    <div class="tip" id="modeTip"><b>Bypass</b> · edit baru (3x). <b>Clean</b> · rapikan file yang sudah pernah di-edit (1x, lebih bersih). <b>Manual</b> · atur sendiri.</div>
 
     <div class="tabs">
       <button class="tab on" id="btnUploadMode" onclick="switchMode('upload')">Upload</button>
-      <button class="tab" id="btnLinkMode" onclick="switchMode('link')">Dari Link 🔒</button>
+      <button class="tab" id="btnLinkMode" onclick="switchMode('link')">Dari Link · 50K 🔒</button>
     </div>
+    <div class="tip" style="margin-top:8px;margin-bottom:4px"><b>Info Akses Link</b> · Yang mau pakai fitur <b>Dari Link</b> (YouTube / TikTok / SoundCloud) wajib beli akses <b>Rp 50.000</b> di tab Toko (paket Permanen Pro).</div>
 
     <div id="uploadMode">
       <label class="drop" for="audioFile">
@@ -378,14 +1886,21 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
     </div>
 
     <div id="linkMode" style="display:none">
-      <input class="inp" type="text" id="linkInput" placeholder="Tempel link YouTube / TikTok / SoundCloud...">
+      <input class="inp" type="text" id="linkInput" placeholder="Tempel link YouTube / TikTok / SoundCloud">
       <div id="linkInputsPro" style="display:none">
         <input class="inp" type="text" id="linkInput1" placeholder="Link 1 — YouTube / TikTok / SoundCloud">
         <input class="inp" type="text" id="linkInput2" placeholder="Link 2 (opsional)">
         <input class="inp" type="text" id="linkInput3" placeholder="Link 3 (opsional)">
+        <input class="inp" type="text" id="linkInput4" placeholder="Link 4 (opsional)">
+        <input class="inp" type="text" id="linkInput5" placeholder="Link 5 (opsional)">
+        <input class="inp" type="text" id="linkInput6" placeholder="Link 6 (opsional)">
+        <input class="inp" type="text" id="linkInput7" placeholder="Link 7 (opsional)">
+        <input class="inp" type="text" id="linkInput8" placeholder="Link 8 (opsional)">
+        <input class="inp" type="text" id="linkInput9" placeholder="Link 9 (opsional)">
+        <input class="inp" type="text" id="linkInput10" placeholder="Link 10 (opsional)">
       </div>
       <button class="btn btn-p" id="ambilLinkBtn" onclick="ambilAudioDariLink()">Ambil Audio dari Link</button>
-      <div class="tip" id="linkTip"><b>Free / Premium</b> · 1 link · auto <b>3x</b> · YT/TikTok/SC</div>
+      <div class="tip" id="linkTip"><b>Akses Link</b> · Fitur link butuh beli akses <b>Rp 50.000</b> (Permanen Pro) · YT/TikTok/SC</div>
     </div>
 
     <div class="player empty" id="playerBox">
@@ -406,29 +1921,29 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 
     <div class="label" style="margin-bottom:8px">Preset cepat</div>
     <div class="presets">
-      <button type="button" onclick="setPreset(2.1,-1,this,1)">
-        <span class="ps">2.1x</span>
-        <span class="pd">-1 dB · P+1</span>
+      <button type="button" onclick="setPreset(2.0,-4,this)">
+        <span class="ps">2.0x</span>
+        <span class="pd">-4 dB</span>
       </button>
-      <button type="button" onclick="setPreset(2.3,-3,this,2)">
+      <button type="button" onclick="setPreset(2.3,-4,this)">
         <span class="ps">2.3x</span>
-        <span class="pd">-3 dB · P+2</span>
+        <span class="pd">-4 dB</span>
       </button>
-      <button type="button" onclick="setPreset(2.5,0,this,2)" id="preset25">
+      <button type="button" onclick="setPreset(2.5,-5,this)">
         <span class="ps">2.5x</span>
-        <span class="pd">0 dB · P+2</span>
+        <span class="pd">-5 dB</span>
       </button>
-      <button type="button" onclick="setPreset(2.7,1,this,3)">
+      <button type="button" onclick="setPreset(2.7,-5,this)">
         <span class="ps">2.7x</span>
-        <span class="pd">+1 dB · P+3</span>
+        <span class="pd">-5 dB</span>
       </button>
-      <button type="button" onclick="setPreset(3.0,-2,this,2)" class="on" id="preset3x">
+      <button type="button" onclick="setPreset(3.0,-6,this)" class="on" id="preset3x">
         <span class="ps">3.0x ★</span>
-        <span class="pd">-2 dB · P+2</span>
+        <span class="pd">-6 dB<br>Recommend</span>
       </button>
-      <button type="button" onclick="setPreset(3.2,2,this,4)">
-        <span class="ps">3.2x</span>
-        <span class="pd">+2 dB · P+4</span>
+      <button type="button" onclick="setPreset(3.3,-8,this)">
+        <span class="ps">3.3x</span>
+        <span class="pd">-8 dB</span>
       </button>
     </div>
 
@@ -437,16 +1952,20 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
       <input type="range" id="speed" min="0.5" max="5" step="0.1" value="3.0">
     </div>
     <div class="sl">
-      <div class="sl-t"><span>dB</span><span id="dbText">-2 dB</span></div>
-      <input type="range" id="db" min="-20" max="20" value="-2">
-    </div>
-    <div class="sl">
-      <div class="sl-t"><span>Pitch</span><span id="pitchText">+2</span></div>
-      <input type="range" id="pitch" min="-12" max="12" step="1" value="2">
+      <div class="sl-t"><span>dB</span><span id="dbText">-6 dB</span></div>
+      <input type="range" id="db" min="-20" max="20" value="-6">
     </div>
 
-    <div class="tip" id="descBox"><b>Rekomendasi: 3.0x / -2dB / P+2</b> · In Game ≈ <b>0.33</b><br><span style="opacity:.85">Sama seperti auto dari link · cocok Roblox</span></div>
+    <div class="tip" id="descBox"><b>Rekomendasi: 3.0x / -6dB</b> · In Game ≈ <b>0.33</b><br><span style="opacity:.85">Tanpa pitch · lebih aman volume · cocok Roblox</span></div>
     <button class="btn btn-p" id="downloadBtn" disabled style="margin-top:12px">Konversi & Download MP3</button>
+    <div class="proc-wrap" id="procWrap" aria-live="polite">
+      <div class="proc-head">
+        <div class="proc-label"><span class="proc-spin"></span><span id="procLabel">Memproses...</span></div>
+        <div class="proc-pct" id="procPct">0%</div>
+      </div>
+      <div class="proc-bar"><div class="proc-fill" id="procFill"></div></div>
+      <div class="proc-sub" id="procSub">Siap</div>
+    </div>
   </div>
 
   <div class="card">
@@ -467,77 +1986,101 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
     <div class="price" style="margin-top:0;border-top:none;padding-top:0">
       <div id="storePremiumBlock">
         <div class="label" style="margin-bottom:10px">Store Premium</div>
-        <ul class="ben-list">
-          <li><b>3 mode:</b> Bypass · Manual · Clean Only</li>
-          <li><b>Link</b> YouTube / TikTok / SoundCloud</li>
-          <li>Speed · dB · Pitch · upload s/d <b>20MB</b></li>
-          <li>Preset siap pakai (3x / -2dB / P+2 rekomendasi)</li>
-          <li><b>3 Hari</b>: 25 konversi/hari · <b>7 Hari</b>: 80/hari</li>
-          <li><b>30 Hari / Permanen / Pro</b>: unlimited</li>
-          <li>Chat Discord &amp; WhatsApp</li>
-        </ul>
+        <div class="tip" style="margin-top:0;margin-bottom:12px">
+          Jika kalian <b>kehabisan limit</b>, silakan hubungi admin untuk beli / perpanjang Premium.
+        </div>
+        <div class="tip" style="margin-top:0;margin-bottom:12px;border-color:rgba(59,130,246,0.35)">
+          <b>Akses Link Rp 50.000</b> · Fitur <b>Dari Link</b> (YouTube / TikTok / SoundCloud) hanya untuk yang beli paket <b>Akses Link · Permanen Pro</b>. Tanpa itu, fitur link terkunci.
+        </div>
+        <!-- Promo discount notice -->
+        <div class="promo-deal" id="promoDeal">
+          <div class="promo-deal-ico" id="promoDealIco">🔥</div>
+          <div class="promo-deal-txt">
+            <b id="promoDealTitle">DISKON BESAR</b>
+            <span id="promoDealSub">30 Hari <s>100rb</s> → <b>40rb</b> · Permanen <s>299rb</s> → <b>89rb</b> · <b>Akses Link / Pro 50rb</b><br><span style="display:block;margin-top:4px;opacity:.95">⚠ Fitur <b>Dari Link</b> (YT/TikTok/SC) wajib beli <b>Akses Link Rp 50.000</b></span></span>
+          </div>
+        </div>
         <div class="store-grid" style="margin-top:12px">
-          <div class="pkg" style="opacity:.55">
+          <div class="pkg" style="opacity:.55;pointer-events:none;border-color:rgba(255,80,100,0.25)">
+            <div class="deal-badge" style="background:#3a1018;color:#ff8a9a">HABIS</div>
             <div class="pkg-name">1 Hari</div>
             <div class="pkg-price">Rp 10.000</div>
-            <div style="font-size:10px;color:var(--bad);margin-bottom:8px;font-weight:700">Stock: 0</div>
-            <button class="btn btn-s" disabled style="opacity:.5;cursor:not-allowed">Habis</button>
+            <div style="font-size:10px;color:var(--muted);margin-bottom:2px;font-weight:600">Unlimited + <b style="color:#3b82f6">10 link</b></div>
+            <div style="font-size:10px;color:rgb(255,100,120);margin-bottom:8px;font-weight:700">Stock: Habis</div>
+            <button class="btn btn-s" disabled>Habis</button>
           </div>
-          <div class="pkg" style="opacity:.55">
+          <div class="pkg" style="opacity:.55;pointer-events:none;border-color:rgba(255,80,100,0.25)">
             <div class="pkg-name">2 Hari</div>
-            <div class="pkg-price">Rp 15.000</div>
-            <div style="font-size:10px;color:var(--bad);margin-bottom:8px;font-weight:700">Stock: 0</div>
-            <button class="btn btn-s" disabled style="opacity:.5;cursor:not-allowed">Habis</button>
+            <div class="pkg-price">Rp 20.000</div>
+            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited</div>
+            <div style="font-size:10px;color:rgb(255,100,120);margin-bottom:8px;font-weight:700">Stock: Habis</div>
+            <button class="btn btn-s" disabled>Habis</button>
           </div>
           <div class="pkg">
             <div class="pkg-name">3 Hari</div>
             <div class="pkg-price">Rp 25.000</div>
-            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">25 / hari</div>
-            <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 11</div>
+            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited</div>
+            <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 50</div>
             <button class="btn btn-p" onclick="openBeli('3hari',25000,'3 Hari')">Beli</button>
           </div>
           <div class="pkg">
             <div class="pkg-name">7 Hari</div>
             <div class="pkg-price">Rp 35.000</div>
-            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">80 / hari</div>
-            <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 17</div>
+            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited</div>
+            <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 50</div>
             <button class="btn btn-p" onclick="openBeli('7hari',35000,'7 Hari')">Beli</button>
           </div>
-          <div class="pkg">
+          <div class="pkg deal" id="pkg30">
+            <div class="deal-badge" id="badge30">DISKON</div>
             <div class="pkg-name">30 Hari</div>
-            <div class="pkg-price">Rp 100.000</div>
+            <div class="pkg-price-wrap" id="priceWrap30">
+              <span class="pkg-old" id="old30">Rp 100.000</span>
+              <span class="pkg-price" id="price30">Rp 40.000</span>
+            </div>
             <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited</div>
-            <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 8</div>
-            <button class="btn btn-p" onclick="openBeli('30hari',100000,'30 Hari')">Beli</button>
+            <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 50</div>
+            <button class="btn btn-p" id="btn30" onclick="openBeli('30hari',40000,'30 Hari')">Beli</button>
           </div>
-          <div class="pkg">
+          <div class="pkg deal" id="pkgPermanen">
+            <div class="deal-badge" id="badgePermanen">DISKON</div>
             <div class="pkg-name">Permanen</div>
-            <div class="pkg-price">Rp 200.000</div>
-            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited</div>
-            <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 29</div>
-            <button class="btn btn-p" onclick="openBeli('permanen',200000,'Permanen')">Beli</button>
+            <div class="pkg-price-wrap" id="priceWrapPermanen">
+              <span class="pkg-old" id="oldPermanen">Rp 299.000</span>
+              <span class="pkg-price" id="pricePermanen">Rp 89.000</span>
+            </div>
+            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited · selamanya</div>
+            <div style="font-size:10px;color:var(--ok);margin-bottom:4px;font-weight:700">🔥 Hemat vs 2× 30 Hari</div>
+            <div style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600">Audio 320kbps · unlimited</div>
+            <button class="btn btn-p" id="btnPermanen" onclick="openBeli('permanen',89000,'Permanen')">Beli</button>
           </div>
-          <div class="pkg feat">
-            <div class="pkg-name">Permanen Pro</div>
-            <div class="pkg-price">Rp 350.000</div>
+          <div class="pkg feat deal" id="pkgPro">
+            <div class="deal-badge" id="badgePro">DISKON</div>
+            <div class="pkg-name">Akses Link · Permanen Pro</div>
+            <div class="pkg-price-wrap" id="priceWrapPro" style="text-align:left">
+              <span class="pkg-old" id="oldPro">Rp 129.000</span>
+              <span class="pkg-price" id="pricePro">Rp 50.000</span>
+            </div>
             <div style="font-size:11px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 50</div>
             <ul class="ben-list">
-              <li>Semua fitur premium + akses selamanya</li>
-              <li>Mode Bypass · Manual · Clean Only · unlimited</li>
-              <li>Upload file <b>unlimited</b></li>
-              <li>Semua preset + pitch custom</li>
-              <li><b>Langsung 3 link</b> sekaligus (1 baris 1 link) — bukan 1 per 1</li>
-              <li>Tempel link YT / TikTok / SoundCloud</li>
+              <li><b>Akses Link</b> YT / TikTok / SoundCloud</li>
+              <li><b>10 link</b> sekaligus · full akses</li>
+              <li><b>Unlimited</b> konversi · selamanya</li>
+              <li>Mode Bypass · Manual · Clean Only</li>
+              <li>Upload file unlimited · semua preset</li>
             </ul>
-            <button class="btn btn-p" onclick="openBeli('permanen_pro',350000,'Permanen Pro')">Beli Permanen Pro</button>
+            <button class="btn btn-p" id="btnPro" onclick="openBeli('permanen_pro',50000,'Akses Link · Permanen Pro')">Beli Akses Link · 50K</button>
           </div>
         </div>
       </div>
       <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
         <div class="label" style="margin-bottom:10px">Dukungan · Live Chat</div>
         <div class="ct" style="margin-top:0">
-          <a class="dc" href="https://discord.com/users/zinbotol" target="_blank">💬 Chat Discord</a>
+          <a class="dc" href="https://discord.gg/BS48SzF23" target="_blank">🎮 Join Grup Discord</a>
           <a class="wa" href="https://wa.me/6283135744309?text=Halo%20Admin%20Rezzz%20Audio%2C%20saya%20butuh%20bantuan" target="_blank">💬 Chat WhatsApp</a>
+        </div>
+        <div class="tip" style="margin-top:10px">Join server Discord → <b>limit free 10/hari</b>. Keluar grup = limit balik 3/hari. Login pakai Discord supaya terdeteksi.</div>
+        <div class="ct" style="margin-top:8px">
+          <a class="dc" href="https://discord.com/users/rezzzstudio" target="_blank" style="opacity:.9">💬 Chat Admin Discord</a>
         </div>
       </div>
     </div>
@@ -648,27 +2191,107 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   </div>
 </div>
 
+
+<!-- MODAL PROMO / NOTIF TENGAH -->
+<div class="modal-bg" id="promoModal" style="z-index:120">
+  <div class="modal" style="max-width:340px;text-align:center">
+    <div id="promoIcon" style="font-size:40px;margin-bottom:10px">🔥</div>
+    <h3 id="promoTitle" style="margin-bottom:12px">Diskon Besar</h3>
+    <div id="promoMsg" style="font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:20px;text-align:left"></div>
+    <button class="btn btn-p" id="promoOkBtn" onclick="closePromo(true)">Beli Sekarang</button>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const sb = window.supabase.createClient('https://piqsobwblwzwbenbzhkx.supabase.co','sb_publishable_pL17zeNQZJg9ky-E9gak1A_hx3BccCl');
 const REZZ_API = "/api/download";
-const FREE_LIMIT = 2;
-const FREE_EVENT_LIMIT = 10; // limit free saat event 24 jam
+const FREE_LIMIT = 3;
+const FREE_EVENT_LIMIT = 20; // limit free saat event 24 jam
+const FREE_DISCORD_LIMIT = 10; // free naik jadi 10/hari jika join Discord server
+const DISCORD_INVITE = 'https://discord.gg/BS48SzF23';
+const DISCORD_GUILD_ID = '1441115057244213303'; // Rezzz Studio
 const MAX_SIZE_FREE = 10 * 1024 * 1024;
-const MAX_SIZE_PREM = 20 * 1024 * 1024;
-const MAX_DUR_FREE = 400;
-const MAX_DUR_PREM = 800;
+const MAX_SIZE_PREM = null; // Premium & Pro: TANPA BATAS ukuran file
+const MAX_DUR_FREE = 780;  // Free: max upload ~13 menit
+const MAX_DUR_PREM = 999999;  // Premium & Pro: TANPA BATAS durasi upload
+const MAX_DUR_OUT = 400;   // Free saja: max hasil download 400s (aman Roblox). Premium/Pro: TANPA BATAS
 /** Batas harian premium pendek: 3hari=25, 7hari=80. null = unlimited */
-const PREM_LIMIT_3D = 25;
-const PREM_LIMIT_7D = 80;
+const PREM_LIMIT_1D = 15;
+const PREM_LIMIT_2D = 15;
+const PREM_LIMIT_3D = 20;
+const PREM_LIMIT_7D = 30;
+const PREM_LIMIT_30D = 50;
+const PREM_LIMIT_PERM = 100;
 /** Event free boost: aktif 1x/minggu (Jumat 00:00 lokal, 24 jam) */
 const EVENT_WEEKDAY = 5; // 0=Min ... 5=Jumat ... 6=Sabtu
 const EVENT_DURATION_MS = 24 * 60 * 60 * 1000;
 /** Mulai sekarang: event dipaksa aktif dari timestamp ini selama 24 jam, lalu lanjut jadwal mingguan */
 const EVENT_FORCE_START = new Date('2026-08-11T00:53:00+08:00'); // WITA — mulai sekarang
 
-let currentFiles = [], isLoggedIn = false, isPremium = false, isPro = false, modalMode = 'daftar';
+/** Store promo: force window 3 hari dari mulai, setelah itu ikut jadwal mingguan (Minggu 00:00, 3 hari). */
+const STORE_PROMO_WEEKDAY = 0; // 0=Minggu
+const STORE_PROMO_DURATION_MS = 3 * 24 * 60 * 60 * 1000; // 3 hari
+const STORE_PROMO_FORCE_DURATION_MS = 14 * 24 * 60 * 60 * 1000; // 14 hari — notif aktif lagi
+const STORE_PROMO_FORCE_START = new Date('2026-11-18T00:00:00+08:00'); // WITA — promo aktif lagi
+const PRICE_PERM_NORMAL = 299000;
+const PRICE_PERM_PROMO = 89000;
+const PRICE_PRO_NORMAL = 129000;
+const PRICE_PRO_PROMO = 50000;
+const PRICE_30_NORMAL = 100000;
+const PRICE_30_PROMO = 40000;
+const MAX_DEVICES = 3;
+
+/** device_id di DB bisa string lama (1 device) atau JSON array max MAX_DEVICES */
+function parseDeviceList(val) {
+  if (!val) return [];
+  try {
+    const s = String(val).trim();
+    if (s.startsWith('[')) {
+      const arr = JSON.parse(s);
+      return Array.isArray(arr) ? arr.map(String).filter(Boolean).slice(0, MAX_DEVICES) : [s];
+    }
+  } catch (_) {}
+  return [String(val)];
+}
+function serializeDeviceList(arr) {
+  const unique = [];
+  const seen = {};
+  (arr || []).forEach(function (id) {
+    id = String(id || '').trim();
+    if (id && !seen[id]) { seen[id] = true; unique.push(id); }
+  });
+  return JSON.stringify(unique.slice(0, MAX_DEVICES));
+}
+function deviceListHas(list, id) {
+  if (!id) return false;
+  return (list || []).indexOf(String(id)) !== -1;
+}
+/** Tambah device ke list. Jika penuh, buang yang paling lama (index 0). Return { list, kicked } */
+function addDeviceToList(list, newId) {
+  list = (list || []).slice();
+  newId = String(newId || '').trim();
+  if (!newId) return { list: list, kicked: null };
+  if (deviceListHas(list, newId)) {
+    // pindah ke akhir (paling baru)
+    list = list.filter(function (x) { return x !== newId; });
+    list.push(newId);
+    return { list: list.slice(-MAX_DEVICES), kicked: null };
+  }
+  let kicked = null;
+  if (list.length >= MAX_DEVICES) {
+    kicked = list.shift();
+  }
+  list.push(newId);
+  return { list: list.slice(0, MAX_DEVICES), kicked: kicked };
+}
+
+let currentFiles = [], isLoggedIn = false, isPremium = false, isPro = false, isDiscordMember = false, modalMode = 'daftar';
+
+// Nama asli dipisahkan dari File.name supaya nama dari server/API yang random
+// tidak pernah dipakai sebagai nama hasil.
+let originalFileNames = [];
 /** null = unlimited (saat premium panjang / pro / permanen) */
 let premiumDailyLimit = null;
 
@@ -676,16 +2299,7 @@ let processMode = 'bypass'; // bypass | manual | clean
 
 function setProcessMode(mode) {
   if (!isLoggedIn) return toast('Login dulu.','info','Perlu login');
-  // Free: Bypass + Manual boleh. Clean Only = premium (upsell)
-  if (mode === 'clean' && !isPremium) {
-    toast('Clean Only khusus Premium.','err','Premium only');
-    setTimeout(function(){
-      if (confirm('Clean Only untuk Premium.\\n\\nBuka WhatsApp untuk beli?')) {
-        window.open('https://wa.me/6283135744309?text='+encodeURIComponent('Halo, mau beli premium Rezzz Audio'),'_blank');
-      }
-    }, 350);
-    mode = 'bypass';
-  }
+  // Clean terbuka untuk semua (rapikan file yang sudah di-edit)
   processMode = mode;
   ['bypass','manual','clean'].forEach(function(m) {
     const el = $('mode' + m.charAt(0).toUpperCase() + m.slice(1));
@@ -693,37 +2307,36 @@ function setProcessMode(mode) {
   });
   const tip = $('modeTip');
   if (mode === 'bypass') {
-    setPreset(3.0, -2, $('preset3x'), 2);
-    if (tip) tip.innerHTML = '<b>Bypass</b> aktif · <b>3.0x / -2dB / P+2</b> + anti-detect · cocok Roblox · free & premium.';
-    toast('Bypass: 3x / -2dB / P+2 + anti-detect','ok','Mode');
+    setPreset(3.0, -6, $('preset3x'));
+    if (tip) tip.innerHTML = '<b>Bypass</b> aktif · <b>3.0x / -6dB</b> · tanpa pitch · proses bersih · cocok Roblox · free & premium.';
+    toast('Bypass: 3x / -6dB · tanpa pitch','ok','Mode');
   } else if (mode === 'clean') {
-    setPreset(1.0, 0, null, 0);
+    // Rapikan ulang: JANGAN percepat lagi (file sudah pernah di-edit)
     if ($('speed')) $('speed').value = 1;
     if ($('db')) $('db').value = 0;
-    if ($('pitch')) $('pitch').value = 0;
-    updateSpeed(1); updateDb(0); updatePitch(0);
+    updateSpeed(1); updateDb(0);
     document.querySelectorAll('.presets button').forEach(b=>b.classList.remove('on'));
-    if (tip) tip.innerHTML = '<b>Clean Only</b> · speed 1x, pitch 0 · rapikan volume (soft limit) tanpa ubah tempo.';
-    toast('Clean Only: tanpa ubah tempo','ok','Mode');
+    if (tip) tip.innerHTML = '<b>Clean Only</b> · upload file yang <b>sudah di-edit</b> · proses 1x / 0dB · tanpa pitch.';
+    toast('Clean: rapikan file yang sudah di-edit','ok','Mode');
   } else {
-    if (tip) tip.innerHTML = '<b>Manual</b> · atur speed, dB, pitch sendiri. Preset tetap bisa dipakai.';
+    if (tip) tip.innerHTML = '<b>Manual</b> · atur speed & dB sendiri. Preset tetap bisa dipakai. Pitch dimatikan.';
     toast('Manual editor','ok','Mode');
   }
   updateModeLocks();
 }
 
 function updateModeLocks() {
-  // Hanya Clean yang dikunci untuk free; Bypass bebas dipakai biar tertarik upgrade
+  // Clean & Bypass terbuka
   const elClean = $('modeClean');
-  if (elClean) elClean.classList.toggle('lock', !isPremium);
+  if (elClean) elClean.classList.remove('lock');
   const elBypass = $('modeBypass');
   if (elBypass) elBypass.classList.remove('lock');
-  if (!isPremium && processMode === 'clean') {
+  if (false && !isPremium && processMode === 'clean') {
     processMode = 'bypass';
     if ($('modeClean')) $('modeClean').classList.remove('on');
     if ($('modeBypass')) $('modeBypass').classList.add('on');
     if ($('modeManual')) $('modeManual').classList.remove('on');
-    setPreset(3.0, -2, $('preset3x'), 2);
+    setPreset(3.0, -6, $('preset3x'));
   }
 }
 
@@ -853,7 +2466,7 @@ function showLoggedUI(logged) {
   }
 }
 
-/** Event free 10x: 1x per minggu, atau force-start 24 jam dari EVENT_FORCE_START */
+/** Event free 20x: 1x per minggu, atau force-start 24 jam dari EVENT_FORCE_START */
 function getFreeEventWindow() {
   const now = new Date();
   // 1) Force window (mulai sekarang)
@@ -898,9 +2511,185 @@ function getFreeEventWindow() {
 function isFreeEventActive() {
   return getFreeEventWindow().active;
 }
-function getEffectiveFreeLimit() {
-  return isFreeEventActive() ? FREE_EVENT_LIMIT : FREE_LIMIT;
+
+/** Cek membership Discord server via OAuth token. Join → free 10/hari, leave → balik 3. */
+async function verifyDiscordMembership() {
+  isDiscordMember = false;
+  try {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return false;
+    const token = session.provider_token;
+    // Hanya valid jika login Discord
+    const isDiscord = (session.user && session.user.app_metadata && session.user.app_metadata.provider === 'discord')
+      || (session.user && session.user.identities && session.user.identities.some(function (i) { return i.provider === 'discord'; }));
+    if (!isDiscord || !token) {
+      // Fallback: baca flag di DB (kalau pernah diverifikasi)
+      const username = localStorage.getItem('loginUser');
+      if (username) {
+        try {
+          const { data } = await sb.from('rezzz-audio').select('discord_member').eq('username', username).maybeSingle();
+          if (data && (data.discord_member === true || data.discord_member === 'true' || data.discord_member === 1)) {
+            isDiscordMember = true;
+            return true;
+          }
+        } catch (_) {}
+      }
+      return false;
+    }
+    const res = await fetch('https://discord.com/api/users/@me/guilds', {
+      headers: { Authorization: 'Bearer ' + token }
+    });
+    if (!res.ok) {
+      // Token expired / scope kurang — coba flag DB
+      const username = localStorage.getItem('loginUser');
+      if (username) {
+        try {
+          const { data } = await sb.from('rezzz-audio').select('discord_member').eq('username', username).maybeSingle();
+          if (data && (data.discord_member === true || data.discord_member === 'true' || data.discord_member === 1)) {
+            isDiscordMember = true;
+            return true;
+          }
+        } catch (_) {}
+      }
+      return false;
+    }
+    const guilds = await res.json();
+    const inGuild = Array.isArray(guilds) && guilds.some(function (g) {
+      return String(g.id) === String(DISCORD_GUILD_ID);
+    });
+    isDiscordMember = !!inGuild;
+    // Simpan ke DB supaya konsisten
+    const username = localStorage.getItem('loginUser');
+    if (username) {
+      try {
+        await sb.from('rezzz-audio').update({ discord_member: isDiscordMember }).eq('username', username);
+      } catch (_) {}
+    }
+    return isDiscordMember;
+  } catch (e) {
+    console.warn('verifyDiscordMembership:', e);
+    return false;
+  }
 }
+
+function getEffectiveFreeLimit() {
+  // Event 20x > Discord 10x > normal 3x
+  if (isFreeEventActive()) return FREE_EVENT_LIMIT;
+  if (isDiscordMember) return FREE_DISCORD_LIMIT;
+  return FREE_LIMIT;
+}
+
+/** Jadwal promo toko mingguan (Minggu 00:00 + 3 hari) + force window */
+function getStorePromoWindow() {
+  const now = new Date();
+  // 1) Force window
+  if (STORE_PROMO_FORCE_START && !isNaN(STORE_PROMO_FORCE_START.getTime())) {
+    const fStart = new Date(STORE_PROMO_FORCE_START);
+    const fEnd = new Date(fStart.getTime() + STORE_PROMO_FORCE_DURATION_MS);
+    if (now >= fStart && now < fEnd) {
+      const next = new Date(fEnd);
+      next.setHours(0, 0, 0, 0);
+      const d = next.getDay();
+      const add = (STORE_PROMO_WEEKDAY - d + 7) % 7;
+      next.setDate(next.getDate() + (add === 0 ? 7 : add));
+      return { start: fStart, end: fEnd, next: next, active: true };
+    }
+  }
+  // 2) Jadwal mingguan: Minggu 00:00 lokal, 3 hari
+  const day = now.getDay();
+  const start = new Date(now);
+  start.setHours(0, 0, 0, 0);
+  const diff = (day - STORE_PROMO_WEEKDAY + 7) % 7;
+  start.setDate(start.getDate() - diff);
+  const end = new Date(start.getTime() + STORE_PROMO_DURATION_MS);
+  const active = now >= start && now < end;
+  let next = new Date(start);
+  if (now >= end) next.setDate(next.getDate() + 7);
+  if (STORE_PROMO_FORCE_START && !isNaN(STORE_PROMO_FORCE_START.getTime())) {
+    const fEnd = new Date(STORE_PROMO_FORCE_START.getTime() + STORE_PROMO_FORCE_DURATION_MS);
+    if (now >= fEnd && next < fEnd) {
+      next = new Date(fEnd);
+      next.setHours(0, 0, 0, 0);
+      const d = next.getDay();
+      const add = (STORE_PROMO_WEEKDAY - d + 7) % 7;
+      next.setDate(next.getDate() + (add === 0 ? 7 : add));
+    }
+  }
+  return { start: start, end: end, next: next, active: active };
+}
+function isStorePromoActive() {
+  return getStorePromoWindow().active;
+}
+function fmtRp(n) {
+  return 'Rp ' + Number(n).toLocaleString('id-ID');
+}
+function updateStorePromoUI() {
+  const active = isStorePromoActive();
+  const win = getStorePromoWindow();
+  const permPrice = active ? PRICE_PERM_PROMO : PRICE_PERM_NORMAL;
+  const proPrice = active ? PRICE_PRO_PROMO : PRICE_PRO_NORMAL;
+  const price30 = active ? PRICE_30_PROMO : PRICE_30_NORMAL;
+
+  // Banner
+  const banner = $('promoDeal');
+  const title = $('promoDealTitle');
+  const sub = $('promoDealSub');
+  const ico = $('promoDealIco');
+  if (banner) {
+    if (active) {
+      banner.style.display = '';
+      banner.style.animation = '';
+      if (ico) ico.textContent = '🔥';
+      if (title) title.textContent = 'DISKON BESAR';
+      if (sub) sub.innerHTML = '30 Hari <s>100rb</s> → <b>40rb</b> · Permanen <s>299rb</s> → <b>89rb</b> · <b>Akses Link / Pro 50rb</b><br><span style="display:block;margin-top:4px;opacity:.95">⚠ Fitur <b>Dari Link</b> (YT/TikTok/SC) wajib beli <b>Akses Link Rp 50.000</b></span>';
+    } else {
+      banner.style.display = '';
+      if (ico) ico.textContent = '📅';
+      if (title) title.textContent = 'PROMO BERIKUTNYA';
+      if (sub) {
+        const tgl = win.next ? win.next.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'short' }) : 'minggu depan';
+        sub.innerHTML = 'Harga normal · promo lagi ' + tgl;
+      }
+    }
+  }
+
+  // 30 Hari card
+  const pkg30 = $('pkg30');
+  const badge30 = $('badge30');
+  const old30 = $('old30');
+  const priceEl30 = $('price30');
+  const btn30 = $('btn30');
+  if (pkg30) pkg30.classList.toggle('deal', active);
+  if (badge30) badge30.style.display = active ? '' : 'none';
+  if (old30) old30.style.display = active ? '' : 'none';
+  if (priceEl30) priceEl30.textContent = fmtRp(price30);
+  if (btn30) btn30.setAttribute('onclick', "openBeli('30hari'," + price30 + ",'30 Hari')");
+
+  // Permanen card
+  const pkgP = $('pkgPermanen');
+  const badgeP = $('badgePermanen');
+  const oldP = $('oldPermanen');
+  const priceP = $('pricePermanen');
+  const btnP = $('btnPermanen');
+  if (pkgP) pkgP.classList.toggle('deal', active);
+  if (badgeP) badgeP.style.display = active ? '' : 'none';
+  if (oldP) oldP.style.display = active ? '' : 'none';
+  if (priceP) priceP.textContent = fmtRp(permPrice);
+  if (btnP) btnP.setAttribute('onclick', "openBeli('permanen'," + permPrice + ",'Permanen')");
+
+  // Pro card
+  const pkgPro = $('pkgPro');
+  const badgePro = $('badgePro');
+  const oldPro = $('oldPro');
+  const pricePro = $('pricePro');
+  const btnPro = $('btnPro');
+  if (pkgPro) pkgPro.classList.toggle('deal', active);
+  if (badgePro) badgePro.style.display = active ? '' : 'none';
+  if (oldPro) oldPro.style.display = active ? '' : 'none';
+  if (pricePro) pricePro.textContent = fmtRp(proPrice);
+  if (btnPro) btnPro.setAttribute('onclick', "openBeli('permanen_pro'," + proPrice + ",'Permanen Pro')");
+}
+
 function fmtCountdown(ms) {
   if (ms <= 0) return '00:00:00';
   const s = Math.floor(ms / 1000);
@@ -924,15 +2713,149 @@ function updateEventBanner() {
   if (win.active) {
     banner.classList.add('on');
     if (ico) ico.textContent = '🎉';
-    if (title) title.textContent = 'EVENT 10× FREE';
-    if (sub) sub.textContent = 'Limit free naik jadi 10/hari · berakhir dalam';
+    if (title) title.textContent = 'EVENT 20× FREE';
+    if (sub) sub.textContent = 'Limit free naik jadi 20/hari · berakhir dalam';
     if (cd) cd.textContent = fmtCountdown(win.end - Date.now());
   } else {
     banner.classList.remove('on');
     if (ico) ico.textContent = '📅';
-    if (title) title.textContent = 'EVENT 10× FREE';
+    if (title) title.textContent = 'EVENT 20× FREE';
     if (sub) sub.textContent = 'Event selanjutnya · 1× seminggu (Jumat)';
     if (cd) cd.textContent = fmtEventDate(win.next);
+  }
+}
+
+function notifyOnce(key, msg, type, title) {
+  try {
+    const day = new Date().toISOString().slice(0, 10);
+    const full = key + '_' + day;
+    if (sessionStorage.getItem(full)) return;
+    sessionStorage.setItem(full, '1');
+  } catch (_) {}
+  showPromoModal(title || 'Info', msg, type || 'info');
+}
+
+function showPromoModal(title, msg, type) {
+  const modal = $('promoModal');
+  if (!modal) { toast(msg, type, title); return; }
+  const icons = { ok: '✓', err: '⚠️', info: '🔥' };
+  if ($('promoIcon')) $('promoIcon').textContent = icons[type] || '🔥';
+  if ($('promoTitle')) $('promoTitle').textContent = title || 'Info';
+  if ($('promoMsg')) {
+    // dukung HTML rapi (jika msg mengandung tag), fallback ke baris baru
+    if (msg && /<[a-z][\s\S]*>/i.test(msg)) {
+      $('promoMsg').innerHTML = msg;
+    } else {
+      $('promoMsg').innerHTML = String(msg || '')
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/\n/g, '<br>');
+    }
+  }
+  modal.classList.add('show');
+}
+
+function closePromo(goToko) {
+  const modal = $('promoModal');
+  if (modal) modal.classList.remove('show');
+  if (goToko) {
+    try { switchMainTab('toko'); } catch (_) {}
+    try {
+      const el = $('panelToko');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (_) {}
+  }
+}
+
+function maybeNotifyLimit(usedN, prem) {
+  if (!isLoggedIn) return;
+  usedN = Number(usedN) || 0;
+  if (!prem) {
+    const lim = getEffectiveFreeLimit();
+    const sisa = Math.max(0, lim - usedN);
+    if (sisa <= 0) {
+      notifyOnce('lim0', 'Limit free hari ini habis. Upgrade Premium biar tetap bisa konversi.', 'info', 'Limit habis');
+    } else if (sisa === 1) {
+      notifyOnce('lim1', 'Sisa 1x limit free hari ini. Upgrade Premium supaya tidak kehabisan.', 'info', 'Hampir habis');
+    }
+  } else if (premiumDailyLimit != null && premiumDailyLimit > 0) {
+    const sisa = Math.max(0, premiumDailyLimit - usedN);
+    if (sisa <= 0) {
+      notifyOnce('plim0', 'Limit premium hari ini habis. Besok reset, atau upgrade Pro untuk unlimited.', 'info', 'Limit habis');
+    } else if (sisa <= 3) {
+      notifyOnce('plim3', 'Sisa ' + sisa + 'x limit premium hari ini. Pertimbangkan upgrade Pro.', 'info', 'Hampir habis');
+    }
+  }
+}
+
+function maybeNotifyPremiumDays(sisaHari) {
+  if (!isLoggedIn || !isPremium) return;
+  sisaHari = Number(sisaHari);
+  if (isNaN(sisaHari)) return;
+  if (sisaHari <= 0) {
+    notifyOnce('prem0', 'Premium sudah habis. Beli / redeem lagi di Toko.', 'err', 'Premium habis');
+  } else if (sisaHari <= 2) {
+    notifyOnce('prem2', 'Premium sisa ' + sisaHari + ' hari. Perpanjang sekarang biar tidak putus.', 'info', 'Segera habis');
+  } else if (sisaHari <= 5) {
+    notifyOnce('prem5', 'Premium sisa ' + sisaHari + ' hari. Siapkan perpanjang di Toko.', 'info', 'Pengingat');
+  }
+}
+
+/** Premium biasa → ajak upgrade ke Pro (1x per hari) */
+function maybeNotifyUpgradePro() {
+  if (!isLoggedIn || !isPremium || isPro) return;
+  notifyOnce(
+    'uppro',
+    'Kamu Premium. Upgrade ke Pro: unlimited harian, 10 link sekaligus, fitur lebih lengkap. Cek Toko.',
+    'info',
+    'Upgrade ke Pro'
+  );
+}
+
+
+function updateDiscordJoinUI() {
+  const box = $('discordJoinBox');
+  if (!box) return;
+  // Premium / Pro tidak butuh boost free
+  if (isPremium || isPro) {
+    box.style.display = 'none';
+    return;
+  }
+  box.style.display = 'block';
+  const status = $('discordJoinStatus');
+  const btn = $('discordJoinBtn');
+  if (!isLoggedIn) {
+    if (status) status.innerHTML = 'Join grup Discord + <b>Login Discord</b> → limit free <b>' + FREE_DISCORD_LIMIT + '/hari</b>. Keluar server = balik ' + FREE_LIMIT + '/hari.';
+    if (btn) {
+      btn.textContent = 'Join Discord · Free ' + FREE_DISCORD_LIMIT + 'x';
+      btn.onclick = function () { window.open(DISCORD_INVITE, '_blank'); };
+    }
+    return;
+  }
+  if (isDiscordMember) {
+    if (status) status.innerHTML = '<b style="color:var(--ok)">✓ Sudah join Discord</b> · limit free <b>' + FREE_DISCORD_LIMIT + '/hari</b>';
+    if (btn) {
+      btn.textContent = 'Buka Server Discord';
+      btn.onclick = function () { window.open(DISCORD_INVITE, '_blank'); };
+    }
+  } else {
+    if (status) status.innerHTML = 'Join grup Discord → limit free naik jadi <b>' + FREE_DISCORD_LIMIT + '/hari</b>. Keluar server = balik ' + FREE_LIMIT + '/hari. Lalu klik <b>Cek ulang</b>.';
+    if (btn) {
+      btn.textContent = 'Join Discord · Free ' + FREE_DISCORD_LIMIT + 'x';
+      btn.onclick = function () { window.open(DISCORD_INVITE, '_blank'); };
+    }
+  }
+}
+
+async function refreshDiscordMember() {
+  if (!isLoggedIn) return;
+  const before = isDiscordMember;
+  await verifyDiscordMembership();
+  await refreshLimit();
+  updateDiscordJoinUI();
+  if (!isPremium) {
+    if (isDiscordMember && !before) toast('Join Discord ✓ · free ' + FREE_DISCORD_LIMIT + '/hari', 'ok', 'Discord');
+    else if (!isDiscordMember && before) toast('Keluar Discord · free balik ' + FREE_LIMIT + '/hari', 'info', 'Discord');
+    else if (!isDiscordMember) toast('Belum terdeteksi di server. Join dulu, login Discord, lalu cek ulang.', 'info', 'Discord');
   }
 }
 
@@ -944,7 +2867,7 @@ function updateLimitUI(used, prem) {
     const lim = getEffectiveFreeLimit();
     const sisa = Math.max(0, lim - usedN);
     limLabel = sisa + ' / ' + lim;
-    planSub = lim + ' / DAY' + (isFreeEventActive() ? ' · EVENT' : '');
+    planSub = lim + ' / DAY' + (isFreeEventActive() ? ' · EVENT' : (isDiscordMember ? ' · DISCORD' : ''));
   } else if (premiumDailyLimit != null && premiumDailyLimit > 0) {
     const sisa = Math.max(0, premiumDailyLimit - usedN);
     limLabel = sisa + ' / ' + premiumDailyLimit;
@@ -953,10 +2876,17 @@ function updateLimitUI(used, prem) {
     limLabel = 'Unlimited';
     planSub = isPro ? 'PRO UNLIMITED' : 'UNLIMITED';
   }
-  if (lt) { lt.className = 'r' + (prem || isFreeEventActive() ? ' ok' : ''); lt.textContent = limLabel; }
+  if (lt) { lt.className = 'r' + (prem || isFreeEventActive() || isDiscordMember ? ' ok' : ''); lt.textContent = limLabel; }
   if ($('statPlan')) $('statPlan').textContent = isPro ? 'PRO' : (prem ? 'PREMIUM' : (isFreeEventActive() ? 'EVENT' : 'FREE'));
   if ($('statPlanSub')) $('statPlanSub').textContent = planSub;
-  if (pt) { pt.className = 'r' + (prem || isFreeEventActive() ? ' ok' : ''); pt.textContent = isPro ? 'Premium Pro' : (prem ? 'Premium' : (isFreeEventActive() ? 'Free Event 10x' : 'Free')); }
+  if (pt) {
+    pt.className = 'r' + (prem || isFreeEventActive() || isDiscordMember ? ' ok' : '');
+    if (isPro) pt.textContent = 'Trial / Pro';
+    else if (prem) pt.textContent = 'Premium';
+    else if (isFreeEventActive()) pt.textContent = 'Free Event 20x';
+    else if (isDiscordMember) pt.textContent = 'Free Discord 10x';
+    else pt.textContent = 'Free';
+  }
   const u = localStorage.getItem('loginUser');
   if ($('chipName')) $('chipName').textContent = u || 'Guest';
   if ($('userAvatar')) {
@@ -970,6 +2900,8 @@ function updateLimitUI(used, prem) {
   // Update link input UI for Pro (multi-line)
   updateLinkInputUI();
   updateEventBanner();
+  try { updateDiscordJoinUI(); } catch (_) {}
+  maybeNotifyLimit(usedN, prem);
 }
 
 const player = $('player');
@@ -1003,12 +2935,22 @@ async function autoLogin() {
     const { data: rows, error } = await sb.from('rezzz-audio').select('*').eq('username', u).eq('password', p.trim());
     const data = pickUserRow(rows);
     if (error || !data) { logout(true); return; }
-    if (data.device_id && data.device_id !== effectiveDeviceId && data.device_id !== deviceId) toast('Login di sini akan mengeluarkan perangkat lama.','info','Akun dipakai di perangkat lain');
-    await sb.from('rezzz-audio').update({ device_id: effectiveDeviceId, fingerprint: effectiveFp }).eq('username', u);
+    let list = parseDeviceList(data.device_id);
+    const cur = effectiveDeviceId || deviceId;
+    if (!deviceListHas(list, cur) && !deviceListHas(list, deviceId)) {
+      if (list.length >= MAX_DEVICES) {
+        toast('Maks ' + MAX_DEVICES + ' perangkat. Login di sini mengeluarkan perangkat lama.','info','Device limit');
+      }
+    }
+    const added = addDeviceToList(list, cur);
+    await sb.from('rezzz-audio').update({ device_id: serializeDeviceList(added.list), fingerprint: effectiveFp }).eq('username', u);
     isLoggedIn = true;
     showLoggedUI(true);
     unlockEditor();
     await checkPremiumStatus();
+    await verifyDiscordMembership();
+    await refreshLimit();
+    try { updateDiscordJoinUI(); } catch (_) {}
   } catch(e) { logout(true); }
 }
 
@@ -1017,7 +2959,7 @@ function logout(silent) {
   localStorage.removeItem('loginPass');
   localStorage.removeItem('discordAvatar');
   sb.auth.signOut().catch(()=>{});
-  isLoggedIn = false; isPremium = false; isPro = false; premiumDailyLimit = null;
+  isLoggedIn = false; isPremium = false; isPro = false; isDiscordMember = false; premiumDailyLimit = null;
   showLoggedUI(false);
   if ($('premiumStatus')) $('premiumStatus').style.display = 'none';
   lockEditor();
@@ -1030,7 +2972,9 @@ async function loginWithDiscord() {
   const { data, error } = await sb.auth.signInWithOAuth({
     provider: 'discord',
     options: {
-      redirectTo: window.location.origin
+      redirectTo: window.location.origin,
+      // guilds = cek apakah user join server Rezzz Studio (free limit 10)
+      scopes: 'identify email guilds'
     }
   });
   if (error) toast(error.message, 'err', 'Discord Login');
@@ -1060,7 +3004,7 @@ async function handleDiscordSession() {
         is_premium: false,
         daily_count: 0,
         last_reset: new Date().toISOString().slice(0,10),
-        device_id: effectiveDeviceId,
+        device_id: serializeDeviceList([effectiveDeviceId || deviceId]),
         fingerprint: effectiveFp
       }]);
       if (error) {
@@ -1072,6 +3016,14 @@ async function handleDiscordSession() {
     }
   }
 
+  // Update device list (max 3)
+  try {
+    const { data: full } = await sb.from('rezzz-audio').select('device_id').eq('username', existing.username).maybeSingle();
+    const list = parseDeviceList(full && full.device_id);
+    const added = addDeviceToList(list, effectiveDeviceId || deviceId);
+    await sb.from('rezzz-audio').update({ device_id: serializeDeviceList(added.list), fingerprint: effectiveFp }).eq('username', existing.username);
+  } catch (_) {}
+
   localStorage.setItem('loginUser', existing.username);
   if (avatar) localStorage.setItem('discordAvatar', avatar);
 
@@ -1079,27 +3031,21 @@ async function handleDiscordSession() {
   showLoggedUI(true);
   unlockEditor();
   await checkPremiumStatus();
-  updateLimitUI(0, isPremium);
-  toast('Login Discord berhasil', 'ok');
+  const joined = await verifyDiscordMembership();
+  await refreshLimit();
+  if (joined && !isPremium) {
+    toast('Join Discord ✓ · limit free ' + FREE_DISCORD_LIMIT + '/hari', 'ok', 'Discord');
+  } else {
+    toast('Login Discord berhasil', 'ok');
+  }
+  updateDiscordJoinUI();
   return true;
 }
 
-/** Hitung batas harian premium: 3hari=25, 7hari=80, sisanya unlimited (null). */
+/** Premium semua paket: unlimited. Free: FREE_LIMIT (3) / event FREE_EVENT_LIMIT (20). */
 function resolvePremiumDailyLimit(data, isProFlag, untilDate) {
-  if (isProFlag) return null;
-  // Kolom opsional dari redeem (jika sudah ada di DB)
-  if (data && data.premium_daily_limit != null && data.premium_daily_limit !== '') {
-    const n = Number(data.premium_daily_limit);
-    if (!isNaN(n) && n > 0) return n;
-    return null; // 0 / null di DB = unlimited
-  }
-  if (!untilDate) return null; // permanen tanpa tanggal
-  const now = new Date();
-  if (untilDate.getFullYear() >= 2090) return null; // permanen / pro style
-  const sisa = Math.ceil((untilDate - now) / 86400000);
-  if (sisa > 7) return null; // 30 hari ke atas
-  if (sisa > 3) return PREM_LIMIT_7D;
-  return PREM_LIMIT_3D;
+  // Semua premium (termasuk paket harian) = unlimited konversi
+  return null;
 }
 
 async function checkPremiumStatus() {
@@ -1109,9 +3055,16 @@ async function checkPremiumStatus() {
     const { data: rows } = await sb.from('rezzz-audio').select('*').eq('username', username);
     const data = pickUserRow(rows);
     if (!data) { isPremium = false; isPro = false; premiumDailyLimit = null; return false; }
-    if (data.device_id && data.device_id !== effectiveDeviceId && data.device_id !== deviceId) {
-      toast('Silakan login ulang.','err','Akun dipakai di perangkat lain');
-      logout(true); return false;
+    {
+      const list = parseDeviceList(data.device_id);
+      const cur = effectiveDeviceId || deviceId;
+      if (list.length && !deviceListHas(list, cur) && !deviceListHas(list, deviceId)) {
+        // Device belum terdaftar di akun → izinkan jika masih ada slot, atau force update lewat login
+        if (list.length >= MAX_DEVICES) {
+          toast('Maks ' + MAX_DEVICES + ' perangkat. Silakan login ulang di perangkat ini.','err','Device limit');
+          logout(true); return false;
+        }
+      }
     }
     const now = new Date();
     const flag = data.is_premium===true||data.is_premium==='true'||data.is_premium===1||data.is_premium==='1';
@@ -1128,12 +3081,15 @@ async function checkPremiumStatus() {
         el.style.display='block'; el.className='status ok';
         const limNote = premiumDailyLimit != null ? (' · '+premiumDailyLimit+'/hari') : '';
         if (isPro) {
-          el.innerHTML='💎 Premium Pro · sisa '+Math.max(sisa,1)+' hari · '+until.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
+          const trial = sisa <= 1;
+          el.innerHTML = (trial ? '⚡ Trial Pro (1 Hari)' : '💎 Premium Pro') + ' · sisa '+Math.max(sisa,1)+' hari · 10 link · '+until.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
         } else {
           el.innerHTML='💎 Premium · sisa '+Math.max(sisa,1)+' hari'+limNote+' · '+until.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
         }
       }
       updateStoreVisibility(sisa);
+      maybeNotifyPremiumDays(sisa);
+      maybeNotifyUpgradePro();
       await refreshLimit(); return true;
     }
     if (flag && until && until <= now) {
@@ -1141,6 +3097,7 @@ async function checkPremiumStatus() {
       isPremium = false; isPro = false; premiumDailyLimit = null;
       if (el) { el.style.display='block'; el.className='status bad'; el.innerText='Premium habis · redeem lagi'; }
       updateStoreVisibility(null);
+      maybeNotifyPremiumDays(0);
       await refreshLimit(); return false;
     }
     if (flag && !until) {
@@ -1152,6 +3109,7 @@ async function checkPremiumStatus() {
         el.innerHTML = isPro ? '💎 Premium Pro aktif' : '💎 Premium aktif';
       }
       updateStoreVisibility(99999);
+      maybeNotifyUpgradePro();
       await refreshLimit(); return true;
     }
     isPremium = false; isPro = false; premiumDailyLimit = null;
@@ -1192,14 +3150,186 @@ async function refreshLimit() {
   } catch(_) { updateLimitUI(0, isPremium); }
 }
 
+function fmtCount(n) {
+  n = Number(n) || 0;
+  if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  if (n >= 10000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+  return String(n);
+}
 async function updateTotalUsers() {
   try {
-    const { count, error } = await sb.from('rezzz-audio').select('*',{count:'exact',head:true});
-    if ($('statUsers')) $('statUsers').textContent = error ? '—' : String(count||0);
-  } catch(_) { if ($('statUsers')) $('statUsers').textContent = '—'; }
+    const { count, error } = await sb.from('rezzz-audio').select('*', { count: 'exact', head: true });
+    if ($('statUsers')) $('statUsers').textContent = error ? '—' : fmtCount(count || 0);
+  } catch (_) {
+    if ($('statUsers')) $('statUsers').textContent = '—';
+  }
+}
+async function updatePremiumCount() {
+  try {
+    const { data: rows, error } = await sb.from('rezzz-audio').select('is_premium,premium_until,is_pro');
+    let count = 0;
+    if (!error && rows) {
+      const now = Date.now();
+      count = rows.filter(function(r) {
+        const flag = r.is_premium===true||r.is_premium==='true'||r.is_premium===1||r.is_premium==='1'
+          || r.is_pro===true||r.is_pro==='true'||r.is_pro===1;
+        if (!flag) return false;
+        if (!r.premium_until) return true;
+        const t = new Date(r.premium_until).getTime();
+        return !isNaN(t) && t > now;
+      }).length;
+    }
+    if ($('statPremium')) $('statPremium').textContent = fmtCount(count);
+  } catch (_) {
+    if ($('statPremium')) $('statPremium').textContent = '—';
+  }
+}
+
+/** Online via heartbeat tabel rezzz_online (lebih stabil dari Presence) */
+let _onlineTimer = null;
+const ONLINE_WINDOW_MS = 2 * 60 * 1000; // dianggap online jika last_seen < 2 menit
+const ONLINE_BEAT_MS = 25 * 1000;       // kirim heartbeat tiap 25 detik
+
+function updateOnlineUI(n) {
+  if ($('statOnline')) $('statOnline').textContent = fmtCount(Math.max(0, Number(n) || 0));
+}
+
+async function beatOnline() {
+  try {
+    const did = String(effectiveDeviceId || deviceId || ('g_' + Math.random().toString(36).slice(2))).slice(0, 64);
+    const username = localStorage.getItem('loginUser') || 'guest';
+    const plan = (typeof isPro !== 'undefined' && isPro) ? 'pro'
+      : ((typeof isPremium !== 'undefined' && isPremium) ? 'prem' : 'free');
+    const nowIso = new Date().toISOString();
+    // Upsert heartbeat
+    const { error } = await sb.from('rezzz_online').upsert({
+      device_id: did,
+      username: username,
+      plan: plan,
+      last_seen: nowIso
+    }, { onConflict: 'device_id' });
+    if (error) {
+      console.warn('online beat:', error.message || error);
+    }
+  } catch (e) {
+    console.warn('online beat err:', e);
+  }
+}
+
+async function refreshOnlineCount() {
+  try {
+    const since = new Date(Date.now() - ONLINE_WINDOW_MS).toISOString();
+    const { count, error } = await sb.from('rezzz_online')
+      .select('*', { count: 'exact', head: true })
+      .gte('last_seen', since);
+    if (error) throw error;
+    updateOnlineUI(count || 0);
+  } catch (e) {
+    console.warn('online count:', e);
+    // fallback: coba tanpa head count
+    try {
+      const since = new Date(Date.now() - ONLINE_WINDOW_MS).toISOString();
+      const { data } = await sb.from('rezzz_online').select('device_id').gte('last_seen', since);
+      updateOnlineUI((data && data.length) || 0);
+    } catch (_) {
+      if ($('statOnline')) $('statOnline').textContent = '—';
+    }
+  }
+}
+
+function startOnlinePresence() {
+  try {
+    if (_onlineTimer) return;
+    // beat + count segera
+    beatOnline().then(function() { return refreshOnlineCount(); });
+    _onlineTimer = setInterval(function() {
+      beatOnline().then(function() { return refreshOnlineCount(); });
+    }, ONLINE_BEAT_MS);
+    // cleanup kasar saat tab ditutup (best-effort)
+    try {
+      window.addEventListener('beforeunload', function() {
+        try {
+          const did = String(effectiveDeviceId || deviceId || '').slice(0, 64);
+          if (!did || !navigator.sendBeacon) return;
+          // tidak selalu bisa hapus via beacon ke Supabase; biarkan expire 2 menit
+        } catch (_) {}
+      });
+    } catch (_) {}
+  } catch (e) {
+    console.warn('online start:', e);
+    if ($('statOnline')) $('statOnline').textContent = '—';
+  }
+}
+
+/** Total musik berhasil dikompres (semua user) — tabel rezzz_stats id=1 */
+async function updateTotalMusic() {
+  // Hanya pakai rezzz_stats (kumulatif). JANGAN fallback ke rezzz_history
+  // karena history di-cleanup 12 jam → angka kelihatan "reset".
+  try {
+    const { data, error } = await sb.from('rezzz_stats').select('total_music').eq('id', 1).maybeSingle();
+    if (!error && data && data.total_music != null) {
+      const n = Number(data.total_music) || 0;
+      if ($('statMusic')) $('statMusic').textContent = fmtCount(n);
+      try { window.__rezzTotalMusic = n; } catch (_) {}
+      return;
+    }
+    // Row belum ada: jangan tulis 0 (bisa timpa data admin). Tampilkan cache / —
+    if ($('statMusic')) {
+      const cached = typeof window.__rezzTotalMusic === 'number' ? window.__rezzTotalMusic : null;
+      $('statMusic').textContent = cached != null ? fmtCount(cached) : '—';
+    }
+  } catch (_) {
+    if ($('statMusic')) {
+      const cached = typeof window.__rezzTotalMusic === 'number' ? window.__rezzTotalMusic : null;
+      $('statMusic').textContent = cached != null ? fmtCount(cached) : '—';
+    }
+  }
+}
+async function bumpTotalMusic(n) {
+  n = Math.max(1, Number(n) || 1);
+  try {
+    // Baca dulu total yang ada — JANGAN upsert 0 kalau row gagal dibaca
+    const { data, error: readErr } = await sb.from('rezzz_stats').select('total_music').eq('id', 1).maybeSingle();
+    let cur = null;
+    if (!readErr && data && data.total_music != null) {
+      cur = Number(data.total_music) || 0;
+    } else if (typeof window.__rezzTotalMusic === 'number') {
+      // Pakai cache UI kalau DB sempat gagal (hindari reset ke 0)
+      cur = window.__rezzTotalMusic;
+    }
+    if (cur == null) {
+      // Belum ada angka valid — jangan create row dengan n (bisa rusak total ribuan di DB)
+      // Coba refresh; admin harus pastikan row id=1 sudah ada di Supabase
+      console.warn('bumpTotalMusic: total_music belum terbaca, skip write');
+      await updateTotalMusic();
+      return;
+    }
+    const next = cur + n;
+    // Update by id (bukan upsert buta) supaya tidak overwrite kolom lain
+    let writeErr = null;
+    {
+      const { error } = await sb.from('rezzz_stats').update({ total_music: next }).eq('id', 1);
+      writeErr = error;
+    }
+    if (writeErr) {
+      // Fallback upsert hanya jika row memang belum ada
+      const { error: upErr } = await sb.from('rezzz_stats').upsert({ id: 1, total_music: next });
+      if (upErr) {
+        console.warn('bumpTotalMusic write failed:', upErr.message || upErr);
+        await updateTotalMusic();
+        return;
+      }
+    }
+    try { window.__rezzTotalMusic = next; } catch (_) {}
+    if ($('statMusic')) $('statMusic').textContent = fmtCount(next);
+  } catch (e) {
+    console.warn('bumpTotalMusic error:', e);
+    await updateTotalMusic();
+  }
 }
 function lockEditor() { $('editorArea').classList.add('locked'); if ($('limitText')) $('limitText').textContent = '—/'+getEffectiveFreeLimit(); }
-function unlockEditor() { $('editorArea').classList.remove('locked'); try{updateModeLocks();}catch(_){} refreshLimit(); }
+function unlockEditor() { $('editorArea').classList.remove('locked'); try{updateModeLocks();}catch(_){}
+try{updateDiscordJoinUI();}catch(_){} refreshLimit(); }
 
 function openModal(mode) {
   modalMode = mode;
@@ -1219,12 +3349,8 @@ async function submitModal() {
   if (modalMode==='daftar') {
     const { data: exist } = await sb.from('rezzz-audio').select('username').eq('username',username).limit(1).maybeSingle();
     if (exist) return toast('Username sudah dipakai.','err','Gagal');
-    const idsToCheck = [...new Set([effectiveDeviceId, deviceId].filter(Boolean))];
+    // Anti multi-akun: cek fingerprint (browser) — device_id sekarang bisa multi (JSON)
     const fpsToCheck = [...new Set([effectiveFp, fingerprint].filter(Boolean))];
-    for (const did of idsToCheck) {
-      const { data: used } = await sb.from('rezzz-audio').select('username').eq('device_id', did).limit(1).maybeSingle();
-      if (used) return toast('Perangkat ini sudah punya akun. Login saja.','err','1 device 1 akun');
-    }
     for (const fp of fpsToCheck) {
       const { data: usedFp } = await sb.from('rezzz-audio').select('username').eq('fingerprint', fp).limit(1).maybeSingle();
       if (usedFp) return toast('Perangkat ini sudah punya akun. Login saja.','err','1 device 1 akun');
@@ -1234,7 +3360,7 @@ async function submitModal() {
       is_premium: false,
       daily_count: 0,
       last_reset: new Date().toISOString().slice(0,10),
-      device_id: effectiveDeviceId,
+      device_id: serializeDeviceList([effectiveDeviceId || deviceId]),
       fingerprint: effectiveFp
     }]);
     if (error) toast(error.message,'err','Gagal');
@@ -1246,10 +3372,17 @@ async function submitModal() {
     const matched = rows.filter(r => r.password===password);
     if (!matched.length) return toast('Password salah.','err','Login');
     const data = pickUserRow(matched);
-    if (data.device_id && data.device_id!==effectiveDeviceId && data.device_id!==deviceId) {
-      if (!confirm('Akun login di perangkat lain.\nLanjutkan?')) return;
+    let list = parseDeviceList(data.device_id);
+    const cur = effectiveDeviceId || deviceId;
+    if (!deviceListHas(list, cur) && !deviceListHas(list, deviceId)) {
+      if (list.length >= MAX_DEVICES) {
+        if (!confirm('Akun sudah dipakai di ' + MAX_DEVICES + ' perangkat.\nLogin di sini akan mengeluarkan perangkat paling lama.\nLanjutkan?')) return;
+      } else {
+        // masih ada slot, no confirm needed
+      }
     }
-    await sb.from('rezzz-audio').update({ device_id: effectiveDeviceId, fingerprint: effectiveFp }).eq('username',username);
+    const added = addDeviceToList(list, cur);
+    await sb.from('rezzz-audio').update({ device_id: serializeDeviceList(added.list), fingerprint: effectiveFp }).eq('username',username);
     localStorage.setItem('loginUser',username);
     if ($('rememberMe').checked) localStorage.setItem('loginPass',password);
     else localStorage.removeItem('loginPass');
@@ -1257,7 +3390,7 @@ async function submitModal() {
     showLoggedUI(true);
     unlockEditor();
     await checkPremiumStatus();
-    toast('Selamat datang.','ok','Login berhasil');
+    toast(added.kicked ? ('Login OK · perangkat lama diganti (max ' + MAX_DEVICES + ')') : 'Selamat datang.','ok','Login berhasil');
     closeModal();
   }
 }
@@ -1291,17 +3424,16 @@ async function submitRedeem() {
       return toast('Kode sudah dipakai.', 'err', 'Kode');
     }
     const hari = Number(kd.days) || 3;
+    // Pro permanen: is_pro di kode / nama PRO / days >= 36500
+    // 1 hari: Trial Pro (pancing) → is_pro true biar bisa 10 link
     const codePro = kd.is_pro===true||kd.is_pro==='true'||kd.is_pro===1||kd.is_pro==='1'
-      || kd.is_pro===True
       || String(kd.is_pro).toLowerCase()==='true'
       || hari >= 36500
+      || hari === 1
       || (kode && kode.indexOf('PRO') !== -1);
-    // Batas harian: 3 hari → 25, 7 hari → 80, 30+/pro/permanen → unlimited
+    const isTrialPro = codePro && hari === 1;
+    // Premium semua paket: unlimited (tanpa batas harian)
     let dailyLim = null;
-    if (!codePro) {
-      if (hari <= 3) dailyLim = PREM_LIMIT_3D;
-      else if (hari <= 7) dailyLim = PREM_LIMIT_7D;
-    }
     const { data: userRows } = await sb.from('rezzz-audio').select('premium_until,is_premium,is_pro').eq('username', username);
     const ur = pickUserRow(userRows);
     const now = new Date();
@@ -1330,10 +3462,12 @@ async function submitRedeem() {
     await sb.from('redeem_codes').update({ used: true }).eq('code', kode);
     await checkPremiumStatus();
     closeRedeem();
-    if (codePro) toast('Permanen Pro aktif · 3 link batch + unlimited','ok','Pro aktif');
-    else {
-      const limTxt = dailyLim != null ? (' · limit ' + dailyLim + '/hari') : ' · unlimited';
-      toast('+' + hari + ' hari' + limTxt + ' · sampai ' + until.toLocaleDateString('id-ID'), 'ok', 'Premium aktif');
+    if (isTrialPro) {
+      toast('Trial Pro 1 hari aktif · 10 link batch · unlimited. Upgrade Permanen Pro biar selamanya.','ok','Trial Pro');
+    } else if (codePro) {
+      toast('Permanen Pro aktif · 10 link batch + unlimited','ok','Pro aktif');
+    } else {
+      toast('+' + hari + ' hari · unlimited · sampai ' + until.toLocaleDateString('id-ID'), 'ok', 'Premium aktif');
     }
   } catch (e) {
     toast(e.message, 'err', 'Error');
@@ -1348,15 +3482,17 @@ $('audioFile').addEventListener('change', async e => {
   await checkPremiumStatus();
   const files = Array.from(e.target.files||[]);
   if (!files.length) return;
-  const maxSize = isPremium ? MAX_SIZE_PREM : MAX_SIZE_FREE;
+  // Premium & Pro: tanpa batas ukuran file. Free: 10MB.
+  const maxSize = isPremium ? null : MAX_SIZE_FREE;
   for (const f of files) {
-    if (f.size > maxSize) {
-      const limMB = isPremium ? 20 : 10;
-      toast(f.name+' >'+limMB+'MB (batas '+(isPremium?'premium':'free')+').','err','File besar');
-      $('audioFile').value=''; currentFiles=[]; $('downloadBtn').disabled=true; return;
+    if (maxSize != null && f.size > maxSize) {
+      toast(f.name+' >10MB (batas free).','err','File besar');
+      $('audioFile').value=''; currentFiles=[]; originalFileNames=[]; $('downloadBtn').disabled=true; return;
     }
   }
   currentFiles = files;
+  originalFileNames = files.map(f => f.name || '');
+
   if (files.length===1) {
     $('fileName').textContent = files[0].name;
     player.src = URL.createObjectURL(files[0]);
@@ -1364,7 +3500,7 @@ $('audioFile').addEventListener('change', async e => {
     player.onloadedmetadata = () => {
       const maxDur = isPremium ? MAX_DUR_PREM : MAX_DUR_FREE;
       if (player.duration > maxDur) {
-        toast('Durasi max '+maxDur+'s ('+(isPremium?'premium':'free')+').','err','Terlalu panjang');
+        toast(isPremium ? 'File terlalu panjang (batas sangat tinggi).' : ('Upload max ~13 menit ('+maxDur+'s). Hasil download max 400s (free).'),'err','Terlalu panjang');
         player.src=''; currentFiles=[]; $('fileName').textContent='MP3 · WAV · OGG';
         setPlayerUI(false); $('downloadBtn').disabled=true; return;
       }
@@ -1380,23 +3516,12 @@ $('audioFile').addEventListener('change', async e => {
   }
 });
 
-function setPreset(s,d,btn,pitchVal) {
+function setPreset(s,d,btn) {
   if (!isLoggedIn) return toast('Login dulu.','info','Perlu login');
-  const p = (pitchVal != null) ? pitchVal : 2; // default pitch +2
   $('speed').value=s; $('db').value=d;
-  if ($('pitch')) $('pitch').value=p;
-  updateSpeed(s); updateDb(d); updatePitch(p);
+  updateSpeed(s); updateDb(d);
   document.querySelectorAll('.presets button').forEach(b=>b.classList.remove('on'));
   if (btn) btn.classList.add('on');
-}
-function updatePitch(v) {
-  v = Number(v) || 0;
-  const el = $('pitchText');
-  if (el) el.textContent = (v > 0 ? '+'+v : String(v));
-  if ($('playerSub')&&player.src) {
-    $('playerSub').textContent='Speed '+$('speed').value+'x · '+$('db').value+' dB · P'+(v>0?'+':'')+v;
-  }
-  $('descBox').innerHTML='<b>'+$('speed').value+'x / '+$('db').value+'dB / P'+(v>0?'+':'')+v+'</b> · In Game ≈ <b>'+(1/parseFloat($('speed').value)).toFixed(2)+'</b>';
 }
 function updateSpeed(v) {
   player.playbackRate=v; $('speedText').textContent=v+'x';
@@ -1412,118 +3537,274 @@ function updateDb(v) {
 }
 $('db').addEventListener('input',()=>{ if(!isLoggedIn)return; updateDb(parseFloat($('db').value)); });
 try{updateDb(parseFloat($('db').value));}catch(_){}
-if ($('pitch')) {
-  $('pitch').addEventListener('input',()=>{ if(!isLoggedIn)return; updatePitch(parseFloat($('pitch').value)); });
-  try{updatePitch(parseFloat($('pitch').value));}catch(_){}
-}
 
+function yieldToUI() {
+  return new Promise(function (r) { setTimeout(r, 0); });
+}
 function floatTo16(input) {
-  const out=new Int16Array(input.length);
-  for(let i=0;i<input.length;i++){let s=Math.max(-1,Math.min(1,input[i]));out[i]=s<0?s*0x8000:s*0x7FFF;}
+  const out = new Int16Array(input.length);
+  for (let i = 0; i < input.length; i++) {
+    let s = Math.max(-1, Math.min(1, input[i]));
+    out[i] = s < 0 ? s * 0x8000 : s * 0x7FFF;
+  }
   return out;
 }
-function softLimit(buf,th) {
-  th=th||0.92;
-  for(let c=0;c<buf.numberOfChannels;c++){
-    const d=buf.getChannelData(c);
-    for(let i=0;i<d.length;i++){const x=d[i],ax=Math.abs(x);if(ax>th)d[i]=Math.sign(x)*(th+(1-th)*Math.tanh((ax-th)/(1-th+1e-6)));}
+/** Normalize peak saja (tanpa soft-limit agresif yang bikin burik) */
+function normalizePeak(buf, targetPeak) {
+  targetPeak = targetPeak == null ? 0.98 : targetPeak;
+  let peak = 0;
+  for (let c = 0; c < buf.numberOfChannels; c++) {
+    const d = buf.getChannelData(c);
+    for (let i = 0; i < d.length; i++) {
+      const ax = Math.abs(d[i]);
+      if (ax > peak) peak = ax;
+    }
   }
-  return buf;
-}
-function peakNormalize(buf, target) {
-  target = target == null ? 0.94 : target;
-  let peakA = 0;
-  for (let ch = 0; ch < buf.numberOfChannels; ch++) {
-    const d = buf.getChannelData(ch);
-    for (let i = 0; i < d.length; i++) peakA = Math.max(peakA, Math.abs(d[i]));
-  }
-  if (peakA > 0.001 && peakA !== target) {
-    const g = target / peakA;
-    for (let ch = 0; ch < buf.numberOfChannels; ch++) {
-      const d = buf.getChannelData(ch);
+  if (peak > 0.001 && Math.abs(peak - targetPeak) > 0.002) {
+    const g = targetPeak / peak;
+    for (let c = 0; c < buf.numberOfChannels; c++) {
+      const d = buf.getChannelData(c);
       for (let i = 0; i < d.length; i++) d[i] *= g;
     }
   }
   return buf;
 }
-/** Noise floor sangat ringan — bantu ubah fingerprint tanpa terdengar jelas */
-function addSubtleNoise(buf, amount) {
-  // amount ~0.0012 aman: terasa di fingerprint, hampir tidak merusak musik
-  amount = amount == null ? 0.0012 : amount;
-  for (let ch = 0; ch < buf.numberOfChannels; ch++) {
-    const d = buf.getChannelData(ch);
-    // noise high-freq bias (pink-ish) biar tidak "mendengung" di bass
-    let state = 0;
+/** Soft-limit sangat ringan — hanya cegah clip, jangan hancurkan dinamika */
+function softLimitLight(buf, th) {
+  th = th == null ? 0.97 : th;
+  for (let c = 0; c < buf.numberOfChannels; c++) {
+    const d = buf.getChannelData(c);
     for (let i = 0; i < d.length; i++) {
-      const white = Math.random() * 2 - 1;
-      state = 0.85 * state + 0.15 * white; // soft low-pass of noise
-      const hf = white - state;             // mostly high frequency
-      const mix = hf * 0.7 + white * 0.3;
-      d[i] += mix * amount;
+      const x = d[i];
+      const ax = Math.abs(x);
+      if (ax > th) {
+        d[i] = Math.sign(x) * (th + (1 - th) * Math.tanh((ax - th) / (1 - th + 1e-6) * 0.55));
+      }
     }
   }
   return buf;
 }
-function bufferToMp3(buf) {
-  const ch=buf.numberOfChannels,rate=buf.sampleRate,enc=new lamejs.Mp3Encoder(ch,rate,256);
-  const left=floatTo16(buf.getChannelData(0)),right=ch>1?floatTo16(buf.getChannelData(1)):left;
-  const blocks=[],size=1152;
-  for(let i=0;i<left.length;i+=size){
-    const l=left.subarray(i,i+size),r=right.subarray(i,i+size);
-    const b=ch===1?enc.encodeBuffer(l):enc.encodeBuffer(l,r);
-    if(b.length)blocks.push(b);
+/** Noise ultra-kecil (hampir tidak terdengar) — hanya untuk bypass anti-detect */
+function addSubtleNoiseFast(buf, amount) {
+  amount = amount == null ? 0.00008 : amount;
+  for (let ch = 0; ch < buf.numberOfChannels; ch++) {
+    const d = buf.getChannelData(ch);
+    for (let i = 0; i < d.length; i += 4) {
+      const n = (Math.random() * 2 - 1) * amount;
+      d[i] += n;
+      if (i + 1 < d.length) d[i + 1] += n * 0.7;
+    }
   }
-  const end=enc.flush(); if(end.length)blocks.push(end);
-  return new Blob(blocks,{type:'audio/mp3'});
+  return buf;
 }
-async function processAudio(file,speedVal,dbVal,pitchVal) {
-  const ab=await file.arrayBuffer();
-  const ctx=new (window.AudioContext||window.webkitAudioContext)();
-  let src=await ctx.decodeAudioData(ab);
-  const rate=src.sampleRate, dur=src.duration/speedVal, frames=Math.max(1,Math.ceil(dur*rate));
-  const off=new OfflineAudioContext(src.numberOfChannels,frames,rate);
-  const source=off.createBufferSource(); source.buffer=src; source.playbackRate.value=speedVal;
-  // pitch (semitone) + micro-detune acak biar fingerprint beda tiap render
-  const p = Number(pitchVal);
-  const baseCents = (isNaN(p) ? 2 : p) * 100;
-  const micro = (processMode === 'bypass') ? ((Math.random() * 14) - 7) : ((Math.random() * 4) - 2); // ±7 cent bypass
-  source.detune.value = baseCents + micro;
+/** Encode MP3 async + yield supaya UI tidak freeze */
+async function bufferToMp3(buf, onProgress) {
+  const ch = Math.min(2, buf.numberOfChannels);
+  const rate = buf.sampleRate;
 
-  const hp = off.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = processMode === 'bypass' ? 55 : 40; hp.Q.value = 0.7;
-  const peak = off.createBiquadFilter(); peak.type = 'peaking'; peak.frequency.value = 2800; peak.Q.value = 0.75; peak.gain.value = processMode === 'bypass' ? 1.2 : 0.8;
-  const peak2 = off.createBiquadFilter(); peak2.type = 'peaking'; peak2.frequency.value = 5200; peak2.Q.value = 0.9; peak2.gain.value = processMode === 'bypass' ? 0.7 : 0.25;
-  const shelf = off.createBiquadFilter(); shelf.type = 'highshelf'; shelf.frequency.value = 9000; shelf.gain.value = processMode === 'bypass' ? 0.6 : 0.2;
-  const gain = off.createGain(); gain.gain.value = Math.pow(10, dbVal / 20);
-  const lp = off.createBiquadFilter(); lp.type = 'lowpass';
+  // Premium/Pro: 320 kbps (kualitas max MP3). Free: 192 kbps.
+  const bitrate = (typeof isPremium !== 'undefined' && isPremium) ? 320 : 192;
+  const enc = new lamejs.Mp3Encoder(
+    ch,
+    rate,
+    bitrate
+  );
+
+  const left = floatTo16(
+    buf.getChannelData(0)
+  );
+
+  const right = ch > 1
+    ? floatTo16(buf.getChannelData(1))
+    : null;
+
+  const blocks = [];
+  const size = 1152;
+  const total = left.length;
+
+  let lastYield = 0;
+
+  for (let i = 0; i < total; i += size) {
+    const l = left.subarray(
+      i,
+      Math.min(i + size, total)
+    );
+
+    let b;
+
+    if (ch === 1) {
+      b = enc.encodeBuffer(l);
+    } else {
+      const r = right.subarray(
+        i,
+        Math.min(i + size, total)
+      );
+
+      b = enc.encodeBuffer(l, r);
+    }
+
+    if (b && b.length) {
+      blocks.push(b);
+    }
+
+    if (i - lastYield > size * 40) {
+      lastYield = i;
+
+      if (onProgress) {
+        onProgress(
+          Math.min(
+            99,
+            Math.round((i / total) * 100)
+          )
+        );
+      }
+
+      await yieldToUI();
+    }
+  }
+
+  // Wajib flush supaya frame MP3 terakhir ikut masuk.
+  const end = enc.flush();
+
+  if (end && end.length) {
+    blocks.push(end);
+  }
+
+  if (onProgress) {
+    onProgress(100);
+  }
+
+  return new Blob(blocks, {
+    type: 'audio/mpeg'
+  });
+}
+/**
+ * Proses bersih (hampir murni speed + gain):
+ * - Sample rate 44.1 kHz
+ * - TANPA EQ warna (body/presence) — biar tidak beda jauh dari asli
+ * - Highpass sangat rendah (buang DC saja)
+ * - Lowpass longgar di dekat Nyquist
+ * - Pitch mikro random dihilangkan (bikin beda)
+ * - Noise ultra-kecil hanya di mode bypass
+ * - Normalize peak lembut, soft-limit hanya cegah clip
+ * - Encode 320 kbps (premium) / 192 kbps (free)
+ */
+async function processAudio(file, speedVal, dbVal, pitchVal) {
+  const ab = await file.arrayBuffer();
+  await yieldToUI();
+
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  const ctx = new AudioCtx();
+
+  let src = await ctx.decodeAudioData(ab);
+  await yieldToUI();
+
+  const targetRate = 44100;
+
+  // Resample ke 44.1k hanya jika sample rate jauh lebih tinggi (biar encode stabil)
+  if (src.sampleRate > targetRate + 2000) {
+    const newLen = Math.max(1, Math.round(src.duration * targetRate));
+    const offlineResample = new OfflineAudioContext(
+      src.numberOfChannels,
+      newLen,
+      targetRate
+    );
+    const resampleSource = offlineResample.createBufferSource();
+    resampleSource.buffer = src;
+    resampleSource.connect(offlineResample.destination);
+    resampleSource.start(0);
+    src = await offlineResample.startRendering();
+    await yieldToUI();
+  }
+
+  const rate = src.sampleRate;
+
+  // Speed murni — pitch DIMATIKAN (bikin suara berubah drastis)
+  const effectiveSpeed = Math.max(0.05, Number(speedVal) || 1);
+
+  let outputDuration = src.duration / effectiveSpeed;
+  // Free saja dibatasi 400s (aman Roblox). Premium & Pro: TANPA BATAS sama sekali.
+  if (!isPremium && outputDuration > MAX_DUR_OUT) outputDuration = MAX_DUR_OUT;
+
+  // Tail kecil biar sample terakhir tidak terpotong
+  const tailSec = 0.012;
+  const frames = Math.max(1, Math.ceil((outputDuration + tailSec) * rate));
+
+  const off = new OfflineAudioContext(src.numberOfChannels, frames, rate);
+  const source = off.createBufferSource();
+  source.buffer = src;
+  source.playbackRate.value = effectiveSpeed;
+  source.detune.value = 0;
+
+  // Highpass sangat rendah — buang DC / rumble saja, tidak potong bass
+  const hp = off.createBiquadFilter();
+  hp.type = 'highpass';
+  hp.frequency.value = 18;
+  hp.Q.value = 0.707;
+
+  // Gain (dB)
+  const gain = off.createGain();
+  gain.gain.value = Math.pow(10, Number(dbVal) / 20);
+
+  // Lowpass longgar — jangan potong high frekuensi yang bikin "burik"/cempreng
+  const lp = off.createBiquadFilter();
+  lp.type = 'lowpass';
   const nyq = rate * 0.5;
-  // cut lebih agresif saat speed tinggi biar artefak speed-up tetap “rapi”
-  const cut = Math.min(nyq * 0.9, Math.max(11000, nyq / Math.max(1, speedVal * (processMode === 'bypass' ? 0.62 : 0.55))));
-  lp.frequency.value = cut; lp.Q.value = 0.707;
+  // Hampir full bandwidth; hanya sedikit di bawah Nyquist
+  lp.frequency.value = Math.min(nyq * 0.96, 20000);
+  lp.Q.value = 0.5;
 
-  // chain: source → HP → peak → peak2 → shelf → gain → LP → out
+  // Chain minimal: source → HP → Gain → LP → out
   source.connect(hp);
-  hp.connect(peak);
-  peak.connect(peak2);
-  peak2.connect(shelf);
-  shelf.connect(gain);
+  hp.connect(gain);
   gain.connect(lp);
   lp.connect(off.destination);
-  source.start(0);
-  let rendered = await off.startRendering();
 
+  const playDuration = Math.min(src.duration, outputDuration * effectiveSpeed);
+  source.start(0, 0, Math.max(0.001, playDuration));
+
+  let rendered = await off.startRendering();
+  await yieldToUI();
+
+  // Post: normalize lembut + soft-limit sangat ringan
+  rendered = normalizePeak(rendered, 0.992);
+  rendered = softLimitLight(rendered, 0.988);
+
+  // Noise ultra-kecil HANYA di bypass (anti-detect), manual/clean tanpa noise
   if (processMode === 'bypass') {
-    rendered = softLimit(rendered, 0.90);
-    rendered = addSubtleNoise(rendered, 0.0012);
-    rendered = peakNormalize(rendered, 0.93);
-  } else if (processMode === 'clean') {
-    rendered = softLimit(rendered, 0.88);
-    rendered = peakNormalize(rendered, 0.95);
-  } else {
-    rendered = softLimit(rendered, 0.92);
-    rendered = peakNormalize(rendered, 0.94);
+    rendered = addSubtleNoiseFast(rendered, 0.00003);
   }
+
   try { await ctx.close(); } catch (_) {}
   return rendered;
+}
+
+
+function setProcProgress(pct, label, sub) {
+  const wrap = $('procWrap');
+  const fill = $('procFill');
+  const pctEl = $('procPct');
+  const lab = $('procLabel');
+  const subEl = $('procSub');
+  if (!wrap) return;
+  pct = Math.max(0, Math.min(100, Math.round(Number(pct) || 0)));
+  wrap.classList.add('on');
+  if (fill) fill.style.width = pct + '%';
+  if (pctEl) pctEl.textContent = pct + '%';
+  if (lab && label) lab.textContent = label;
+  if (subEl && sub != null) subEl.textContent = sub;
+}
+function hideProcProgress() {
+  const wrap = $('procWrap');
+  if (!wrap) return;
+  wrap.classList.remove('on');
+  if ($('procFill')) $('procFill').style.width = '0%';
+  if ($('procPct')) $('procPct').textContent = '0%';
+}
+function showProcBusy(btn, on) {
+  if (!btn) return;
+  if (on) btn.classList.add('busy');
+  else btn.classList.remove('busy');
 }
 
 $('downloadBtn').addEventListener('click', async () => {
@@ -1538,7 +3819,7 @@ $('downloadBtn').addEventListener('click', async () => {
   const today = new Date().toISOString().slice(0,10);
   if (data.last_reset!==today) { await sb.from('rezzz-audio').update({daily_count:0,last_reset:today}).eq('username',username); data.daily_count=0; }
   const total = currentFiles.length;
-  // Batas harian: free=2 (atau 10 saat event), premium 3hari=25, 7hari=80, sisanya unlimited
+  // Batas harian: free=3 (atau 10 saat event), premium 3hari=25, 7hari=80, sisanya unlimited
   const freeLim = getEffectiveFreeLimit();
   const effectiveLimit = !isPremium
     ? freeLim
@@ -1546,7 +3827,7 @@ $('downloadBtn').addEventListener('click', async () => {
   if (effectiveLimit != null) {
     const sisa = effectiveLimit - (data.daily_count || 0);
     if (sisa <= 0) {
-      toast(isPremium ? ('Limit premium hari ini habis (' + effectiveLimit + '/hari).') : ('Limit free habis' + (isFreeEventActive() ? ' (event 10x).' : '.')), 'err', 'Limit');
+      toast(isPremium ? ('Limit premium hari ini habis (' + effectiveLimit + '/hari).') : ('Limit free habis' + (isFreeEventActive() ? ' (event 20x).' : '.')), 'err', 'Limit');
       if (!isPremium) {
         setTimeout(()=>{ if(confirm('Limit habis!\n\nPremium dari Rp15rb.\nBuka WhatsApp?')) window.open('https://wa.me/6283135744309?text='+encodeURIComponent('Halo, mau beli premium Rezzz Audio'),'_blank'); },400);
       }
@@ -1555,70 +3836,151 @@ $('downloadBtn').addEventListener('click', async () => {
     if (total > sisa) return toast('Sisa ' + sisa + 'x hari ini, kamu pilih ' + total + ' file.', 'err', 'Limit');
   }
   $('downloadBtn').disabled=true;
-  let speedVal=parseFloat($('speed').value), dbVal=parseFloat($('db').value), pitchVal=parseFloat($('pitch')?$('pitch').value:2);
-  if (processMode === 'bypass') { speedVal=3; dbVal=-2; pitchVal=2; }
-  if (processMode === 'clean') { speedVal=1; dbVal=0; pitchVal=0; }
+  showProcBusy($('downloadBtn'), true);
+  setProcProgress(0, 'Memulai...', '0 / ' + currentFiles.length + ' file');
+  let speedVal=parseFloat($('speed').value), dbVal=parseFloat($('db').value);
+  // Bypass: rekomendasi bersih 3.0x / -6dB · pitch dimatikan
+  if (processMode === 'bypass') { speedVal=3.0; dbVal=-6; }
+  if (processMode === 'clean') { speedVal=1; dbVal=0; }
+  const pitchVal = 0; // pitch selalu OFF
   const maxDur = isPremium ? MAX_DUR_PREM : MAX_DUR_FREE;
+  // SELALU gunakan nama asli yang disimpan sebelum proses/edit.
+  // Jangan mengambil nama dari blob/server/API karena bisa berupa UUID/random.
   const makeName = i => {
-    const f = currentFiles[i];
-    const base = ((f && f.name) ? f.name : ('audio_'+(i+1)+'.mp3'))
-      .replace(/\.[^.]+$/,'')
-      .replace(/[\\/:*?"<>|]/g,'_')
-      .trim() || ('audio_'+(i+1));
-    const speedTag = String(speedVal).replace(/\.0$/,'') + 'x';
-    return base + speedTag + '.mp3';
+    const remembered = originalFileNames[i];
+
+    const fallback = (
+      currentFiles[i] && currentFiles[i].name
+        ? currentFiles[i].name
+        : ('audio_' + (i + 1) + '.mp3')
+    );
+
+    const originalName = remembered || fallback;
+
+    const base = String(originalName)
+      .replace(/\.[^.]+$/, '')
+      .replace(/[\\/:*?"<>|]/g, '_')
+      .trim() || ('audio_' + (i + 1));
+
+    return base + '.mp3';
   };
   let ok=0;
   for (let i=0;i<total;i++) {
     const file=currentFiles[i];
     $('downloadBtn').textContent='Proses '+(i+1)+'/'+total+'...';
+    setProcProgress(Math.round((i/total)*100), 'Proses file '+(i+1)+'/'+total, file.name||'');
     try {
       const tmp=URL.createObjectURL(file), audioProbe=new Audio();
       await new Promise((res,rej)=>{audioProbe.onloadedmetadata=res;audioProbe.onerror=rej;audioProbe.src=tmp;});
       URL.revokeObjectURL(tmp);
       if (audioProbe.duration > maxDur) {
-        toast(file.name+' di-skip (>'+maxDur+'s).','info','Skip');
+        toast(file.name+' di-skip (upload terlalu panjang).','info','Skip');
         continue;
       }
-      // Hitung daily_count juga untuk premium berbatas (3d/7d)
+      // Hitung daily_count hanya jika ada batas (free / premium berbatas — premium sekarang unlimited)
       if (effectiveLimit != null) {
         await sb.from('rezzz-audio').update({daily_count:(data.daily_count||0)+1}).eq('username',username);
         data.daily_count=(data.daily_count||0)+1;
       }
-      const rendered=await processAudio(file,speedVal,dbVal,pitchVal);
-      const blob=bufferToMp3(rendered);
-      const dl=document.createElement('a');
-      dl.href=URL.createObjectURL(blob); dl.download=makeName(i); dl.click();
+      $('downloadBtn').textContent = 'Render ' + (i + 1) + '/' + total + '...';
+      setProcProgress(Math.round((i/total)*100 + 8), 'Render ' + (i + 1) + '/' + total, file.name||'');
+      const rendered = await processAudio(file, speedVal, dbVal, pitchVal);
+      $('downloadBtn').textContent = 'Encode ' + (i + 1) + '/' + total + '...';
+      const blob = await bufferToMp3(rendered, function (pct) {
+        $('downloadBtn').textContent = 'Encode ' + (i + 1) + '/' + total + ' · ' + pct + '%';
+        // progress total: base file + encode portion
+        const base = (i / total) * 100;
+        const slice = (1 / total) * 100;
+        const overall = Math.round(base + (pct / 100) * slice * 0.9 + slice * 0.1);
+        setProcProgress(overall, 'Encode ' + (i + 1) + '/' + total + ' · ' + pct + '%', file.name || '');
+      });
+      const dl = document.createElement('a');
+      dl.href = URL.createObjectURL(blob); dl.download = makeName(i); dl.click();
       URL.revokeObjectURL(dl.href);
       ok++;
-      addHistory({name:makeName(i),speed:speedVal,db:dbVal,pitch:pitchVal,original:file.name});
+      setProcProgress(Math.round(((i+1)/total)*100), 'Selesai ' + (i+1) + '/' + total, makeName(i));
+      addHistory({ name: makeName(i), speed: speedVal, db: dbVal, pitch: pitchVal, original: file.name, thumb: (file && file.__rezzThumb) || linkMetaByName[file.name] || linkMetaByName[makeName(i)] || '', sourceUrl: (file && file.__rezzSource) || '' });
+      bumpTotalMusic(1);
       await refreshLimit();
       if (total>1) await new Promise(r=>setTimeout(r,400));
     } catch(err) { toast(file.name+' — '+err.message,'err','Gagal'); }
   }
+  setProcProgress(100, ok ? 'Selesai!' : 'Gagal', ok + '/' + total + ' file');
+  await new Promise(r => setTimeout(r, 600));
+  hideProcProgress();
+  showProcBusy($('downloadBtn'), false);
   $('downloadBtn').disabled=false;
   $('downloadBtn').textContent='Konversi & Download MP3';
   await refreshLimit();
   if (ok) toast(ok+'/'+total+' file berhasil','ok','Selesai');
 });
 
-async function addHistory(entry) {
+/** Cache meta terakhir dari link (judul + thumbnail) per nama file */
+const linkMetaByName = {};
+function ytThumbFromUrl(url) {
+  if (!url) return '';
   try {
-    const { error } = await sb.from('rezzz_history').insert([{
+    let id = '';
+    const s = String(url);
+    if (/youtu\.be\//i.test(s)) id = s.split(/youtu\.be\//i)[1].split(/[?&#/]/)[0];
+    else if (/[?&]v=/.test(s)) id = (s.match(/[?&]v=([^&]+)/) || [])[1] || '';
+    else {
+      const m = s.match(/\/(shorts|live|embed)\/([A-Za-z0-9_-]{6,})/);
+      if (m) id = m[2];
+    }
+    if (id && /^[A-Za-z0-9_-]{6,}$/.test(id)) {
+      return 'https://i.ytimg.com/vi/' + id + '/mqdefault.jpg';
+    }
+  } catch (_) {}
+  return '';
+}
+function escHtml(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+async function addHistory(entry) {
+  const thumb = entry.thumb || linkMetaByName[entry.name] || linkMetaByName[entry.original] || '';
+  const sourceUrl = entry.sourceUrl || '';
+  try {
+    const row = {
       username: localStorage.getItem('loginUser')||'anon',
-      file_name: entry.name||'file', original_name: entry.original||'',
-      speed: entry.speed, db_val: entry.db, created_at: new Date().toISOString()
-    }]);
+      file_name: entry.name||'file',
+      original_name: entry.original||'',
+      speed: entry.speed,
+      db_val: entry.db,
+      created_at: new Date().toISOString()
+    };
+    if (thumb) row.thumb_url = thumb;
+    if (sourceUrl) row.source_url = sourceUrl;
+    let { error } = await sb.from('rezzz_history').insert([row]);
+    if (error && (thumb || sourceUrl)) {
+      delete row.thumb_url; delete row.source_url;
+      const r2 = await sb.from('rezzz_history').insert([row]);
+      error = r2.error;
+    }
     if (error) console.warn('addHistory insert failed:', error.message);
+    try {
+      const key = 'rezz_hist_meta';
+      const arr = JSON.parse(localStorage.getItem(key) || '[]');
+      arr.unshift({ name: entry.name, original: entry.original, thumb: thumb, sourceUrl: sourceUrl, at: Date.now() });
+      localStorage.setItem(key, JSON.stringify(arr.slice(0, 80)));
+    } catch (_) {}
   } catch(e) { console.warn('addHistory error:', e); }
   renderHistory();
+}
+function localThumbFor(name, original) {
+  try {
+    const arr = JSON.parse(localStorage.getItem('rezz_hist_meta') || '[]');
+    const hit = arr.find(function(x) {
+      return (name && x.name === name) || (original && x.original === original) || (name && x.original === name);
+    });
+    return hit && hit.thumb ? hit.thumb : '';
+  } catch (_) { return ''; }
 }
 async function renderHistory() {
   const list = $('histList');
   if (!list) return;
   list.innerHTML = '<div class="hist-e">Memuat...</div>';
   const cut = new Date(Date.now() - 12 * 3600 * 1000).toISOString();
-  // Cleanup lama: jangan biarkan gagal (RLS/permission) merusak tampilan list
   try {
     await sb.from('rezzz_history').delete().lt('created_at', cut);
   } catch (_) {}
@@ -1633,16 +3995,26 @@ async function renderHistory() {
       list.innerHTML = '<div class="hist-e">Belum ada riwayat</div>';
       return;
     }
-    list.innerHTML = data.map(h => {
+    list.innerHTML = data.map(function(h) {
       const when = h.created_at
         ? new Date(h.created_at).toLocaleString('id-ID', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })
         : '';
-      const name = String(h.file_name || 'file').replace(/[<>&]/g, '');
-      const user = String(h.username || 'user').replace(/[<>&]/g, '');
+      const name = escHtml(h.file_name || 'file');
+      const user = escHtml(h.username || 'user');
       const sp = h.speed != null ? h.speed : '';
       const dbv = h.db_val != null ? h.db_val : '';
       const game = sp ? (1 / Number(sp)).toFixed(4) : '';
-      return '<div class="hist-i"><div class="hist-i-t"><span class="hist-n">' + name + '</span><span class="hist-tm">' + when + '</span></div><div class="tags"><span class="tag">@' + user + '</span><span class="tag">' + sp + 'x</span><span class="tag">' + dbv + ' dB</span>' + (game ? '<span class="tag">IG ' + game + '</span>' : '') + '</div></div>';
+      let thumb = h.thumb_url || localThumbFor(h.file_name, h.original_name) || ytThumbFromUrl(h.source_url || '');
+      let thumbHtml;
+      if (thumb) {
+        thumbHtml = '<img class="hist-thumb" src="' + escHtml(thumb) + '" alt="" loading="lazy" onerror="this.outerHTML=\'<div class=hist-ph>🎵</div>\'">';
+      } else {
+        thumbHtml = '<div class="hist-ph">🎵</div>';
+      }
+      return '<div class="hist-i">' + thumbHtml +
+        '<div class="hist-body"><div class="hist-i-t"><span class="hist-n">' + name + '</span><span class="hist-tm">' + when + '</span></div>' +
+        '<div class="tags"><span class="tag">@' + user + '</span><span class="tag">' + sp + 'x</span><span class="tag">' + dbv + ' dB</span>' +
+        (game ? '<span class="tag">IG ' + game + '</span>' : '') + '</div></div></div>';
     }).join('');
   } catch (e) {
     console.warn('renderHistory error:', e);
@@ -1657,15 +4029,15 @@ function updateLinkInputUI() {
   if (isPro) {
     if (single) single.style.display = 'none';
     if (proBox) proBox.style.display = 'block';
-    if (tip) tip.innerHTML = '<b>Premium Pro</b> · isi sampai <b>3 kolom</b> · auto <b>3x / -2dB / P+2</b> · YT/TikTok/SC';
+    if (tip) tip.innerHTML = '<b>Pro / Trial Pro</b> · isi sampai <b>10 kolom</b> · auto <b>3x / -6dB</b> · tanpa pitch · YT/TikTok/SC';
   } else {
     if (proBox) proBox.style.display = 'none';
     if (single) single.style.display = 'block';
     if (tip) {
       if (isPremium) {
-        tip.innerHTML = '<b>Premium</b> · 1 link · auto <b>3x / -2dB / P+2</b> · YT/TikTok/SC<br><span style="opacity:.85">Upgrade Pro untuk 3 kolom link</span>';
+        tip.innerHTML = '<b>Premium</b> · 1 link · auto <b>3x / -6dB</b> · tanpa pitch · YT/TikTok/SC<br><span style="opacity:.85">Mau 10 link? Beli <b>Akses Link / Permanen Pro Rp 50.000</b> di Toko</span>';
       } else {
-        tip.innerHTML = '<b>Free</b> · 1 link · auto <b>3x</b> · hitung limit harian · YT/TikTok/SC<br><span style="opacity:.85">Pro: 3 kolom link sekaligus</span>';
+        tip.innerHTML = '<b>Akses Link terkunci</b> · Fitur link hanya untuk yang beli <b>Akses Link Rp 50.000</b> (Permanen Pro).<br><span style="opacity:.85">Upload file tetap gratis sesuai limit. Beli di tab <b>Toko</b>.</span>';
       }
     }
   }
@@ -1680,6 +4052,10 @@ function updateStoreVisibility(sisaHari) {
 function switchMode(mode) {
   if (mode === 'link') {
     if (!isLoggedIn) return toast('Login dulu.','info','Perlu login');
+    if (!isPro) {
+      toast('Fitur link hanya untuk Akses Link Rp 50.000 (Permanen Pro). Beli di tab Toko.','info','Akses Link');
+      return;
+    }
   }
   $('uploadMode').style.display = mode==='upload'?'block':'none';
   $('linkMode').style.display = mode==='link'?'block':'none';
@@ -1689,17 +4065,25 @@ function switchMode(mode) {
 }
 
 function isMediaLink(v) {
-  v = (v || '').trim();
-  return v && (v.includes('youtube') || v.includes('youtu.be') || v.includes('tiktok') || v.includes('soundcloud') || v.startsWith('http'));
+  v = (v || '').trim().toLowerCase();
+  if (!v) return false;
+  return (
+    v.includes('youtube.com') || v.includes('youtu.be') ||
+    v.includes('tiktok.com') || v.includes('vm.tiktok') || v.includes('vt.tiktok') ||
+    v.includes('soundcloud.com') || v.includes('on.soundcloud.com') ||
+    /^https?:\/\//i.test(v)
+  );
 }
 if ($('linkInput')) {
   $('linkInput').addEventListener('paste', () => {
     setTimeout(() => {
-      if (isMediaLink($('linkInput').value)) ambilAudioDariLink(true);
+      if (isMediaLink($('linkInput').value)) {
+        toast('Link siap. Tekan tombol "Ambil Audio dari Link".','info','Link');
+      }
     }, 100);
   });
 }
-['linkInput1','linkInput2','linkInput3'].forEach(function(id) {
+['linkInput1','linkInput2','linkInput3','linkInput4','linkInput5','linkInput6','linkInput7','linkInput8','linkInput9','linkInput10'].forEach(function(id) {
   const el = $(id);
   if (!el) return;
   el.addEventListener('paste', () => {
@@ -1708,19 +4092,51 @@ if ($('linkInput')) {
     }, 100);
   });
 });
-function cleanYoutubeUrl(url) {
+/** Bersihkan URL YT / TikTok / SoundCloud biar API download lebih stabil */
+function cleanMediaUrl(url) {
+  url = (url || '').trim();
+  if (!url) return url;
   try {
-    if (url.includes('youtu.be/')) {
-      const id = url.split('youtu.be/')[1].split(/[?&#]/)[0];
-      return 'https://www.youtube.com/watch?v='+id;
+    // YouTube
+    if (/youtu\.be\//i.test(url)) {
+      const id = url.split(/youtu\.be\//i)[1].split(/[?&#/]/)[0];
+      if (id) return 'https://www.youtube.com/watch?v=' + id;
     }
-    if (url.includes('youtube.com')||url.includes('youtube-nocookie.com')) {
-      const u = new URL(url); const v = u.searchParams.get('v');
-      if (v) return 'https://www.youtube.com/watch?v='+v;
+    if (/youtube\.com|youtube-nocookie\.com/i.test(url)) {
+      const u = new URL(url);
+      const v = u.searchParams.get('v');
+      if (v) return 'https://www.youtube.com/watch?v=' + v;
+      // /shorts/ID atau /live/ID
+      const m = u.pathname.match(/\/(shorts|live|embed)\/([A-Za-z0-9_-]{6,})/);
+      if (m) return 'https://www.youtube.com/watch?v=' + m[2];
     }
-  } catch(_){}
-  return url.split('?')[0].split('&')[0];
+    // TikTok — biarkan full path video, buang query tracking
+    if (/tiktok\.com|vm\.tiktok|vt\.tiktok/i.test(url)) {
+      const u = new URL(url.startsWith('http') ? url : 'https://' + url);
+      // vm/vt short link: biarkan origin+path (redirect di-handle backend)
+      if (/vm\.tiktok|vt\.tiktok/i.test(u.hostname)) {
+        return u.origin + u.pathname.replace(/\/$/, '');
+      }
+      // standard: /@user/video/ID
+      const m = u.pathname.match(/(@[^/]+\/video\/\d+)/);
+      if (m) return 'https://www.tiktok.com/' + m[1];
+      return u.origin + u.pathname.replace(/\/$/, '');
+    }
+    // SoundCloud — short on.soundcloud.com & track URL
+    if (/soundcloud\.com/i.test(url)) {
+      const u = new URL(url.startsWith('http') ? url : 'https://' + url);
+      // on.soundcloud.com/xxxx biarkan utuh (tanpa query)
+      return u.origin + u.pathname.replace(/\/$/, '');
+    }
+  } catch (_) {}
+  try {
+    const u = new URL(url);
+    return u.origin + u.pathname.replace(/\/$/, '');
+  } catch (_) {
+    return url.split('?')[0].split('&')[0];
+  }
 }
+function cleanYoutubeUrl(url) { return cleanMediaUrl(url); }
 function parseFilenameFromCD(cd) {
   if (!cd) return '';
   let m = cd.match(/filename\*\s*=\s*(?:UTF-8''|utf-8'')([^;\n]+)/i);
@@ -1740,82 +4156,318 @@ function looksLikeVideoId(name) {
   // YouTube id biasanya 11 karakter [A-Za-z0-9_-]
   return /^[A-Za-z0-9_-]{10,12}$/.test(base);
 }
-async function fetchYoutubeTitle(watchUrl) {
-  const tryFetch = async (apiUrl) => {
-    const r = await fetch(apiUrl);
-    if (!r.ok) return '';
-    const j = await r.json();
-    return (j && j.title) ? String(j.title).trim() : '';
+/** Ambil judul + thumbnail media (YouTube / SoundCloud) via oEmbed */
+async function fetchMediaMeta(mediaUrl) {
+  const empty = { title: '', thumb: '', author: '' };
+  const tryFetch = async (apiUrl, ms) => {
+    const ctrl = new AbortController();
+    const timer = setTimeout(function() { try { ctrl.abort(); } catch(_){} }, ms || 2000);
+    try {
+      const r = await fetch(apiUrl, { signal: ctrl.signal });
+      if (!r.ok) return null;
+      const j = await r.json();
+      if (!j) return null;
+      let t = (j.title) ? String(j.title).trim() : '';
+      const author = (j.author_name) ? String(j.author_name).trim() : '';
+      if (t && author && /soundcloud/i.test(mediaUrl)) {
+        if (t.toLowerCase().indexOf(author.toLowerCase()) === -1) t = author + ' - ' + t;
+      }
+      let thumb = '';
+      if (j.thumbnail_url) thumb = String(j.thumbnail_url);
+      else if (j.thumbnail) thumb = String(j.thumbnail);
+      return { title: t, thumb: thumb, author: author };
+    } catch (_) {
+      return null;
+    } finally {
+      clearTimeout(timer);
+    }
   };
   try {
-    // 1) YouTube oEmbed
-    let t = await tryFetch('https://www.youtube.com/oembed?format=json&url=' + encodeURIComponent(watchUrl));
-    if (t) return t;
+    const enc = encodeURIComponent(mediaUrl);
+    const isYt = /youtube\.com|youtu\.be/i.test(mediaUrl);
+    const isSc = /soundcloud\.com|on\.soundcloud/i.test(mediaUrl);
+    const jobs = [];
+    if (isYt) jobs.push(tryFetch('https://www.youtube.com/oembed?format=json&url=' + enc, 1800));
+    if (isSc) jobs.push(tryFetch('https://soundcloud.com/oembed?format=json&url=' + enc, 1800));
+    jobs.push(tryFetch('https://noembed.com/embed?url=' + enc, 1800));
+    const results = await Promise.all(jobs);
+    for (let i = 0; i < results.length; i++) {
+      if (results[i] && (results[i].title || results[i].thumb)) {
+        if (!results[i].thumb) results[i].thumb = ytThumbFromUrl(mediaUrl);
+        return results[i];
+      }
+    }
   } catch (_) {}
-  try {
-    // 2) noembed (CORS-friendly fallback)
-    let t = await tryFetch('https://noembed.com/embed?url=' + encodeURIComponent(watchUrl));
-    if (t) return t;
-  } catch (_) {}
-  return '';
+  return { title: '', thumb: ytThumbFromUrl(mediaUrl), author: '' };
 }
+async function fetchMediaTitle(mediaUrl) {
+  const m = await fetchMediaMeta(mediaUrl);
+  return (m && m.title) || '';
+}
+/** Alias lama — tetap kompatibel */
+async function fetchYoutubeTitle(watchUrl) {
+  return fetchMediaTitle(watchUrl);
+}
+function humanizeLinkError(raw, url) {
+  const t = String(raw || '');
+  const low = t.toLowerCase();
+  if (low.includes('drm') || low.includes('drm protected')) {
+    return 'SoundCloud ini dilindungi DRM — tidak bisa diunduh. Coba track lain / upload file manual.';
+  }
+  if (low.includes('sign in to confirm') || low.includes('not a bot') || low.includes('verifikasi') || low.includes('ytdlp_cookies')) {
+    return 'YouTube minta verifikasi bot. Admin: update yt-dlp atau set cookies.';
+  }
+  if (/\bprivate video\b|video is private|video private/i.test(t)) {
+    return 'Video private — tidak bisa diambil.';
+  }
+  if (low.includes('login required') && (low.includes('private') || low.includes('members only'))) {
+    return 'Link private / butuh login — tidak bisa diambil.';
+  }
+  if (low.includes('requested format is not available')) {
+    return 'Server gagal memilih format audio YouTube. Coba ulang sekali.';
+  }
+  if (low.includes('video unavailable') || low.includes('this video is unavailable') || low.includes('removed')) {
+    return 'Video/audio memang tidak tersedia atau sudah dihapus.';
+  }
+  if (low.includes('geo') || low.includes('region')) {
+    return 'Diblokir wilayah (geo-restricted).';
+  }
+  if (low.includes('403') || low.includes('forbidden')) {
+    return 'Akses ditolak (403). Coba lagi sebentar / update yt-dlp di server.';
+  }
+  // JSON error from API
+  try {
+    const j = JSON.parse(t);
+    if (j && (j.error || j.message)) return humanizeLinkError(j.error || j.message, url);
+  } catch (_) {}
+  // strip noisy yt-dlp prefix
+  let m = t.match(/ERROR:\s*\[[^\]]+\]\s*\d+:\s*(.+)/i);
+  if (m) return m[1].replace(/\\n/g, ' ').trim();
+  m = t.match(/"error"\s*:\s*"([^"]+)"/i);
+  if (m) return m[1].replace(/\\n/g, ' ').trim().slice(0, 160);
+  return (t.replace(/\\n/g, ' ').trim() || 'Gagal ambil audio').slice(0, 180);
+}
+function looksLikeRandomFilename(name) {
+  const s = String(name || '')
+    .replace(/\.[^.]+$/, '')
+    .trim();
+
+  if (!s) return true;
+
+  // UUID standar
+  if (
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(s)
+  ) {
+    return true;
+  }
+
+  // Nama random hex panjang
+  if (/^[0-9a-f]{20,}$/i.test(s)) {
+    return true;
+  }
+
+  // Nama random alphanumeric panjang tanpa spasi
+  if (
+    /^[A-Za-z0-9_-]{24,}$/.test(s) &&
+    !/[aeiou]/i.test(s)
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
 async function fetchOneLink(url) {
   const cleanUrl = cleanYoutubeUrl(url);
-  const res = await fetch(REZZ_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:cleanUrl})});
-  if (!res.ok) throw new Error((await res.text().catch(()=>''))||('HTTP '+res.status));
-  const blob = await res.blob();
-  if (!blob||blob.size<1000) throw new Error('File terlalu kecil / gagal');
-  const maxSize = isPro ? (500*1024*1024) : (isPremium ? MAX_SIZE_PREM : MAX_SIZE_FREE);
-  if (blob.size > maxSize) {
-    throw new Error('File >' + Math.round(maxSize/1024/1024) + 'MB (batas ' + (isPremium?'premium':'free') + ')');
+  const isYoutube = /youtube\.com|youtu\.be/i.test(cleanUrl);
+  const isSoundCloud = /soundcloud\.com|on\.soundcloud/i.test(cleanUrl);
+
+  // Ambil judul + thumbnail PARALEL dengan download
+  const metaPromise = fetchMediaMeta(cleanUrl).catch(function() {
+    return { title: '', thumb: ytThumbFromUrl(cleanUrl), author: '' };
+  });
+  const titlePromise = metaPromise.then(function(m) { return (m && m.title) || ''; });
+
+  // Timeout 3 menit — YouTube kadang lambat di VPS
+  const ctrl = new AbortController();
+  const apiTimer = setTimeout(function() {
+    try { ctrl.abort(); } catch (_) {}
+  }, 180000);
+
+  let res;
+  try {
+    res = await fetch(REZZ_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: cleanUrl }),
+      signal: ctrl.signal
+    });
+  } catch (e) {
+    clearTimeout(apiTimer);
+    if (e && e.name === 'AbortError') {
+      throw new Error('Server >3 menit belum selesai. Cek VPS / yt-dlp / koneksi server.');
+    }
+    throw new Error((e && e.message) || 'Gagal konek ke server download');
+  }
+  clearTimeout(apiTimer);
+
+  if (!res.ok) {
+    const raw = await res.text().catch(function() { return ''; });
+    throw new Error(
+      humanizeLinkError(raw, cleanUrl) || ('HTTP ' + res.status)
+    );
   }
 
-  // 1) header API  2) judul YouTube oEmbed  3) fallback id
-  let fname = parseFilenameFromCD(res.headers.get('content-disposition'));
-  if (!fname || looksLikeVideoId(fname)) {
-    if (/youtube\.com|youtu\.be/i.test(cleanUrl)) {
-      const title = await fetchYoutubeTitle(cleanUrl);
-      if (title) fname = title + '.mp3';
+  const blob = await res.blob();
+
+  if (!blob || blob.size < 1000) {
+    throw new Error('File terlalu kecil / gagal');
+  }
+
+  // Premium & Pro: tanpa batas MB. Free: 10MB.
+  if (!isPremium && !isPro) {
+    const maxSize = MAX_SIZE_FREE;
+    if (blob.size > maxSize) {
+      throw new Error(
+        'File >' +
+        Math.round(maxSize / 1024 / 1024) +
+        'MB (batas free)'
+      );
     }
   }
+
+  // Nama file: prioritaskan judul YT/SC (sudah jalan paralel), lalu CD, lalu path URL
+  let fname = '';
+  try {
+    const title = await titlePromise;
+    if (title && String(title).trim()) {
+      fname = String(title).trim() + '.mp3';
+    }
+  } catch (_) {}
+
   if (!fname) {
-    try {
-      const id = cleanUrl.includes('v=') ? cleanUrl.split('v=')[1].split('&')[0] : 'audio';
-      fname = id + '.mp3';
-    } catch(_) { fname = 'audio.mp3'; }
+    const cdName = parseFilenameFromCD(
+      res.headers.get('content-disposition')
+    );
+    // Abaikan nama random dari server (UUID / hex panjang)
+    if (cdName && cdName.trim() && !looksLikeRandomFilename(cdName) && !looksLikeVideoId(cdName)) {
+      fname = cdName.trim();
+    }
   }
 
-  fname = fname.replace(/[\\/:*?"<>|]/g, '_').replace(/\s+/g, ' ').trim();
-  if (!/\.(mp3|m4a|ogg|wav|webm)$/i.test(fname)) fname += '.mp3';
-  return new File([blob], fname, { type: 'audio/mpeg' });
+  if (!fname) {
+    try {
+      const u = new URL(cleanUrl);
+      const parts = u.pathname.split('/').filter(Boolean);
+      // SoundCloud: /artist/track-name → "artist - track-name"
+      if (isSoundCloud && parts.length >= 2) {
+        const artist = decodeURIComponent(parts[parts.length - 2] || '').replace(/^@/, '');
+        let track = decodeURIComponent(parts[parts.length - 1] || '').replace(/\.[^.]+$/, '');
+        // Skip short-link path (on.soundcloud.com/xxxx)
+        if (track && !/^s-?[A-Za-z0-9_-]{4,12}$/i.test(track) && !looksLikeRandomFilename(track)) {
+          track = track.replace(/-/g, ' ').replace(/\s+/g, ' ').trim();
+          const art = artist.replace(/-/g, ' ').replace(/\s+/g, ' ').trim();
+          fname = (art && art !== 'sets' && art !== 'tracks' ? (art + ' - ') : '') + track + '.mp3';
+        }
+      }
+      if (!fname) {
+        let pathName = decodeURIComponent(parts[parts.length - 1] || '').trim();
+        if (pathName) {
+          pathName = pathName.replace(/\.[^.]+$/, '');
+          if (pathName && !looksLikeRandomFilename(pathName) && !looksLikeVideoId(pathName)) {
+            // SoundCloud slug: ganti - jadi spasi biar lebih enak dibaca
+            if (isSoundCloud) pathName = pathName.replace(/-/g, ' ').replace(/\s+/g, ' ').trim();
+            fname = pathName + '.mp3';
+          }
+        }
+      }
+    } catch (_) {}
+  }
+
+  if (!fname && isYoutube) {
+    try {
+      const id = cleanUrl.includes('v=')
+        ? cleanUrl.split('v=')[1].split('&')[0]
+        : 'audio';
+      fname = id + '.mp3';
+    } catch (_) {
+      fname = 'audio.mp3';
+    }
+  }
+
+  if (!fname) fname = 'audio.mp3';
+
+  fname = fname
+    .replace(/[\\/:*?"<>|]/g, '_')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  if (!/\.(mp3|m4a|ogg|wav|webm)$/i.test(fname)) {
+    fname += '.mp3';
+  }
+
+  const file = new File(
+    [blob],
+    fname,
+    { type: blob.type || 'audio/mpeg' }
+  );
+
+  try {
+    const meta = await metaPromise.catch(function(){ return null; });
+    let thumb = (meta && meta.thumb) || ytThumbFromUrl(cleanUrl) || '';
+    if (thumb) {
+      linkMetaByName[fname] = thumb;
+      linkMetaByName[fname.replace(/\.mp3$/i, '')] = thumb;
+    }
+    file.__rezzThumb = thumb;
+    file.__rezzSource = cleanUrl;
+  } catch (_) {}
+
+  return file;
 }
 async function ambilAudioDariLink(autoDownload) {
   if (!isLoggedIn) return toast('Login dulu.','info','Perlu login');
   await checkPremiumStatus();
-  // Free boleh pakai link (tetap kena limit harian saat download)
+  // Fitur link hanya untuk yang beli Akses Link (Permanen Pro) Rp 50.000
+  if (!isPro) {
+    toast('Fitur link terkunci. Beli Akses Link Rp 50.000 (Permanen Pro) di tab Toko.','info','Akses Link 50K');
+    return;
+  }
   let urls = [];
   if (isPro && $('linkInputsPro') && $('linkInputsPro').style.display !== 'none') {
-    ['linkInput1','linkInput2','linkInput3'].forEach(function(id) {
-      const v = ($(id) && $(id).value || '').trim();
+    for (let n = 1; n <= 10; n++) {
+      const v = ($('linkInput' + n) && $('linkInput' + n).value || '').trim();
       if (v) urls.push(v);
-    });
+    }
   } else {
     const one = ($('linkInput').value||'').trim();
     if (one) urls = [one];
   }
   if (!urls.length) return toast('Tempel link dulu.','err','Link kosong');
-  // Free & Premium: 1 link. Pro: max 3 kolom
+  // Free & Premium: 1 link. Pro / Trial Pro: max 10 link
   if (!isPro && urls.length > 1) {
-    toast((isPremium ? 'Premium' : 'Free') + ': 1 link saja. Upgrade Pro untuk 3 kolom.','info','Limit');
+    toast('Akses Link (Pro): maksimal 10 link. Beli di Toko Rp 50.000.','info','Limit');
     urls = urls.slice(0,1);
   }
-  if (urls.length > 3) urls = urls.slice(0,3);
+  if (urls.length > 10) urls = urls.slice(0,10);
   const btn = $('ambilLinkBtn');
   btn.disabled=true;
   const got = [];
+  // Animasi status biar user tahu masih proses (server sedang ambil audio)
+  let spinN = 0;
+  const spinFrames = ['Mengunduh', 'Mengunduh.', 'Mengunduh..', 'Mengunduh...'];
+  const spinTimer = setInterval(function() {
+    spinN = (spinN + 1) % spinFrames.length;
+    if (btn && btn.disabled) {
+      const base = btn.getAttribute('data-base') || 'Mengunduh';
+      btn.textContent = base + spinFrames[spinN].slice(9);
+    }
+  }, 450);
   try {
     for (let i=0;i<urls.length;i++) {
-      btn.textContent = 'Ambil '+(i+1)+'/'+urls.length+'...';
+      const baseLabel = 'Server ambil audio '+(i+1)+'/'+urls.length;
+      btn.setAttribute('data-base', baseLabel);
+      btn.textContent = baseLabel + '...';
       try {
         const file = await fetchOneLink(urls[i]);
         got.push(file);
@@ -1825,24 +4477,29 @@ async function ambilAudioDariLink(autoDownload) {
     }
     if (!got.length) throw new Error('Tidak ada audio yang berhasil diambil');
     currentFiles = got;
+
+    // Simpan nama asli hasil fetch SEBELUM proses/edit.
+    // makeName() hanya membaca array ini.
+    originalFileNames = got.map(f => f.name || '');
+
     const fname = got[0].name + (got.length>1 ? (' · +'+(got.length-1)) : '');
     $('fileName').textContent = got.length>1 ? (got.length+' file dari link') : got[0].name;
     player.src = URL.createObjectURL(got[0]);
-    setPreset(3.0,-2,$('preset3x'),2);
+    setPreset(3.0,-6,$('preset3x'));
     setPlayerUI(true, fname);
     $('downloadBtn').disabled = false;
     toast(got.length+' audio siap · set 3x','ok','Berhasil');
     switchMode('upload');
-    // Auto konversi + download (nama ORI + 3x lewat makeName)
+    // Auto konversi + download (nama file asli lewat makeName)
     if (autoDownload !== false && got.length === 1) {
       await new Promise(r => {
         if (player.readyState >= 1) return r();
         player.onloadedmetadata = () => r();
-        setTimeout(r, 2500);
+        setTimeout(r, 900);
       });
       const maxDur = isPremium ? MAX_DUR_PREM : MAX_DUR_FREE;
       if (player.duration > maxDur) {
-        toast('Durasi max '+maxDur+'s. File terlalu panjang.','err','Terlalu panjang');
+        toast(isPremium ? 'File terlalu panjang (batas sangat tinggi).' : 'Upload max ~13 menit. Hasil max 400s (free).','err','Terlalu panjang');
         return;
       }
       $('downloadBtn').click();
@@ -1851,7 +4508,10 @@ async function ambilAudioDariLink(autoDownload) {
     console.error(err);
     toast(err.message||'Gagal ambil audio.','err','Gagal');
   } finally {
-    btn.disabled=false; btn.textContent='Ambil Audio dari Link';
+    try { clearInterval(spinTimer); } catch (_) {}
+    btn.disabled=false;
+    btn.removeAttribute('data-base');
+    btn.textContent='Ambil Audio dari Link';
   }
 }
 
@@ -1911,7 +4571,7 @@ async function submitBeli() {
 
     const embed = {
       title: '🛒 ORDER BARU — REZZZ AUDIO',
-      color: 0xfbbf24,
+      color: 0xffd700,
       fields: [
         { name: 'Paket', value: currentBeli.label, inline: true },
         { name: 'Harga', value: 'Rp ' + currentBeli.price.toLocaleString('id-ID'), inline: true },
@@ -2093,7 +4753,8 @@ if ($('trimDownloadBtn')) {
       }
       try { await ctx.close(); } catch (_) {}
 
-      const blob = bufferToMp3(out);
+      btn.textContent = 'Encode MP3...';
+      const blob = await bufferToMp3(out);
       const base = (trimFileObj.name || 'audio').replace(/\.[^.]+$/, '').replace(/[\\/:*?"<>|]/g, '_') || 'audio';
       const dl = document.createElement('a');
       dl.href = URL.createObjectURL(blob);
@@ -2112,23 +4773,93 @@ if ($('trimDownloadBtn')) {
 
 // Init
 updateTotalUsers();
+updatePremiumCount();
+updateTotalMusic();
+startOnlinePresence();
 autoLogin();
 handleDiscordSession();
 renderHistory();
+setInterval(function(){ try{ updatePremiumCount(); }catch(_){} }, 60000);
 try{updateModeLocks();}catch(_){}
 try{updateLinkInputUI();}catch(_){}
 try{updateStoreVisibility(null);}catch(_){}
 updateEventBanner();
+try { updateStorePromoUI(); } catch (_) {}
+// Notif promo: modal tiap sesi + ulang tiap 20 menit, toast tiap ~90 detik (non-blocking)
+function getPromoNotifHtml() {
+  return '<div style="text-align:center;margin-bottom:12px;font-size:12.5px;color:var(--text2)">Harga spesial terbatas</div>' +
+    '<div style="background:var(--inner);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:10px">' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">' +
+    '<span style="font-weight:700;color:var(--text2)">30 Hari</span>' +
+    '<span><s style="opacity:.55;margin-right:6px">Rp 100.000</s><b style="color:#60a5fa">Rp 40.000</b></span>' +
+    '</div>' +
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">' +
+    '<span style="font-weight:700;color:var(--text2)">Permanen</span>' +
+    '<span><s style="opacity:.55;margin-right:6px">Rp 299.000</s><b style="color:#60a5fa">Rp 89.000</b></span>' +
+    '</div>' +
+    '<div style="display:flex;justify-content:space-between;align-items:center">' +
+    '<span style="font-weight:700;color:var(--text2)">Akses Link / Pro</span>' +
+    '<span><s style="opacity:.55;margin-right:6px">Rp 129.000</s><b style="color:#60a5fa">Rp 50.000</b></span>' +
+    '</div></div>' +
+    '<div style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.28);border-radius:11px;padding:11px 12px;margin-bottom:8px;text-align:left">' +
+    '<div style="font-weight:800;font-size:12.5px;color:#60a5fa;margin-bottom:4px">⚠ Info penting · Fitur Link</div>' +
+    '<div style="font-size:11.5px;color:var(--text2);line-height:1.45">Yang mau pakai fitur <b>Dari Link</b> (YouTube / TikTok / SoundCloud) <b>wajib beli Akses Link Rp 50.000</b>. Tanpa akses ini, fitur link terkunci.</div>' +
+    '</div>' +
+    '<div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:2px">Stok terbatas · beli sekarang di Toko</div>';
+}
+const PROMO_MODAL_COOLDOWN_MS = 20 * 60 * 1000; // modal bisa muncul lagi tiap 20 menit
+const PROMO_TOAST_INTERVAL_MS = 90 * 1000; // toast tiap ~90 detik
+function maybeShowPromoModal(force) {
+  if (!isStorePromoActive()) return;
+  try {
+    const last = parseInt(sessionStorage.getItem('deal_modal_at') || '0', 10);
+    const now = Date.now();
+    if (!force && last && (now - last) < PROMO_MODAL_COOLDOWN_MS) return;
+    sessionStorage.setItem('deal_modal_at', String(now));
+    showPromoModal('Diskon Besar', getPromoNotifHtml(), 'info');
+  } catch (_) {
+    showPromoModal('Diskon Besar', getPromoNotifHtml(), 'info');
+  }
+}
+try {
+  if (isStorePromoActive()) {
+    setTimeout(function() { maybeShowPromoModal(true); }, 1200);
+  }
+} catch (_) {}
 let _lastEventActive = isFreeEventActive();
+let _lastStorePromo = isStorePromoActive();
+let _lastPromoToastAt = 0;
 setInterval(function(){
   updateEventBanner();
+  try { updateStorePromoUI(); } catch (_) {}
   const nowActive = isFreeEventActive();
   if (nowActive !== _lastEventActive) {
     _lastEventActive = nowActive;
     if (isLoggedIn) refreshLimit();
     else updateLimitUI(0, false);
-    if (nowActive) toast('Event Free 10× aktif 24 jam!','ok','Event');
-    else toast('Event Free 10× berakhir. Limit kembali 2/hari.','info','Event');
+    if (nowActive) toast('Event Free 20× aktif 24 jam!','ok','Event');
+    else toast('Event Free 20× berakhir. Limit kembali 3/hari.','info','Event');
+  }
+  const promoNow = isStorePromoActive();
+  if (promoNow !== _lastStorePromo) {
+    _lastStorePromo = promoNow;
+    if (promoNow) {
+      toast('Promo aktif! 30 Hari 40rb · Permanen 89rb · Pro 50rb · 1 minggu','ok','Diskon');
+      maybeShowPromoModal(true);
+    } else {
+      toast('Promo berakhir. Harga kembali normal.','info','Toko');
+    }
+  }
+  // Toast + modal ulang berkala saat promo aktif
+  if (promoNow) {
+    const now = Date.now();
+    const modalOpen = $('promoModal') && $('promoModal').classList.contains('show');
+    if (!modalOpen && now - _lastPromoToastAt >= PROMO_TOAST_INTERVAL_MS) {
+      _lastPromoToastAt = now;
+      toast('Akses Link 50rb · fitur link YT/TikTok/SC · 30 Hari 40rb','info','🔥 Diskon');
+    }
+    // Modal muncul lagi tiap 20 menit (kalau user masih di halaman)
+    maybeShowPromoModal(false);
   }
 }, 1000);
 </script>
