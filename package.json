@@ -1,7 +1,17 @@
 {
-  "name": "app",
-  "version": "1.0.0",
+  "name": "rezzz-audio-api",
+  "version": "2.1.0",
+  "description": "Rezzz Audio API for Railway",
   "main": "server.js",
-  "scripts": { "start": "node server.js" },
-  "dependencies": { "express": "^4.19.2" }
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "uuid": "^11.0.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
 }
