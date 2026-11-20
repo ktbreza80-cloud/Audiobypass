@@ -13,13 +13,26 @@ app.use(express.json({ limit: '2mb' }));
 const PORT = process.env.PORT || 3000;
 const TEMP = '/tmp';
 const COOKIES_PATH = path.join(__dirname, 'cookies.txt');
+const PUBLIC_DIR = path.join(__dirname, 'public');
 
-app.get('/', (req, res) => {
-  res.json({
+// Sajikan frontend (public/index.html) kalau ada
+app.use(express.static(PUBLIC_DIR));
+
+function statusPayload() {
+  return {
     status: 'Rezzz Audio API aktif',
     version: '2.1-hybrid-railway',
     cookies: fs.existsSync(COOKIES_PATH) ? 'ada' : 'tidak ada'
-  });
+  };
+}
+
+app.get('/api/status', (req, res) => {
+  res.json(statusPayload());
+});
+
+// Fallback: kalau public/index.html belum ada, tampil JSON status
+app.get('/', (req, res) => {
+  res.json(statusPayload());
 });
 
 app.get('/health', (req, res) => {
