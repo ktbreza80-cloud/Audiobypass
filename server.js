@@ -13,10 +13,6 @@ app.use(express.json({ limit: '2mb' }));
 const PORT = process.env.PORT || 3000;
 const TEMP = '/tmp';
 const COOKIES_PATH = path.join(__dirname, 'cookies.txt');
-const PUBLIC_DIR = path.join(__dirname, 'public');
-
-// Sajikan frontend (public/index.html) kalau ada
-app.use(express.static(PUBLIC_DIR));
 
 function statusPayload() {
   return {
@@ -30,13 +26,19 @@ app.get('/api/status', (req, res) => {
   res.json(statusPayload());
 });
 
-// Fallback: kalau public/index.html belum ada, tampil JSON status
-app.get('/', (req, res) => {
-  res.json(statusPayload());
-});
-
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
+});
+
+app.get('/', (req, res) => {
+  const candidates = [
+    path.join(__dirname, 'index.html'),
+    path.join(__dirname, 'Index.htm'),
+    path.join(__dirname, 'public', 'index.html')
+  ];
+  const found = candidates.find(f => fs.existsSync(f));
+  if (found) return res.sendFile(found);
+  res.json(statusPayload());
 });
 
 function buildArgs(url, useCookies) {
