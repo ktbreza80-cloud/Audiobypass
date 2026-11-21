@@ -30,6 +30,12 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
+app.get('/qris.png', (req, res) => {
+  const f = path.join(__dirname, 'qris.png');
+  if (fs.existsSync(f)) return res.sendFile(f);
+  res.status(404).end();
+});
+
 app.get('/', (req, res) => {
   const candidates = [
     path.join(__dirname, 'index.html'),
@@ -86,7 +92,8 @@ function findDownloadedFile(id) {
   return files.length ? path.join(TEMP, files[0]) : null;
 }
 
-app.post('/download', async (req, res) => {
+// Menerima /download (lama) dan /api/download (dipakai index.html)
+app.post(['/download', '/api/download'], async (req, res) => {
   const body = req.body || {};
   let url = body.url;
 
