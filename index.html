@@ -2972,7 +2972,7 @@ async function loginWithDiscord() {
   const { data, error } = await sb.auth.signInWithOAuth({
     provider: 'discord',
     options: {
-      redirectTo: window.location.origin,
+      redirectTo: 'https://www.rezzzaudio.cloud',
       // guilds = cek apakah user join server Rezzz Studio (free limit 10)
       scopes: 'identify email guilds'
     }
