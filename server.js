@@ -1,9 +1,13 @@
 const express = require('express');
 const cors = require('cors');
+const dns = require('dns');
 const { execFile } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
+
+// DNS Cloudflare sementara
+dns.setServers(['1.1.1.1', '1.0.0.1']);
 
 const app = express();
 
@@ -27,19 +31,29 @@ if (process.env.YT_COOKIES) {
 function statusPayload() {
   return {
     status: 'Rezzz Audio API aktif',
-    version: '2.3-fixed-bot',
+    version: '2.3-dns-cloudflare',
+    dns: '1.1.1.1 / 1.0.0.1',
     cookies: fs.existsSync(COOKIES_PATH) ? 'ada' : 'tidak ada',
     pot: process.env.POT_URL ? 'ada' : 'tidak ada',
     proxy: process.env.YT_PROXY ? 'ada' : 'tidak ada'
   };
 }
 
-app.get('/api/status', (req, res) => res.json(statusPayload()));
-app.get('/health', (req, res) => res.json({ status: 'ok' }));
+app.get('/api/status', (req, res) => {
+  res.json(statusPayload());
+});
+
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
 
 app.get('/qris.png', (req, res) => {
   const f = path.join(__dirname, 'qris.png');
-  if (fs.existsSync(f)) return res.sendFile(f);
+
+  if (fs.existsSync(f)) {
+    return res.sendFile(f);
+  }
+
   res.status(404).end();
 });
 
@@ -49,8 +63,13 @@ app.get('/', (req, res) => {
     path.join(__dirname, 'Index.htm'),
     path.join(__dirname, 'public', 'index.html')
   ];
+
   const found = candidates.find(f => fs.existsSync(f));
-  if (found) return res.sendFile(found);
+
+  if (found) {
+    return res.sendFile(found);
+  }
+
   res.json(statusPayload());
 });
 
@@ -65,14 +84,19 @@ function buildArgs(url, useCookies = true) {
     '-o', outputTemplate,
     '--no-playlist',
     '--force-ipv4',
+
     '--retries', '10',
     '--fragment-retries', '10',
+
     '--sleep-requests', '1',
     '--sleep-interval', '2',
     '--max-sleep-interval', '5',
+
     '--no-warnings',
-    // Player client yang lebih tahan bot (urutan penting)
-    '--extractor-args', 'youtube:player_client=android,tv,ios,web_embedded,mweb,web',
+
+    // Player client
+    '--extractor-args',
+    'youtube:player_client=android,tv,ios,web_embedded,mweb,web'
   ];
 
   // JS Runtime
@@ -87,9 +111,12 @@ function buildArgs(url, useCookies = true) {
     args.push('--proxy', process.env.YT_PROXY);
   }
 
-  // PO Token (bgutil)
+  // PO Token
   if (process.env.POT_URL) {
-    args.push('--extractor-args', `youtubepot-bgutilhttp:base_url=${process.env.POT_URL}`);
+    args.push(
+      '--extractor-args',
+      `youtubepot-bgutilhttp:base_url=${process.env.POT_URL}`
+    );
   }
 
   // Cookies
@@ -98,30 +125,53 @@ function buildArgs(url, useCookies = true) {
   }
 
   args.push(url);
-  return { args, id };
+
+  return {
+    args,
+    id
+  };
 }
 
 function runYtDlp(args) {
   return new Promise((resolve, reject) => {
-    execFile('yt-dlp', args, {
-      timeout: 240000,
-      maxBuffer: 8 * 1024 * 1024
-    }, (error, stdout, stderr) => {
-      if (error) {
-        reject({ error, stderr: stderr || '', stdout: stdout || '' });
-      } else {
-        resolve({ stdout, stderr });
+    execFile(
+      'yt-dlp',
+      args,
+      {
+        timeout: 240000,
+        maxBuffer: 8 * 1024 * 1024
+      },
+      (error, stdout, stderr) => {
+        if (error) {
+          reject({
+            error,
+            stderr: stderr || '',
+            stdout: stdout || ''
+          });
+        } else {
+          resolve({
+            stdout,
+            stderr
+          });
+        }
       }
-    });
+    );
   });
 }
 
 function findDownloadedFile(id) {
   try {
     const files = fs.readdirSync(TEMP).filter(
-      f => f.startsWith(`rezzz-${id}.`) && !f.endsWith('.part') && !f.endsWith('.ytdl')
+      f =>
+        f.startsWith(`rezzz-${id}.`) &&
+        !f.endsWith('.part') &&
+        !f.endsWith('.ytdl')
     );
-    return files.length ? path.join(TEMP, files[0]) : null;
+
+    return files.length
+      ? path.join(TEMP, files[0])
+      : null;
+
   } catch {
     return null;
   }
@@ -135,7 +185,9 @@ app.post(['/download', '/api/download'], async (req, res) => {
   console.log('URL:', url);
 
   if (!url || typeof url !== 'string') {
-    return res.status(400).json({ error: 'URL wajib diisi' });
+    return res.status(400).json({
+      error: 'URL wajib diisi'
+    });
   }
 
   url = url.trim();
@@ -150,80 +202,211 @@ app.post(['/download', '/api/download'], async (req, res) => {
     url.includes('x.com');
 
   if (!supported) {
-    return res.status(400).json({ error: 'Link tidak didukung' });
+    return res.status(400).json({
+      error: 'Link tidak didukung'
+    });
   }
 
   const hasCookies = fs.existsSync(COOKIES_PATH);
-  console.log('Cookies tersedia:', hasCookies ? 'YA' : 'TIDAK');
 
-  // ===== PERCOBAAN 1: Dengan Cookies (prioritas) =====
+  console.log(
+    'Cookies tersedia:',
+    hasCookies ? 'YA' : 'TIDAK'
+  );
+
+  console.log(
+    'DNS Node:',
+    '1.1.1.1 / 1.0.0.1'
+  );
+
+  // ==========================================
+  // PERCOBAAN 1: DENGAN COOKIES
+  // ==========================================
+
   if (hasCookies) {
     try {
       console.log('Mencoba DENGAN cookies...');
-      const { args, id } = buildArgs(url, true);
+
+      const {
+        args,
+        id
+      } = buildArgs(url, true);
+
       await runYtDlp(args);
 
       const filePath = findDownloadedFile(id);
+
       if (filePath) {
         console.log('Berhasil dengan cookies');
-        return res.download(filePath, path.basename(filePath), err => {
-          fs.unlink(filePath, () => {});
-          if (err) console.error('Response error:', err.message);
-        });
-      }
-    } catch (err) {
-      const errMsg = (err.stderr || '') + (err.error?.message || '');
-      console.log('Gagal dengan cookies:', errMsg.slice(0, 400));
 
-      // Kalau error bot verification, jangan langsung kasih tau user terlalu teknis
-      if (errMsg.includes('Sign in to confirm') || errMsg.includes('not a bot')) {
-        console.log('→ Terdeteksi bot verification');
+        return res.download(
+          filePath,
+          path.basename(filePath),
+          err => {
+            fs.unlink(filePath, () => {});
+
+            if (err) {
+              console.error(
+                'Response error:',
+                err.message
+              );
+            }
+          }
+        );
+      }
+
+    } catch (err) {
+
+      const errMsg =
+        (err.stderr || '') +
+        (err.error?.message || '');
+
+      console.log(
+        'Gagal dengan cookies:',
+        errMsg.slice(0, 400)
+      );
+
+      if (
+        errMsg.includes('Sign in to confirm') ||
+        errMsg.includes('not a bot')
+      ) {
+        console.log(
+          '→ Terdeteksi bot verification'
+        );
       }
     }
   }
 
-  // ===== PERCOBAAN 2: Tanpa Cookies =====
+  // ==========================================
+  // PERCOBAAN 2: TANPA COOKIES
+  // ==========================================
+
   try {
     console.log('Mencoba TANPA cookies...');
-    const { args, id } = buildArgs(url, false);
+
+    const {
+      args,
+      id
+    } = buildArgs(url, false);
+
     await runYtDlp(args);
 
     const filePath = findDownloadedFile(id);
+
     if (filePath) {
-      console.log('Berhasil tanpa cookies');
-      return res.download(filePath, path.basename(filePath), err => {
-        fs.unlink(filePath, () => {});
-        if (err) console.error('Response error:', err.message);
-      });
+
+      console.log(
+        'Berhasil tanpa cookies'
+      );
+
+      return res.download(
+        filePath,
+        path.basename(filePath),
+        err => {
+
+          fs.unlink(filePath, () => {});
+
+          if (err) {
+            console.error(
+              'Response error:',
+              err.message
+            );
+          }
+
+        }
+      );
     }
 
     return res.status(500).json({
-      error: 'File tidak ditemukan setelah download'
+      error:
+        'File tidak ditemukan setelah download'
     });
+
   } catch (err) {
-    const fullError = (err.error?.message || '') + '\n' + (err.stderr || '');
-    console.error('Gagal total:', fullError.slice(0, 600));
 
-    let userMessage = 'Gagal mengambil audio';
+    const fullError =
+      (err.error?.message || '') +
+      '\n' +
+      (err.stderr || '');
 
-    if (fullError.includes('Sign in to confirm') || fullError.includes('not a bot')) {
-      userMessage = 'YouTube minta verifikasi bot. Coba update cookies atau hubungi admin.';
-    } else if (fullError.includes('Private video') || fullError.includes('This video is private')) {
-      userMessage = 'Video bersifat private';
-    } else if (fullError.includes('Video unavailable')) {
-      userMessage = 'Video tidak tersedia';
+    console.error(
+      'Gagal total:',
+      fullError.slice(0, 600)
+    );
+
+    let userMessage =
+      'Gagal mengambil audio';
+
+    if (
+      fullError.includes('Sign in to confirm') ||
+      fullError.includes('not a bot')
+    ) {
+
+      userMessage =
+        'YouTube meminta verifikasi bot. DNS Cloudflare sudah dicoba, tetapi server YouTube masih menolak request.';
+    }
+
+    else if (
+      fullError.includes('Private video') ||
+      fullError.includes('This video is private')
+    ) {
+
+      userMessage =
+        'Video bersifat private';
+    }
+
+    else if (
+      fullError.includes('Video unavailable')
+    ) {
+
+      userMessage =
+        'Video tidak tersedia';
     }
 
     return res.status(500).json({
       error: userMessage,
-      detail: process.env.NODE_ENV === 'development' ? fullError.slice(0, 800) : undefined
+
+      detail:
+        process.env.NODE_ENV === 'development'
+          ? fullError.slice(0, 800)
+          : undefined
     });
   }
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Rezzz Audio API running on port ${PORT}`);
-  console.log('Cookies status:', fs.existsSync(COOKIES_PATH) ? 'ADA' : 'TIDAK ADA');
-  console.log('POT status:', process.env.POT_URL ? 'ADA' : 'TIDAK ADA');
-  console.log('Proxy status:', process.env.YT_PROXY ? 'ADA' : 'TIDAK ADA');
-});
+app.listen(
+  PORT,
+  '0.0.0.0',
+  () => {
+
+    console.log(
+      `Rezzz Audio API running on port ${PORT}`
+    );
+
+    console.log(
+      'DNS:',
+      '1.1.1.1 / 1.0.0.1'
+    );
+
+    console.log(
+      'Cookies status:',
+      fs.existsSync(COOKIES_PATH)
+        ? 'ADA'
+        : 'TIDAK ADA'
+    );
+
+    console.log(
+      'POT status:',
+      process.env.POT_URL
+        ? 'ADA'
+        : 'TIDAK ADA'
+    );
+
+    console.log(
+      'Proxy status:',
+      process.env.YT_PROXY
+        ? 'ADA'
+        : 'TIDAK ADA'
+    );
+  }
+);
