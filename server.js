@@ -14,6 +14,11 @@ const PORT = process.env.PORT || 3000;
 const TEMP = '/tmp';
 const COOKIES_PATH = path.join(__dirname, 'cookies.txt');
 
+// Opsional: cookies dari Railway Variable YT_COOKIES (tidak perlu upload ke GitHub)
+if (process.env.YT_COOKIES) {
+  try { fs.writeFileSync(COOKIES_PATH, process.env.YT_COOKIES); } catch (e) { console.error(e.message); }
+}
+
 function statusPayload() {
   return {
     status: 'Rezzz Audio API aktif',
@@ -59,10 +64,16 @@ function buildArgs(url, useCookies) {
     '--no-playlist',
     '--js-runtimes', 'node',
     '--no-warnings',
+    '--force-ipv4',
     '--extractor-args', 'youtube:player_client=ios,web,mweb,android',
     '--retries', '8',
     '--fragment-retries', '8'
   ];
+
+  // Opsional: proxy dari Railway Variable YT_PROXY
+  if (process.env.YT_PROXY) {
+    args.push('--proxy', process.env.YT_PROXY);
+  }
 
   if (useCookies && fs.existsSync(COOKIES_PATH)) {
     args.push('--cookies', COOKIES_PATH);
