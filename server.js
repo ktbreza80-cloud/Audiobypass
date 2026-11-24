@@ -22,8 +22,9 @@ if (process.env.YT_COOKIES) {
 function statusPayload() {
   return {
     status: 'Rezzz Audio API aktif',
-    version: '2.1-hybrid-railway',
-    cookies: fs.existsSync(COOKIES_PATH) ? 'ada' : 'tidak ada'
+    version: '2.2-hybrid-railway-pot',
+    cookies: fs.existsSync(COOKIES_PATH) ? 'ada' : 'tidak ada',
+    pot: process.env.POT_URL ? 'ada' : 'tidak ada'
   };
 }
 
@@ -65,7 +66,7 @@ function buildArgs(url, useCookies) {
     '--js-runtimes', 'node',
     '--no-warnings',
     '--force-ipv4',
-    '--extractor-args', 'youtube:player_client=ios,web,mweb,android',
+    '--extractor-args', 'youtube:player_client=tv,mweb,web',
     '--retries', '8',
     '--fragment-retries', '8'
   ];
@@ -73,6 +74,11 @@ function buildArgs(url, useCookies) {
   // Opsional: proxy dari Railway Variable YT_PROXY
   if (process.env.YT_PROXY) {
     args.push('--proxy', process.env.YT_PROXY);
+  }
+
+  // PO Token provider (service bgutil di Railway)
+  if (process.env.POT_URL) {
+    args.push('--extractor-args', `youtubepot-bgutilhttp:base_url=${process.env.POT_URL}`);
   }
 
   if (useCookies && fs.existsSync(COOKIES_PATH)) {
@@ -178,4 +184,5 @@ app.post(['/download', '/api/download'], async (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Rezzz Audio API running on port ${PORT}`);
   console.log('Cookies status:', fs.existsSync(COOKIES_PATH) ? 'ADA' : 'TIDAK ADA');
+  console.log('POT status:', process.env.POT_URL ? 'ADA' : 'TIDAK ADA');
 });
