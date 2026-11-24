@@ -1767,8 +1767,8 @@ input[type=range]::-webkit-slider-thumb{
     <div class="event-banner-in">
       <span class="event-ico" id="eventIco">🎉</span>
       <div class="event-txt">
-        <b id="eventTitle">EVENT 20× FREE</b>
-        <span id="eventSub">Limit free naik jadi 20/hari</span>
+        <b id="eventTitle">EVENT 5× FREE</b>
+        <span id="eventSub">Limit free naik jadi 5/hari</span>
       </div>
       <span class="event-cd" id="eventCountdown">--:--:--</span>
     </div>
@@ -1835,10 +1835,10 @@ input[type=range]::-webkit-slider-thumb{
     <div class="status" id="loginStatus">Belum login · login dulu untuk konversi</div>
     <div id="discordJoinBox" style="margin-top:12px;display:none">
       <div class="tip" id="discordJoinStatus" style="margin-top:0;margin-bottom:10px">
-        Join grup Discord → limit free naik jadi <b>10/hari</b>. Keluar server = balik 3/hari.
+        Join grup Discord → limit free naik jadi <b>4/hari</b>. Keluar server = balik 2/hari.
       </div>
       <button class="btn btn-s" id="discordJoinBtn" type="button" style="background:#5865F2;color:white;border:none">
-        Join Discord · Free 10x
+        Join Discord · Free 4x
       </button>
       <button class="btn btn-g" type="button" onclick="refreshDiscordMember()" style="margin-top:8px">
         Cek ulang status Discord
@@ -1850,7 +1850,7 @@ input[type=range]::-webkit-slider-thumb{
   <div class="card" id="editorArea">
     <div class="label">Editor</div>
 
-    <div class="q"><span class="l">Daily Limit</span><span class="r" id="limitText">— / 3</span></div>
+    <div class="q"><span class="l">Daily Limit</span><span class="r" id="limitText">— / 2</span></div>
     <div class="q"><span class="l">Plan Status</span><span class="r" id="planText">Free</span></div>
 
     <div class="label" style="margin-top:12px;margin-bottom:8px">Mode proses</div>
@@ -1872,9 +1872,8 @@ input[type=range]::-webkit-slider-thumb{
 
     <div class="tabs">
       <button class="tab on" id="btnUploadMode" onclick="switchMode('upload')">Upload</button>
-      <button class="tab" id="btnLinkMode" onclick="switchMode('link')">Dari Link · 50K 🔒</button>
+      <button class="tab" id="btnLinkMode" onclick="switchMode('link')">Dari Link</button>
     </div>
-    <div class="tip" style="margin-top:8px;margin-bottom:4px"><b>Info Akses Link</b> · Yang mau pakai fitur <b>Dari Link</b> (YouTube / TikTok / SoundCloud) wajib beli akses <b>Rp 50.000</b> di tab Toko (paket Permanen Pro).</div>
 
     <div id="uploadMode">
       <label class="drop" for="audioFile">
@@ -1893,14 +1892,9 @@ input[type=range]::-webkit-slider-thumb{
         <input class="inp" type="text" id="linkInput3" placeholder="Link 3 (opsional)">
         <input class="inp" type="text" id="linkInput4" placeholder="Link 4 (opsional)">
         <input class="inp" type="text" id="linkInput5" placeholder="Link 5 (opsional)">
-        <input class="inp" type="text" id="linkInput6" placeholder="Link 6 (opsional)">
-        <input class="inp" type="text" id="linkInput7" placeholder="Link 7 (opsional)">
-        <input class="inp" type="text" id="linkInput8" placeholder="Link 8 (opsional)">
-        <input class="inp" type="text" id="linkInput9" placeholder="Link 9 (opsional)">
-        <input class="inp" type="text" id="linkInput10" placeholder="Link 10 (opsional)">
       </div>
       <button class="btn btn-p" id="ambilLinkBtn" onclick="ambilAudioDariLink()">Ambil Audio dari Link</button>
-      <div class="tip" id="linkTip"><b>Akses Link</b> · Fitur link butuh beli akses <b>Rp 50.000</b> (Permanen Pro) · YT/TikTok/SC</div>
+      <div class="tip" id="linkTip"><b>Akses Link</b> · Paket Permanen (1 link) & Pro (5 link) · YT/TikTok/SC</div>
     </div>
 
     <div class="player empty" id="playerBox">
@@ -1989,39 +1983,28 @@ input[type=range]::-webkit-slider-thumb{
         <div class="tip" style="margin-top:0;margin-bottom:12px">
           Jika kalian <b>kehabisan limit</b>, silakan hubungi admin untuk beli / perpanjang Premium.
         </div>
-        <div class="tip" style="margin-top:0;margin-bottom:12px;border-color:rgba(59,130,246,0.35)">
-          <b>Akses Link Rp 50.000</b> · Fitur <b>Dari Link</b> (YouTube / TikTok / SoundCloud) hanya untuk yang beli paket <b>Akses Link · Permanen Pro</b>. Tanpa itu, fitur link terkunci.
-        </div>
-        <!-- Promo discount notice -->
-        <div class="promo-deal" id="promoDeal">
-          <div class="promo-deal-ico" id="promoDealIco">🔥</div>
-          <div class="promo-deal-txt">
-            <b id="promoDealTitle">DISKON BESAR</b>
-            <span id="promoDealSub">30 Hari <s>100rb</s> → <b>40rb</b> · Permanen <s>299rb</s> → <b>89rb</b> · <b>Akses Link / Pro 50rb</b><br><span style="display:block;margin-top:4px;opacity:.95">⚠ Fitur <b>Dari Link</b> (YT/TikTok/SC) wajib beli <b>Akses Link Rp 50.000</b></span></span>
-          </div>
-        </div>
         <div class="store-grid" style="margin-top:12px">
           <div class="pkg" style="opacity:.55;pointer-events:none;border-color:rgba(255,80,100,0.25)">
             <div class="deal-badge" style="background:#3a1018;color:#ff8a9a">HABIS</div>
             <div class="pkg-name">1 Hari</div>
-            <div class="pkg-price">Rp 10.000</div>
-            <div style="font-size:10px;color:var(--muted);margin-bottom:2px;font-weight:600">Unlimited + <b style="color:#3b82f6">10 link</b></div>
+            <div class="pkg-price">Rp 15.000</div>
+            <div style="font-size:10px;color:var(--muted);margin-bottom:2px;font-weight:600">Unlimited + <b style="color:#3b82f6">5 link</b></div>
             <div style="font-size:10px;color:rgb(255,100,120);margin-bottom:8px;font-weight:700">Stock: Habis</div>
             <button class="btn btn-s" disabled>Habis</button>
           </div>
           <div class="pkg" style="opacity:.55;pointer-events:none;border-color:rgba(255,80,100,0.25)">
             <div class="pkg-name">2 Hari</div>
-            <div class="pkg-price">Rp 20.000</div>
+            <div class="pkg-price">Rp 25.000</div>
             <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited</div>
             <div style="font-size:10px;color:rgb(255,100,120);margin-bottom:8px;font-weight:700">Stock: Habis</div>
             <button class="btn btn-s" disabled>Habis</button>
           </div>
           <div class="pkg">
             <div class="pkg-name">3 Hari</div>
-            <div class="pkg-price">Rp 25.000</div>
+            <div class="pkg-price">Rp 30.000</div>
             <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited</div>
             <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 50</div>
-            <button class="btn btn-p" onclick="openBeli('3hari',25000,'3 Hari')">Beli</button>
+            <button class="btn btn-p" onclick="openBeli('3hari',30000,'3 Hari')">Beli</button>
           </div>
           <div class="pkg">
             <div class="pkg-name">7 Hari</div>
@@ -2030,45 +2013,34 @@ input[type=range]::-webkit-slider-thumb{
             <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 50</div>
             <button class="btn btn-p" onclick="openBeli('7hari',35000,'7 Hari')">Beli</button>
           </div>
-          <div class="pkg deal" id="pkg30">
-            <div class="deal-badge" id="badge30">DISKON</div>
+          <div class="pkg" id="pkg30">
             <div class="pkg-name">30 Hari</div>
-            <div class="pkg-price-wrap" id="priceWrap30">
-              <span class="pkg-old" id="old30">Rp 100.000</span>
-              <span class="pkg-price" id="price30">Rp 40.000</span>
-            </div>
+            <div class="pkg-price">Rp 50.000</div>
             <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited</div>
             <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 50</div>
-            <button class="btn btn-p" id="btn30" onclick="openBeli('30hari',40000,'30 Hari')">Beli</button>
+            <button class="btn btn-p" id="btn30" onclick="openBeli('30hari',50000,'30 Hari')">Beli</button>
           </div>
-          <div class="pkg deal" id="pkgPermanen">
-            <div class="deal-badge" id="badgePermanen">DISKON</div>
+          <div class="pkg" id="pkgPermanen">
             <div class="pkg-name">Permanen</div>
-            <div class="pkg-price-wrap" id="priceWrapPermanen">
-              <span class="pkg-old" id="oldPermanen">Rp 299.000</span>
-              <span class="pkg-price" id="pricePermanen">Rp 89.000</span>
-            </div>
+            <div class="pkg-price">Rp 150.000</div>
             <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited · selamanya</div>
-            <div style="font-size:10px;color:var(--ok);margin-bottom:4px;font-weight:700">🔥 Hemat vs 2× 30 Hari</div>
+            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600"><b style="color:#3b82f6">1 link</b> · YT / TikTok / SC</div>
             <div style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600">Audio 320kbps · unlimited</div>
-            <button class="btn btn-p" id="btnPermanen" onclick="openBeli('permanen',89000,'Permanen')">Beli</button>
+            <button class="btn btn-p" id="btnPermanen" onclick="openBeli('permanen',150000,'Permanen')">Beli</button>
           </div>
-          <div class="pkg feat deal" id="pkgPro">
-            <div class="deal-badge" id="badgePro">DISKON</div>
-            <div class="pkg-name">Akses Link · Permanen Pro</div>
-            <div class="pkg-price-wrap" id="priceWrapPro" style="text-align:left">
-              <span class="pkg-old" id="oldPro">Rp 129.000</span>
-              <span class="pkg-price" id="pricePro">Rp 50.000</span>
+          <div class="pkg feat" id="pkgPro">
+            <div class="pkg-name">Pro</div>
+            <div class="pkg-price-wrap" style="text-align:left">
+              <span class="pkg-price" id="pricePro">Rp 250.000</span>
             </div>
             <div style="font-size:11px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 50</div>
             <ul class="ben-list">
-              <li><b>Akses Link</b> YT / TikTok / SoundCloud</li>
-              <li><b>10 link</b> sekaligus · full akses</li>
+              <li><b>5 link</b> sekaligus · YT / TikTok / SoundCloud</li>
               <li><b>Unlimited</b> konversi · selamanya</li>
               <li>Mode Bypass · Manual · Clean Only</li>
               <li>Upload file unlimited · semua preset</li>
             </ul>
-            <button class="btn btn-p" id="btnPro" onclick="openBeli('permanen_pro',50000,'Akses Link · Permanen Pro')">Beli Akses Link · 50K</button>
+            <button class="btn btn-p" id="btnPro" onclick="openBeli('permanen_pro',250000,'Pro')">Beli Pro · 250K</button>
           </div>
         </div>
       </div>
@@ -2078,7 +2050,7 @@ input[type=range]::-webkit-slider-thumb{
           <a class="dc" href="https://discord.gg/BS48SzF23" target="_blank">🎮 Join Grup Discord</a>
           <a class="wa" href="https://wa.me/6283135744309?text=Halo%20Admin%20Rezzz%20Audio%2C%20saya%20butuh%20bantuan" target="_blank">💬 Chat WhatsApp</a>
         </div>
-        <div class="tip" style="margin-top:10px">Join server Discord → <b>limit free 10/hari</b>. Keluar grup = limit balik 3/hari. Login pakai Discord supaya terdeteksi.</div>
+        <div class="tip" style="margin-top:10px">Join server Discord → <b>limit free 4/hari</b>. Keluar grup = limit balik 2/hari. Login pakai Discord supaya terdeteksi.</div>
         <div class="ct" style="margin-top:8px">
           <a class="dc" href="https://discord.com/users/rezzzstudio" target="_blank" style="opacity:.9">💬 Chat Admin Discord</a>
         </div>
@@ -2207,9 +2179,11 @@ input[type=range]::-webkit-slider-thumb{
 <script>
 const sb = window.supabase.createClient('https://piqsobwblwzwbenbzhkx.supabase.co','sb_publishable_pL17zeNQZJg9ky-E9gak1A_hx3BccCl');
 const REZZ_API = "/api/download";
-const FREE_LIMIT = 3;
-const FREE_EVENT_LIMIT = 20; // limit free saat event 24 jam
-const FREE_DISCORD_LIMIT = 10; // free naik jadi 10/hari jika join Discord server
+const FREE_LIMIT = 2;
+const FREE_EVENT_LIMIT = 5; // limit free saat event 24 jam
+const FREE_DISCORD_LIMIT = 4; // free naik jadi 4/hari jika join Discord server
+const LINK_LIMIT_PERM = 1; // Permanen: 1 link
+const LINK_LIMIT_PRO = 5;  // Pro / Trial Pro: 5 link
 const DISCORD_INVITE = 'https://discord.gg/BS48SzF23';
 const DISCORD_GUILD_ID = '1441115057244213303'; // Rezzz Studio
 const MAX_SIZE_FREE = 10 * 1024 * 1024;
@@ -2287,7 +2261,7 @@ function addDeviceToList(list, newId) {
   return { list: list.slice(0, MAX_DEVICES), kicked: kicked };
 }
 
-let currentFiles = [], isLoggedIn = false, isPremium = false, isPro = false, isDiscordMember = false, modalMode = 'daftar';
+let currentFiles = [], isLoggedIn = false, isPremium = false, isPro = false, isPermanent = false, isDiscordMember = false, modalMode = 'daftar';
 
 // Nama asli dipisahkan dari File.name supaya nama dari server/API yang random
 // tidak pernah dipakai sebagai nama hasil.
@@ -2466,7 +2440,7 @@ function showLoggedUI(logged) {
   }
 }
 
-/** Event free 20x: 1x per minggu, atau force-start 24 jam dari EVENT_FORCE_START */
+/** Event free 5x: 1x per minggu, atau force-start 24 jam dari EVENT_FORCE_START */
 function getFreeEventWindow() {
   const now = new Date();
   // 1) Force window (mulai sekarang)
@@ -2512,7 +2486,7 @@ function isFreeEventActive() {
   return getFreeEventWindow().active;
 }
 
-/** Cek membership Discord server via OAuth token. Join → free 10/hari, leave → balik 3. */
+/** Cek membership Discord server via OAuth token. Join → free 4/hari, leave → balik 2. */
 async function verifyDiscordMembership() {
   isDiscordMember = false;
   try {
@@ -2573,7 +2547,7 @@ async function verifyDiscordMembership() {
 }
 
 function getEffectiveFreeLimit() {
-  // Event 20x > Discord 10x > normal 3x
+  // Event 5x > Discord 4x > normal 2x
   if (isFreeEventActive()) return FREE_EVENT_LIMIT;
   if (isDiscordMember) return FREE_DISCORD_LIMIT;
   return FREE_LIMIT;
@@ -2618,77 +2592,13 @@ function getStorePromoWindow() {
   return { start: start, end: end, next: next, active: active };
 }
 function isStorePromoActive() {
-  return getStorePromoWindow().active;
+  return false; // promo dimatikan
 }
 function fmtRp(n) {
   return 'Rp ' + Number(n).toLocaleString('id-ID');
 }
-function updateStorePromoUI() {
-  const active = isStorePromoActive();
-  const win = getStorePromoWindow();
-  const permPrice = active ? PRICE_PERM_PROMO : PRICE_PERM_NORMAL;
-  const proPrice = active ? PRICE_PRO_PROMO : PRICE_PRO_NORMAL;
-  const price30 = active ? PRICE_30_PROMO : PRICE_30_NORMAL;
-
-  // Banner
-  const banner = $('promoDeal');
-  const title = $('promoDealTitle');
-  const sub = $('promoDealSub');
-  const ico = $('promoDealIco');
-  if (banner) {
-    if (active) {
-      banner.style.display = '';
-      banner.style.animation = '';
-      if (ico) ico.textContent = '🔥';
-      if (title) title.textContent = 'DISKON BESAR';
-      if (sub) sub.innerHTML = '30 Hari <s>100rb</s> → <b>40rb</b> · Permanen <s>299rb</s> → <b>89rb</b> · <b>Akses Link / Pro 50rb</b><br><span style="display:block;margin-top:4px;opacity:.95">⚠ Fitur <b>Dari Link</b> (YT/TikTok/SC) wajib beli <b>Akses Link Rp 50.000</b></span>';
-    } else {
-      banner.style.display = '';
-      if (ico) ico.textContent = '📅';
-      if (title) title.textContent = 'PROMO BERIKUTNYA';
-      if (sub) {
-        const tgl = win.next ? win.next.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'short' }) : 'minggu depan';
-        sub.innerHTML = 'Harga normal · promo lagi ' + tgl;
-      }
-    }
-  }
-
-  // 30 Hari card
-  const pkg30 = $('pkg30');
-  const badge30 = $('badge30');
-  const old30 = $('old30');
-  const priceEl30 = $('price30');
-  const btn30 = $('btn30');
-  if (pkg30) pkg30.classList.toggle('deal', active);
-  if (badge30) badge30.style.display = active ? '' : 'none';
-  if (old30) old30.style.display = active ? '' : 'none';
-  if (priceEl30) priceEl30.textContent = fmtRp(price30);
-  if (btn30) btn30.setAttribute('onclick', "openBeli('30hari'," + price30 + ",'30 Hari')");
-
-  // Permanen card
-  const pkgP = $('pkgPermanen');
-  const badgeP = $('badgePermanen');
-  const oldP = $('oldPermanen');
-  const priceP = $('pricePermanen');
-  const btnP = $('btnPermanen');
-  if (pkgP) pkgP.classList.toggle('deal', active);
-  if (badgeP) badgeP.style.display = active ? '' : 'none';
-  if (oldP) oldP.style.display = active ? '' : 'none';
-  if (priceP) priceP.textContent = fmtRp(permPrice);
-  if (btnP) btnP.setAttribute('onclick', "openBeli('permanen'," + permPrice + ",'Permanen')");
-
-  // Pro card
-  const pkgPro = $('pkgPro');
-  const badgePro = $('badgePro');
-  const oldPro = $('oldPro');
-  const pricePro = $('pricePro');
-  const btnPro = $('btnPro');
-  if (pkgPro) pkgPro.classList.toggle('deal', active);
-  if (badgePro) badgePro.style.display = active ? '' : 'none';
-  if (oldPro) oldPro.style.display = active ? '' : 'none';
-  if (pricePro) pricePro.textContent = fmtRp(proPrice);
-  if (btnPro) btnPro.setAttribute('onclick', "openBeli('permanen_pro'," + proPrice + ",'Permanen Pro')");
-}
+/** Promo/diskon dimatikan: semua harga normal (harga ada di HTML Toko). */
+function updateStorePromoUI() {}
 
 function fmtCountdown(ms) {
   if (ms <= 0) return '00:00:00';
@@ -2713,13 +2623,13 @@ function updateEventBanner() {
   if (win.active) {
     banner.classList.add('on');
     if (ico) ico.textContent = '🎉';
-    if (title) title.textContent = 'EVENT 20× FREE';
-    if (sub) sub.textContent = 'Limit free naik jadi 20/hari · berakhir dalam';
+    if (title) title.textContent = 'EVENT 5× FREE';
+    if (sub) sub.textContent = 'Limit free naik jadi 5/hari · berakhir dalam';
     if (cd) cd.textContent = fmtCountdown(win.end - Date.now());
   } else {
     banner.classList.remove('on');
     if (ico) ico.textContent = '📅';
-    if (title) title.textContent = 'EVENT 20× FREE';
+    if (title) title.textContent = 'EVENT 5× FREE';
     if (sub) sub.textContent = 'Event selanjutnya · 1× seminggu (Jumat)';
     if (cd) cd.textContent = fmtEventDate(win.next);
   }
@@ -2805,7 +2715,7 @@ function maybeNotifyUpgradePro() {
   if (!isLoggedIn || !isPremium || isPro) return;
   notifyOnce(
     'uppro',
-    'Kamu Premium. Upgrade ke Pro: unlimited harian, 10 link sekaligus, fitur lebih lengkap. Cek Toko.',
+    'Kamu Premium. Upgrade ke Pro: unlimited harian, 5 link sekaligus, fitur lebih lengkap. Cek Toko.',
     'info',
     'Upgrade ke Pro'
   );
@@ -2883,8 +2793,8 @@ function updateLimitUI(used, prem) {
     pt.className = 'r' + (prem || isFreeEventActive() || isDiscordMember ? ' ok' : '');
     if (isPro) pt.textContent = 'Trial / Pro';
     else if (prem) pt.textContent = 'Premium';
-    else if (isFreeEventActive()) pt.textContent = 'Free Event 20x';
-    else if (isDiscordMember) pt.textContent = 'Free Discord 10x';
+    else if (isFreeEventActive()) pt.textContent = 'Free Event 5x';
+    else if (isDiscordMember) pt.textContent = 'Free Discord 4x';
     else pt.textContent = 'Free';
   }
   const u = localStorage.getItem('loginUser');
@@ -2959,7 +2869,7 @@ function logout(silent) {
   localStorage.removeItem('loginPass');
   localStorage.removeItem('discordAvatar');
   sb.auth.signOut().catch(()=>{});
-  isLoggedIn = false; isPremium = false; isPro = false; isDiscordMember = false; premiumDailyLimit = null;
+  isLoggedIn = false; isPremium = false; isPro = false; isPermanent = false; isDiscordMember = false; premiumDailyLimit = null;
   showLoggedUI(false);
   if ($('premiumStatus')) $('premiumStatus').style.display = 'none';
   lockEditor();
@@ -3050,11 +2960,11 @@ function resolvePremiumDailyLimit(data, isProFlag, untilDate) {
 
 async function checkPremiumStatus() {
   const username = localStorage.getItem('loginUser');
-  if (!username) { isPremium = false; isPro = false; premiumDailyLimit = null; return false; }
+  if (!username) { isPremium = false; isPro = false; isPermanent = false; premiumDailyLimit = null; return false; }
   try {
     const { data: rows } = await sb.from('rezzz-audio').select('*').eq('username', username);
     const data = pickUserRow(rows);
-    if (!data) { isPremium = false; isPro = false; premiumDailyLimit = null; return false; }
+    if (!data) { isPremium = false; isPro = false; isPermanent = false; premiumDailyLimit = null; return false; }
     {
       const list = parseDeviceList(data.device_id);
       const cur = effectiveDeviceId || deviceId;
@@ -3072,6 +2982,7 @@ async function checkPremiumStatus() {
       || String(data.is_pro).toLowerCase()==='true';
     let until = data.premium_until ? new Date(data.premium_until) : null;
     if (until && isNaN(until.getTime())) until = null;
+    isPermanent = !!flag && (!until || until.getFullYear() >= 2090);
     const el = $('premiumStatus');
     if (flag && until && until > now) {
       isPremium = true;
@@ -3082,7 +2993,7 @@ async function checkPremiumStatus() {
         const limNote = premiumDailyLimit != null ? (' · '+premiumDailyLimit+'/hari') : '';
         if (isPro) {
           const trial = sisa <= 1;
-          el.innerHTML = (trial ? '⚡ Trial Pro (1 Hari)' : '💎 Premium Pro') + ' · sisa '+Math.max(sisa,1)+' hari · 10 link · '+until.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
+          el.innerHTML = (trial ? '⚡ Trial Pro (1 Hari)' : '💎 Premium Pro') + ' · sisa '+Math.max(sisa,1)+' hari · 5 link · '+until.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
         } else {
           el.innerHTML='💎 Premium · sisa '+Math.max(sisa,1)+' hari'+limNote+' · '+until.toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
         }
@@ -3094,7 +3005,7 @@ async function checkPremiumStatus() {
     }
     if (flag && until && until <= now) {
       await sb.from('rezzz-audio').update({ is_premium:false, is_pro:false, premium_daily_limit: null }).eq('username', username);
-      isPremium = false; isPro = false; premiumDailyLimit = null;
+      isPremium = false; isPro = false; isPermanent = false; premiumDailyLimit = null;
       if (el) { el.style.display='block'; el.className='status bad'; el.innerText='Premium habis · redeem lagi'; }
       updateStoreVisibility(null);
       maybeNotifyPremiumDays(0);
@@ -3112,11 +3023,11 @@ async function checkPremiumStatus() {
       maybeNotifyUpgradePro();
       await refreshLimit(); return true;
     }
-    isPremium = false; isPro = false; premiumDailyLimit = null;
+    isPremium = false; isPro = false; isPermanent = false; premiumDailyLimit = null;
     if (el) el.style.display = 'none';
     updateStoreVisibility(null);
     await refreshLimit(); return false;
-  } catch(e) { isPremium = false; isPro = false; premiumDailyLimit = null; updateStoreVisibility(null); return false; }
+  } catch(e) { isPremium = false; isPro = false; isPermanent = false; premiumDailyLimit = null; updateStoreVisibility(null); return false; }
 }
 
 async function refreshLimit() {
@@ -3425,13 +3336,14 @@ async function submitRedeem() {
     }
     const hari = Number(kd.days) || 3;
     // Pro permanen: is_pro di kode / nama PRO / days >= 36500
-    // 1 hari: Trial Pro (pancing) → is_pro true biar bisa 10 link
+    // 1 hari: Trial Pro (pancing) → is_pro true biar bisa 5 link
     const codePro = kd.is_pro===true||kd.is_pro==='true'||kd.is_pro===1||kd.is_pro==='1'
       || String(kd.is_pro).toLowerCase()==='true'
-      || hari >= 36500
       || hari === 1
       || (kode && kode.indexOf('PRO') !== -1);
     const isTrialPro = codePro && hari === 1;
+    // Permanen (non-Pro): days >= 36500 → selamanya, 1 link. Pro: is_pro / kode berisi PRO → 5 link.
+    const isPermCode = hari >= 36500;
     // Premium semua paket: unlimited (tanpa batas harian)
     let dailyLim = null;
     const { data: userRows } = await sb.from('rezzz-audio').select('premium_until,is_premium,is_pro').eq('username', username);
@@ -3443,17 +3355,21 @@ async function submitRedeem() {
       if (!isNaN(prev.getTime()) && prev > now) base = prev;
     }
     let until;
-    if (codePro) {
+    if ((codePro && !isTrialPro) || isPermCode) {
       until = new Date('2099-12-31T23:59:59+00:00');
     } else {
       until = new Date(base);
       until.setDate(until.getDate() + hari);
     }
-    const patch = { is_premium: true, premium_until: until.toISOString(), is_pro: !!codePro, premium_daily_limit: dailyLim };
+    // Jangan turunkan Pro aktif jadi non-Pro saat redeem kode lain
+    const wasPro = !!(ur && (ur.is_pro===true||ur.is_pro==='true'||ur.is_pro===1||ur.is_pro==='1')
+      && (!ur.premium_until || new Date(ur.premium_until) > now));
+    const proNow = !!codePro || wasPro;
+    const patch = { is_premium: true, premium_until: until.toISOString(), is_pro: proNow, premium_daily_limit: dailyLim };
     const { error: upErr } = await sb.from('rezzz-audio').update(patch).eq('username', username);
     if (upErr) {
       // Fallback jika kolom premium_daily_limit belum ada di DB
-      const { error: upErr2 } = await sb.from('rezzz-audio').update({ is_premium: true, premium_until: until.toISOString(), is_pro: !!codePro }).eq('username', username);
+      const { error: upErr2 } = await sb.from('rezzz-audio').update({ is_premium: true, premium_until: until.toISOString(), is_pro: proNow }).eq('username', username);
       if (upErr2) throw upErr2;
     }
     if (codePro) {
@@ -3463,9 +3379,11 @@ async function submitRedeem() {
     await checkPremiumStatus();
     closeRedeem();
     if (isTrialPro) {
-      toast('Trial Pro 1 hari aktif · 10 link batch · unlimited. Upgrade Permanen Pro biar selamanya.','ok','Trial Pro');
+      toast('Trial Pro 1 hari aktif · 5 link batch · unlimited. Upgrade Pro biar selamanya.','ok','Trial Pro');
     } else if (codePro) {
-      toast('Permanen Pro aktif · 10 link batch + unlimited','ok','Pro aktif');
+      toast('Pro aktif · 5 link batch + unlimited','ok','Pro aktif');
+    } else if (isPermCode) {
+      toast('Permanen aktif · 1 link + unlimited','ok','Permanen aktif');
     } else {
       toast('+' + hari + ' hari · unlimited · sampai ' + until.toLocaleDateString('id-ID'), 'ok', 'Premium aktif');
     }
@@ -3827,7 +3745,7 @@ $('downloadBtn').addEventListener('click', async () => {
   if (effectiveLimit != null) {
     const sisa = effectiveLimit - (data.daily_count || 0);
     if (sisa <= 0) {
-      toast(isPremium ? ('Limit premium hari ini habis (' + effectiveLimit + '/hari).') : ('Limit free habis' + (isFreeEventActive() ? ' (event 20x).' : '.')), 'err', 'Limit');
+      toast(isPremium ? ('Limit premium hari ini habis (' + effectiveLimit + '/hari).') : ('Limit free habis' + (isFreeEventActive() ? ' (event 5x).' : '.')), 'err', 'Limit');
       if (!isPremium) {
         setTimeout(()=>{ if(confirm('Limit habis!\n\nPremium dari Rp15rb.\nBuka WhatsApp?')) window.open('https://wa.me/6283135744309?text='+encodeURIComponent('Halo, mau beli premium Rezzz Audio'),'_blank'); },400);
       }
@@ -4022,22 +3940,30 @@ async function renderHistory() {
   }
 }
 
+/** Jumlah link yang boleh: Pro/Trial Pro = 5, Permanen = 1, lainnya = 0 (terkunci) */
+function getLinkLimit() {
+  if (isPro) return LINK_LIMIT_PRO;
+  if (isPremium && isPermanent) return LINK_LIMIT_PERM;
+  return 0;
+}
+
 function updateLinkInputUI() {
   const single = $('linkInput');
   const proBox = $('linkInputsPro');
   const tip = $('linkTip');
-  if (isPro) {
+  const lim = getLinkLimit();
+  if (lim > 1) {
     if (single) single.style.display = 'none';
     if (proBox) proBox.style.display = 'block';
-    if (tip) tip.innerHTML = '<b>Pro / Trial Pro</b> · isi sampai <b>10 kolom</b> · auto <b>3x / -6dB</b> · tanpa pitch · YT/TikTok/SC';
+    if (tip) tip.innerHTML = '<b>Pro / Trial Pro</b> · isi sampai <b>' + lim + ' kolom</b> · auto <b>3x / -6dB</b> · tanpa pitch · YT/TikTok/SC';
   } else {
     if (proBox) proBox.style.display = 'none';
     if (single) single.style.display = 'block';
     if (tip) {
-      if (isPremium) {
-        tip.innerHTML = '<b>Premium</b> · 1 link · auto <b>3x / -6dB</b> · tanpa pitch · YT/TikTok/SC<br><span style="opacity:.85">Mau 10 link? Beli <b>Akses Link / Permanen Pro Rp 50.000</b> di Toko</span>';
+      if (lim === 1) {
+        tip.innerHTML = '<b>Permanen</b> · 1 link · auto <b>3x / -6dB</b> · tanpa pitch · YT/TikTok/SC<br><span style="opacity:.85">Mau ' + LINK_LIMIT_PRO + ' link? Upgrade ke <b>Pro</b> di Toko</span>';
       } else {
-        tip.innerHTML = '<b>Akses Link terkunci</b> · Fitur link hanya untuk yang beli <b>Akses Link Rp 50.000</b> (Permanen Pro).<br><span style="opacity:.85">Upload file tetap gratis sesuai limit. Beli di tab <b>Toko</b>.</span>';
+        tip.innerHTML = '<b>Fitur link terkunci</b> · Tersedia di paket <b>Permanen</b> (1 link) dan <b>Pro</b> (' + LINK_LIMIT_PRO + ' link).<br><span style="opacity:.85">Upload file tetap gratis sesuai limit. Lihat tab <b>Toko</b>.</span>';
       }
     }
   }
@@ -4052,8 +3978,8 @@ function updateStoreVisibility(sisaHari) {
 function switchMode(mode) {
   if (mode === 'link') {
     if (!isLoggedIn) return toast('Login dulu.','info','Perlu login');
-    if (!isPro) {
-      toast('Fitur link hanya untuk Akses Link Rp 50.000 (Permanen Pro). Beli di tab Toko.','info','Akses Link');
+    if (getLinkLimit() < 1) {
+      toast('Fitur link tersedia di paket Permanen (1 link) dan Pro (5 link). Lihat tab Toko.','info','Fitur Link');
       return;
     }
   }
@@ -4428,14 +4354,15 @@ async function fetchOneLink(url) {
 async function ambilAudioDariLink(autoDownload) {
   if (!isLoggedIn) return toast('Login dulu.','info','Perlu login');
   await checkPremiumStatus();
-  // Fitur link hanya untuk yang beli Akses Link (Permanen Pro) Rp 50.000
-  if (!isPro) {
-    toast('Fitur link terkunci. Beli Akses Link Rp 50.000 (Permanen Pro) di tab Toko.','info','Akses Link 50K');
+  // Fitur link: Permanen = 1 link, Pro / Trial Pro = 5 link
+  const linkLimit = getLinkLimit();
+  if (linkLimit < 1) {
+    toast('Fitur link tersedia di paket Permanen (1 link) dan Pro (5 link). Lihat tab Toko.','info','Fitur Link');
     return;
   }
   let urls = [];
-  if (isPro && $('linkInputsPro') && $('linkInputsPro').style.display !== 'none') {
-    for (let n = 1; n <= 10; n++) {
+  if (linkLimit > 1 && $('linkInputsPro') && $('linkInputsPro').style.display !== 'none') {
+    for (let n = 1; n <= linkLimit; n++) {
       const v = ($('linkInput' + n) && $('linkInput' + n).value || '').trim();
       if (v) urls.push(v);
     }
@@ -4444,12 +4371,10 @@ async function ambilAudioDariLink(autoDownload) {
     if (one) urls = [one];
   }
   if (!urls.length) return toast('Tempel link dulu.','err','Link kosong');
-  // Free & Premium: 1 link. Pro / Trial Pro: max 10 link
-  if (!isPro && urls.length > 1) {
-    toast('Akses Link (Pro): maksimal 10 link. Beli di Toko Rp 50.000.','info','Limit');
-    urls = urls.slice(0,1);
+  if (urls.length > linkLimit) {
+    toast('Maksimal ' + linkLimit + ' link untuk paketmu.' + (linkLimit < LINK_LIMIT_PRO ? ' Upgrade ke Pro untuk ' + LINK_LIMIT_PRO + ' link.' : ''),'info','Limit');
+    urls = urls.slice(0, linkLimit);
   }
-  if (urls.length > 10) urls = urls.slice(0,10);
   const btn = $('ambilLinkBtn');
   btn.disabled=true;
   const got = [];
@@ -4784,82 +4709,16 @@ try{updateModeLocks();}catch(_){}
 try{updateLinkInputUI();}catch(_){}
 try{updateStoreVisibility(null);}catch(_){}
 updateEventBanner();
-try { updateStorePromoUI(); } catch (_) {}
-// Notif promo: modal tiap sesi + ulang tiap 20 menit, toast tiap ~90 detik (non-blocking)
-function getPromoNotifHtml() {
-  return '<div style="text-align:center;margin-bottom:12px;font-size:12.5px;color:var(--text2)">Harga spesial terbatas</div>' +
-    '<div style="background:var(--inner);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:10px">' +
-    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">' +
-    '<span style="font-weight:700;color:var(--text2)">30 Hari</span>' +
-    '<span><s style="opacity:.55;margin-right:6px">Rp 100.000</s><b style="color:#60a5fa">Rp 40.000</b></span>' +
-    '</div>' +
-    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">' +
-    '<span style="font-weight:700;color:var(--text2)">Permanen</span>' +
-    '<span><s style="opacity:.55;margin-right:6px">Rp 299.000</s><b style="color:#60a5fa">Rp 89.000</b></span>' +
-    '</div>' +
-    '<div style="display:flex;justify-content:space-between;align-items:center">' +
-    '<span style="font-weight:700;color:var(--text2)">Akses Link / Pro</span>' +
-    '<span><s style="opacity:.55;margin-right:6px">Rp 129.000</s><b style="color:#60a5fa">Rp 50.000</b></span>' +
-    '</div></div>' +
-    '<div style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.28);border-radius:11px;padding:11px 12px;margin-bottom:8px;text-align:left">' +
-    '<div style="font-weight:800;font-size:12.5px;color:#60a5fa;margin-bottom:4px">⚠ Info penting · Fitur Link</div>' +
-    '<div style="font-size:11.5px;color:var(--text2);line-height:1.45">Yang mau pakai fitur <b>Dari Link</b> (YouTube / TikTok / SoundCloud) <b>wajib beli Akses Link Rp 50.000</b>. Tanpa akses ini, fitur link terkunci.</div>' +
-    '</div>' +
-    '<div style="text-align:center;font-size:11.5px;color:var(--muted);margin-top:2px">Stok terbatas · beli sekarang di Toko</div>';
-}
-const PROMO_MODAL_COOLDOWN_MS = 20 * 60 * 1000; // modal bisa muncul lagi tiap 20 menit
-const PROMO_TOAST_INTERVAL_MS = 90 * 1000; // toast tiap ~90 detik
-function maybeShowPromoModal(force) {
-  if (!isStorePromoActive()) return;
-  try {
-    const last = parseInt(sessionStorage.getItem('deal_modal_at') || '0', 10);
-    const now = Date.now();
-    if (!force && last && (now - last) < PROMO_MODAL_COOLDOWN_MS) return;
-    sessionStorage.setItem('deal_modal_at', String(now));
-    showPromoModal('Diskon Besar', getPromoNotifHtml(), 'info');
-  } catch (_) {
-    showPromoModal('Diskon Besar', getPromoNotifHtml(), 'info');
-  }
-}
-try {
-  if (isStorePromoActive()) {
-    setTimeout(function() { maybeShowPromoModal(true); }, 1200);
-  }
-} catch (_) {}
 let _lastEventActive = isFreeEventActive();
-let _lastStorePromo = isStorePromoActive();
-let _lastPromoToastAt = 0;
 setInterval(function(){
   updateEventBanner();
-  try { updateStorePromoUI(); } catch (_) {}
   const nowActive = isFreeEventActive();
   if (nowActive !== _lastEventActive) {
     _lastEventActive = nowActive;
     if (isLoggedIn) refreshLimit();
     else updateLimitUI(0, false);
-    if (nowActive) toast('Event Free 20× aktif 24 jam!','ok','Event');
-    else toast('Event Free 20× berakhir. Limit kembali 3/hari.','info','Event');
-  }
-  const promoNow = isStorePromoActive();
-  if (promoNow !== _lastStorePromo) {
-    _lastStorePromo = promoNow;
-    if (promoNow) {
-      toast('Promo aktif! 30 Hari 40rb · Permanen 89rb · Pro 50rb · 1 minggu','ok','Diskon');
-      maybeShowPromoModal(true);
-    } else {
-      toast('Promo berakhir. Harga kembali normal.','info','Toko');
-    }
-  }
-  // Toast + modal ulang berkala saat promo aktif
-  if (promoNow) {
-    const now = Date.now();
-    const modalOpen = $('promoModal') && $('promoModal').classList.contains('show');
-    if (!modalOpen && now - _lastPromoToastAt >= PROMO_TOAST_INTERVAL_MS) {
-      _lastPromoToastAt = now;
-      toast('Akses Link 50rb · fitur link YT/TikTok/SC · 30 Hari 40rb','info','🔥 Diskon');
-    }
-    // Modal muncul lagi tiap 20 menit (kalau user masih di halaman)
-    maybeShowPromoModal(false);
+    if (nowActive) toast('Event Free 5× aktif 24 jam!','ok','Event');
+    else toast('Event Free 5× berakhir. Limit kembali 2/hari.','info','Event');
   }
 }, 1000);
 </script>
