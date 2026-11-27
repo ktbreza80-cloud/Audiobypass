@@ -482,55 +482,54 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;bac
           Jika kalian <b>kehabisan limit</b>, silakan hubungi admin untuk beli / perpanjang Premium.
         </div>
         <div class="store-grid" style="margin-top:12px">
-          <div class="pkg" style="opacity:.55;pointer-events:none;border-color:rgba(255,80,100,0.25)">
-            <div class="deal-badge" style="background:#3a1018;color:#ff8a9a">HABIS</div>
+          <div class="pkg">
             <div class="pkg-name">1 Hari</div>
-            <div class="pkg-price">Rp 15.000</div>
-            <div style="font-size:10px;color:var(--muted);margin-bottom:2px;font-weight:600">Unlimited + <b style="color:#f97316">5 link</b></div>
-            <div style="font-size:10px;color:rgb(255,100,120);margin-bottom:8px;font-weight:700">Stock: Habis</div>
-            <button class="btn btn-s" disabled>Habis</button>
+            <div class="pkg-price">Rp 20.000</div>
+            <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited + <b style="color:#f97316">5 link</b></div>
+            <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 10</div>
+            <button class="btn btn-p" onclick="openBeli('1hari',20000,'1 Hari')">Beli</button>
           </div>
-          <div class="pkg" style="opacity:.55;pointer-events:none;border-color:rgba(255,80,100,0.25)">
+          <div class="pkg">
             <div class="pkg-name">2 Hari</div>
-            <div class="pkg-price">Rp 25.000</div>
+            <div class="pkg-price">Rp 30.000</div>
             <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited</div>
-            <div style="font-size:10px;color:rgb(255,100,120);margin-bottom:8px;font-weight:700">Stock: Habis</div>
-            <button class="btn btn-s" disabled>Habis</button>
+            <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 10</div>
+            <button class="btn btn-p" onclick="openBeli('2hari',30000,'2 Hari')">Beli</button>
           </div>
           <div class="pkg">
             <div class="pkg-name">3 Hari</div>
-            <div class="pkg-price">Rp 30.000</div>
+            <div class="pkg-price">Rp 40.000</div>
             <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited</div>
-            <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 50</div>
-            <button class="btn btn-p" onclick="openBeli('3hari',30000,'3 Hari')">Beli</button>
+            <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 10</div>
+            <button class="btn btn-p" onclick="openBeli('3hari',40000,'3 Hari')">Beli</button>
           </div>
           <div class="pkg">
             <div class="pkg-name">7 Hari</div>
-            <div class="pkg-price">Rp 35.000</div>
+            <div class="pkg-price">Rp 70.000</div>
             <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited</div>
-            <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 50</div>
-            <button class="btn btn-p" onclick="openBeli('7hari',35000,'7 Hari')">Beli</button>
+            <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 15</div>
+            <button class="btn btn-p" onclick="openBeli('7hari',70000,'7 Hari')">Beli</button>
           </div>
           <div class="pkg" id="pkg30">
             <div class="pkg-name">30 Hari</div>
-            <div class="pkg-price">Rp 50.000</div>
+            <div class="pkg-price">Rp 150.000</div>
             <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited</div>
             <div style="font-size:10px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 50</div>
-            <button class="btn btn-p" id="btn30" onclick="openBeli('30hari',50000,'30 Hari')">Beli</button>
+            <button class="btn btn-p" id="btn30" onclick="openBeli('30hari',150000,'30 Hari')">Beli</button>
           </div>
           <div class="pkg" id="pkgPermanen">
             <div class="pkg-name">Permanen</div>
-            <div class="pkg-price">Rp 200.000</div>
+            <div class="pkg-price">Rp 300.000</div>
             <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600">Unlimited · selamanya</div>
             <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600"><b style="color:#f97316">1 link</b> · YT / TikTok / SC</div>
             <div style="font-size:10px;color:var(--muted);margin-bottom:8px;font-weight:600">Audio 320kbps · unlimited</div>
             <div class="gar">🛡 Garansi 1x</div>
-            <button class="btn btn-p" id="btnPermanen" onclick="openBeli('permanen',200000,'Permanen')">Beli</button>
+            <button class="btn btn-p" id="btnPermanen" onclick="openBeli('permanen',300000,'Permanen')">Beli</button>
           </div>
           <div class="pkg feat" id="pkgPro">
             <div class="pkg-name">Pro</div>
             <div class="pkg-price-wrap" style="text-align:left">
-              <span class="pkg-price" id="pricePro">Rp 300.000</span>
+              <span class="pkg-price" id="pricePro">Rp 600.000</span>
             </div>
             <div style="font-size:11px;color:var(--ok);margin-bottom:8px;font-weight:700">Stock: 50</div>
             <ul class="ben-list">
@@ -540,7 +539,7 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;bac
               <li>Upload file unlimited · semua preset</li>
               <li><b>Garansi selamanya</b> · klaim tanpa batas</li>
             </ul>
-            <button class="btn btn-p" id="btnPro" onclick="openBeli('permanen_pro',300000,'Pro')">Beli Pro · 300K</button>
+            <button class="btn btn-p" id="btnPro" onclick="openBeli('permanen_pro',600000,'Pro')">Beli Pro · 600K</button>
           </div>
         </div>
 <div class="tip garansi-box"><b>🛡 Apa itu garansi?</b><br>
@@ -2251,7 +2250,7 @@ $('downloadBtn').addEventListener('click', async () => {
     if (sisa <= 0) {
       toast(isPremium ? ('Limit premium hari ini habis (' + effectiveLimit + '/hari).') : ('Limit free habis' + (isFreeEventActive() ? ' (event 5x).' : '.')), 'err', 'Limit');
       if (!isPremium) {
-        setTimeout(()=>{ if(confirm('Limit habis!\n\nPremium dari Rp15rb.\nBuka WhatsApp?')) window.open('https://wa.me/6283135744309?text='+encodeURIComponent('Halo, mau beli premium Rezzz Audio'),'_blank'); },400);
+        setTimeout(()=>{ if(confirm('Limit habis!\n\nPremium dari Rp20rb.\nBuka WhatsApp?')) window.open('https://wa.me/6283135744309?text='+encodeURIComponent('Halo, mau beli premium Rezzz Audio'),'_blank'); },400);
       }
       return;
     }
