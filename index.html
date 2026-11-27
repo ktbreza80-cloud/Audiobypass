@@ -538,7 +538,7 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;bac
               <li>Mode Bypass · Manual · Clean Only</li>
               <li>Upload file unlimited · semua preset</li>
               <li><b>Garansi selamanya</b> · klaim tanpa batas</li>
-            </ul
+            </ul>
             <button class="btn btn-p" id="btnPro" onclick="openBeli('permanen_pro',600000,'Pro')">Beli Pro · 600K</button>
           </div>
         </div>
@@ -687,7 +687,7 @@ const FREE_EVENT_LIMIT = 5; // limit free saat event 24 jam
 const FREE_DISCORD_LIMIT = 4; // free naik jadi 4/hari jika join Discord server
 const LINK_LIMIT_PERM = 1; // Permanen: 1 link
 const LINK_LIMIT_PRO = 5;  // Pro / Trial Pro: 5 link
-const DISCORD_INVITE = 'https://discord.gg/BS48SzF23';
+const DISCORD_INVITE = 'https://discord.gg/mURvUzW54';
 const DISCORD_GUILD_ID = '1441115057244213303'; // Rezzz Studio
 const MAX_SIZE_FREE = 10 * 1024 * 1024;
 const MAX_SIZE_PREM = null; // Premium & Pro: TANPA BATAS ukuran file
@@ -1834,7 +1834,17 @@ async function submitRedeem() {
     if (error) return toast(error.message, 'err', 'Error');
     if (!data || !data.length) return toast('Kode tidak ditemukan.', 'err', 'Kode');
     const kd = data[0];
-    if (kd.used === true || kd.used === 'true' || kd.used === 1 || kd.used === '1') {
+    const multi = kd.multi_use === true || kd.multi_use === 'true' || kd.multi_use === 1;
+    if (multi) {
+      if (kd.expires_at && new Date(kd.expires_at) < new Date()) {
+        return toast('Kode sudah kedaluwarsa.', 'err', 'Kode');
+      }
+      if (kd.max_uses && (kd.use_count || 0) >= kd.max_uses) {
+        return toast('Kuota kode sudah habis.', 'err', 'Kode');
+      }
+      const { error: cErr } = await sb.from('redeem_claims').insert([{ code: kode, username: username }]);
+      if (cErr) return toast('Kamu sudah pernah pakai kode ini.', 'err', 'Kode');
+    } else if (kd.used === true || kd.used === 'true' || kd.used === 1 || kd.used === '1') {
       return toast('Kode sudah dipakai.', 'err', 'Kode');
     }
     const hari = Number(kd.days) || 3;
@@ -1878,7 +1888,8 @@ async function submitRedeem() {
     if (codePro) {
       await sb.from('rezzz-audio').update({ is_pro: true, is_premium: true, premium_until: until.toISOString(), premium_daily_limit: null }).eq('username', username);
     }
-    await sb.from('redeem_codes').update({ used: true }).eq('code', kode);
+    if (multi) await sb.from('redeem_codes').update({ use_count: (kd.use_count || 0) + 1 }).eq('code', kode);
+    else await sb.from('redeem_codes').update({ used: true }).eq('code', kode);
     await checkPremiumStatus();
     closeRedeem();
     if (isTrialPro) {
